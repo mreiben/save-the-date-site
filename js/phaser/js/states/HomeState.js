@@ -23,6 +23,7 @@ SaveTheDate.HomeState = {
     jason.inputEnabled = true;
     jason.events.onInputDown.add(function() {
       SaveTheDate.selectedPlayer = 'jason';
+      SaveTheDate.playerSpeed = 1000;
       this.state.start('SetupState');
     }, this);
 

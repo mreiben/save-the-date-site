@@ -16,8 +16,7 @@ SaveTheDate.PreloadState = {
     this.load.image('background', './js/phaser/assets/images/background.png');
     this.load.image('living_room', './js/phaser/assets/images/living_room.png');
     this.load.spritesheet('sarah', './js/phaser/assets/images/sarah.png', 240, 318, 6, 0, 0);
-    this.load.image('jason', './js/phaser/assets/images/jason.png');
-    this.load.image('testgirl', './js/phaser/assets/images/testgirl.png');
+    this.load.spritesheet('jason', './js/phaser/assets/images/jason.png', 288, 416, 6, 0, 0);
     this.load.image('replay', './js/phaser/assets/images/replay.png');
     this.load.image('enemyParticle', './js/phaser/assets/images/enemyParticle.png');
     this.load.spritesheet('pew','./js/phaser/assets/images/pew.png', 200, 100, 2, 0, 0);
@@ -32,6 +31,7 @@ SaveTheDate.PreloadState = {
     this.load.spritesheet('fireball', './js/phaser/assets/images/fireball.png', 40, 40, 4, 0, 0);
     this.load.spritesheet('doctopus', './js/phaser/assets/images/doctopus.png', 558, 600, 4, 0, 0);
     this.load.spritesheet('floss','./js/phaser/assets/images/floss.png', 1200, 100, 2, 0, 0);
+    this.load.spritesheet('dentist','./js/phaser/assets/images/dentist.png', 305, 500, 4, 0, 0);
 
 
     this.load.audio('orchestra', ['./js/phaser/assets/audio/JPEinstrumental.mp3', 'assets/audio/JPEinstrumental.ogg']);

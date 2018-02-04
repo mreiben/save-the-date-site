@@ -3,7 +3,7 @@ var SaveTheDate = SaveTheDate || {};
 SaveTheDate.GameState = {
 
   create: function() {
-    this.PLAYER_SPEED = 650;
+    this.PLAYER_SPEED = 800;
     this.FIREBALL_SPEED = 2000;
     this.UHAUL_SPEED = -200;
     this.BACKGROUND_SPEED = -100;
@@ -32,7 +32,7 @@ SaveTheDate.GameState = {
 
     //player
     this.player = this.add.sprite(this.game.world.width * .15, this.game.world.centerY, SaveTheDate.selectedPlayer);
-    this.player.animations.add('walk', [1, 2, 3, 4, 5], 8, true);
+    this.player.animations.add('walk', [1, 2, 3, 4, 5], 10, true);
     this.player.play('walk');
     this.player.anchor.setTo(0.5);
     this.player.scale.x = 0.5;

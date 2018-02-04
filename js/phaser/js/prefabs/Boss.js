@@ -4,7 +4,7 @@ SaveTheDate.Boss = function(game, x, y, type, health) {
   Phaser.Sprite.call(this, game, x, y, type);
   this.isPaused = false;
   this.category = 'boss';
-  if(type === 'doctopus'){
+  if(type === 'dentist'){
     this.scale.setTo(0.8);
   }
   this.anchor.setTo(0.5);
@@ -114,7 +114,7 @@ SaveTheDate.Boss.prototype.update = function() {
     }
   }
 
-  if(this.bossType === 'doctopus'){
+  if(this.bossType === 'dentist'){
     if(bossY < 300 && !this.isPaused){
       this.body.velocity.y = 300;
     } else if(bossY > 800 && !this.isPaused){
