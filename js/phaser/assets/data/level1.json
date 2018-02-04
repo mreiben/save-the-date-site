@@ -1,0 +1,36 @@
+{
+  "duration": 1,
+  "enemies":
+  [
+    {
+      "time": 1,
+      "health": 2,
+      "speedX": 400,
+      "key": "box"
+    },
+    {
+      "time": 2.5,
+      "health": 3,
+      "speedX": 400,
+      "key": "box"
+    },
+    {
+      "time": 4,
+      "health": 2,
+      "speedX": 500,
+      "key": "box"
+    },
+    {
+      "time": 5.5,
+      "health": 4,
+      "speedX": 400,
+      "key": "box"
+    },
+    {
+      "time": 7,
+      "health": 5,
+      "speedX": 300,
+      "key": "box"
+    }
+  ]
+}

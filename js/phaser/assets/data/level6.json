@@ -1,0 +1,11 @@
+{
+  "duration": 20,
+  "enemies":
+  [
+    {
+      "time": 1,
+      "health": 10,
+      "key": "judge"
+    }
+  ]
+}

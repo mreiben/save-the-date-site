@@ -1,0 +1,36 @@
+{
+  "duration": 20,
+  "enemies":
+  [
+    {
+      "time": 1,
+      "health": 1,
+      "speedX": 200,
+      "key": "gavel"
+    },
+    {
+      "time": 2,
+      "health": 2,
+      "speedX": 300,
+      "key": "gavel"
+    },
+    {
+      "time": 3,
+      "health": 3,
+      "speedX": 400,
+      "key": "gavel"
+    },
+    {
+      "time": 4,
+      "health": 4,
+      "speedX": 500,
+      "key": "gavel"
+    },
+    {
+      "time": 5,
+      "health": 5,
+      "speedX": 300,
+      "key": "gavel"
+    }
+  ]
+}
