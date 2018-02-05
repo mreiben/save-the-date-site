@@ -1,5 +1,9 @@
 source "https://rubygems.org"
 gemspec
 
-gem "rake"
 ruby "2.4.1"
+gem 'jekyll'
+gem 'kramdown'
+gem 'rack-jekyll'
+gem 'rake'
+gem 'puma'

@@ -1,3 +1,4 @@
+gems: ['kramdown']
 
 exclude:
   - "/vendor/"
@@ -6,6 +7,9 @@ exclude:
   - "README.md"
   - "LICENSE.md"
   - "*.gemspec"
+  - "config.ru"
+  - "Procfile"
+  - "Rakefile"
 
 keep_files:
   - "CNAME"
