@@ -2,7 +2,7 @@ var SaveTheDate = SaveTheDate || {};
 
 SaveTheDate.HomeState = {
   create: function() {
-    let background = this.game.add.sprite(0,0,'background');
+    let background = this.game.add.sprite(0,0,'living_room');
 
     let sarah = this.game.add.sprite(this.game.world.centerX - 150, this.game.world.centerY, 'sarah');
     sarah.anchor.setTo(0.5);
