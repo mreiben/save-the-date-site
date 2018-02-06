@@ -38,7 +38,7 @@ SaveTheDate.SetupState = {
 
     let line_num = 0;
 
-    let style = { font: '35px Arial', fill: '#000' };
+    let style = { font: '22px "Press Start 2P"', fill: '#000' };
 
     let line_text = this.game.add.text(sarah_x, sarah_y, '', style);
 
