@@ -17,8 +17,8 @@ SaveTheDate.PreloadState = {
     this.load.image('dialogue_left', './js/phaser/assets/images/dialogue_left.png');
     this.load.image('dialogue_right', './js/phaser/assets/images/dialogue_right.png');
     this.load.image('living_room', './js/phaser/assets/images/living_room.png');
-    this.load.spritesheet('sarah', './js/phaser/assets/images/sarah.png', 240, 318, 6, 0, 0);
-    this.load.spritesheet('jason', './js/phaser/assets/images/jason.png', 288, 416, 6, 0, 0);
+    this.load.spritesheet('Sarah', './js/phaser/assets/images/sarah.png', 240, 318, 6, 0, 0);
+    this.load.spritesheet('Jason', './js/phaser/assets/images/jason.png', 288, 416, 6, 0, 0);
     this.load.image('replay', './js/phaser/assets/images/replay.png');
     this.load.image('enemyParticle', './js/phaser/assets/images/enemyParticle.png');
     this.load.spritesheet('skip','./js/phaser/assets/images/skip.png', 200, 100, 2, 0, 0);

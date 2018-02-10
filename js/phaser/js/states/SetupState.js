@@ -10,17 +10,17 @@ SaveTheDate.SetupState = {
     cal_endar.scale.y = 0.15;
     cal_endar.anchor.setTo(0.5);
 
-    let sarah = this.game.add.sprite(this.game.world.centerX - 150, this.game.world.centerY, 'sarah');
+    let sarah = this.game.add.sprite(this.game.world.centerX - 150, this.game.world.centerY, 'Sarah');
     sarah.anchor.setTo(0.5);
     sarah.scale.x = 0.5;
     sarah.scale.y = 0.5;
 
-    let jason = this.game.add.sprite(this.game.world.centerX + 150, this.game.world.centerY, 'jason');
+    let jason = this.game.add.sprite(this.game.world.centerX + 150, this.game.world.centerY, 'Jason');
     jason.anchor.setTo(0.5);
     jason.scale.x = -0.5;
     jason.scale.y = 0.5;
 
-    let skipButton = this.add.sprite(this.game.world.width - 225, this.game.world.height -125, 'skip');
+    let skipButton = this.add.sprite(this.game.world.width - 225, this.game.world.height -125, 'pew');
 
     skipButton.inputEnabled = true;
     skipButton.events.onInputDown.add(function() {
@@ -29,18 +29,22 @@ SaveTheDate.SetupState = {
 
     // load dialogue
     var proposal_dialogue = JSON.parse(this.game.cache.getText('opening_dialogue'))['proposal'];
-    // var proposal_dialogue = this.game.cache.getJSON('opening_dialogue')["proposal"];
+    var stolen_dialogue = JSON.parse(this.game.cache.getText('opening_dialogue'))['stolen'];
 
     const sarah_x = sarah.position.x - 300;
     const sarah_y = sarah.position.y - 310;
     const jason_x = jason.position.x - 40;
-    const jason_y = jason.position.y - 340
+    const jason_y = jason.position.y - 340;
 
     let sarah_box = this.game.add.sprite(sarah_x, sarah_y, 'dialogue_right');
     sarah_box.alpha = 0;
 
     let jason_box = this.game.add.sprite(jason_x, jason_y, 'dialogue_left');
     jason_box.alpha = 0;
+
+    let cal_endar_box = this.game.add.sprite(this.game.world.centerX + 415, this.game.world.centerY + 315, 'dialogue_left');
+    cal_endar_box.alpha = 0;
+    cal_endar_box.angle = 180;
 
     let line_num = 0;
 
@@ -69,11 +73,12 @@ SaveTheDate.SetupState = {
         }
       }, i * line.duration * 1000);
     }
+
     setTimeout(() =>{
       jason.scale.x = .5;
       let position = this.game.add.tween(cal_endar).to({
 
-        y: this.game.world.centerY + 50,
+        y: this.game.world.centerY + 100,
         x: this.game.world.centerX + 550
       }, 2000, Phaser.Easing.Linear.None, true);
       let size = this.game.add.tween(cal_endar.scale).to({
@@ -84,7 +89,9 @@ SaveTheDate.SetupState = {
         angle: 720
       }, 2000, Phaser.Easing.Linear.None, true, 100);
 
-      var stolen_dialogue = JSON.parse(this.game.cache.getText('opening_dialogue'))['stolen'];
+      const cal_endar_x = cal_endar.position.x - 200;
+      const cal_endar_y = cal_endar.position.y + 550;
+
 
       for(let i = 0; i < stolen_dialogue.length; i++){
         const line = stolen_dialogue[i];
@@ -92,6 +99,7 @@ SaveTheDate.SetupState = {
           if(line.speaker === "Sarah"){
             sarah_box.alpha = 1;
             jason_box.alpha = 0;
+            cal_endar_box.alpha = 0;
             line_text.x = sarah_x + 25;
             line_text.y = sarah_y + 25;
             line_text.setText(line.content);
@@ -99,14 +107,50 @@ SaveTheDate.SetupState = {
           else if(line.speaker === "Jason") {
             sarah_box.alpha = 0;
             jason_box.alpha = 1;
+            cal_endar_box.alpha = 0;
             line_text.x = jason_x + 25;
             line_text.y = jason_y + 25;
             line_text.setText(line.content);
+          } else if(line.speaker === 'Cal_Endar'){
+            sarah_box.alpha = 0;
+            jason_box.alpha = 0;
+            cal_endar_box.alpha = 1;
+            line_text.x = cal_endar_x - 300;
+            line_text.y = cal_endar_y - 150;
+            line_text.setText(line.content);
+          } else {
+            sarah_box.alpha = 0;
+            jason_box.alpha = 0;
+            cal_endar_box.alpha = 0;
+            line_text.setText('');
           }
         }, i * line.duration * 1000);
       }
 
     }, proposal_dialogue.length * 2000);
+
+    setTimeout(() => {
+      // date goes into calendar
+      sarah_box.alpha = 0;
+      jason_box.alpha = 0;
+      cal_endar_box.alpha = 0;
+      line_text.setText('');
+      let date = SaveTheDate.selectedPlayer === 'Sarah' ? jason : sarah;
+      let position = this.game.add.tween(date).to({
+        y: this.game.world.centerY - 250,
+        x: this.game.world.centerX + 610
+      }, 2000, Phaser.Easing.Linear.None, true);
+      let size = this.game.add.tween(date.scale).to({
+        y: 0.15,
+        x: 0.15
+      }, 2000, Phaser.Easing.Linear.None, true, 100);
+      let angle = this.game.add.tween(date).to({
+        angle: 720
+      }, 2000, Phaser.Easing.Linear.None, true, 100);
+      setTimeout(() => {
+        date.scale.x = .5;
+      }, 2000);
+    }, (proposal_dialogue.length + stolen_dialogue.length) * 2000);
 
   }
 };

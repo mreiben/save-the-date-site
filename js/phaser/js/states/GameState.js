@@ -69,7 +69,7 @@ SaveTheDate.GameState = {
 
     // add fireball button
     this.pewButton = this.add.sprite(this.game.world.width - 225, this.game.world.height -125, 'pew');
-    this.pewButton.animations.add('fired');
+    // this.pewButton.animations.add('fired');
   },
 
   update: function(){
