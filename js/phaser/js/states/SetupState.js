@@ -83,30 +83,30 @@ SaveTheDate.SetupState = {
       let angle = this.game.add.tween(cal_endar).to({
         angle: 720
       }, 2000, Phaser.Easing.Linear.None, true, 100);
-    }, proposal_dialogue.length * 2000)
 
-  },
+      var stolen_dialogue = JSON.parse(this.game.cache.getText('opening_dialogue'))['stolen'];
 
-  proposal() {
-    for(let i = 0; i < proposal_dialogue.length; i++){
-      const line = proposal_dialogue[i];
-      setTimeout(() =>{
-        if(line.speaker === "Sarah"){
-          sarah_box.alpha = 1;
-          jason_box.alpha = 0;
-          line_text.x = sarah_x + 25;
-          line_text.y = sarah_y + 25;
-          line_text.setText(line.content);
-        }
-        else {
-          sarah_box.alpha = 0;
-          jason_box.alpha = 1;
-          line_text.x = jason_x + 25;
-          line_text.y = jason_y + 25;
-          line_text.setText(line.content);
-        }
-      }, i * line.duration * 1000);
-    }
+      for(let i = 0; i < stolen_dialogue.length; i++){
+        const line = stolen_dialogue[i];
+        setTimeout(() =>{
+          if(line.speaker === "Sarah"){
+            sarah_box.alpha = 1;
+            jason_box.alpha = 0;
+            line_text.x = sarah_x + 25;
+            line_text.y = sarah_y + 25;
+            line_text.setText(line.content);
+          }
+          else if(line.speaker === "Jason") {
+            sarah_box.alpha = 0;
+            jason_box.alpha = 1;
+            line_text.x = jason_x + 25;
+            line_text.y = jason_y + 25;
+            line_text.setText(line.content);
+          }
+        }, i * line.duration * 1000);
+      }
+
+    }, proposal_dialogue.length * 2000);
+
   }
-
 };

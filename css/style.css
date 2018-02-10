@@ -33,6 +33,7 @@
   color: #0D0017;
 }
 
+<<<<<<< HEAD
 .game_holder {
   padding-bottom: 56.25%;
   position: relative;
@@ -43,3 +44,21 @@
   top: 0;
   left: 0;
 }
+=======
+.font-loader {
+  font-family: 'Press Start 2P';
+  position: absolute;
+  left: -1000px;
+  visibility: hidden;
+}
+
+#game_window {
+  height: 100%;
+  width: 72.25%;
+  margin: 0 auto;
+}
+
+body {
+  background-color: white;
+}
+>>>>>>> a572edc5995b92edefb34e6ba0ca314b0fbf40a2
