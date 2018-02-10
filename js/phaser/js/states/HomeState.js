@@ -27,10 +27,18 @@ SaveTheDate.HomeState = {
       this.state.start('SetupState');
     }, this);
 
-    let style = { font: '35px Arial', fill: '#fff' };
-    let text = this.game.add.text(this.game.world.centerX, this.game.world.centerY + 200, 'CHOOSE A PLAYER TO START', style);
+    let style = {
+      font: '40px "Press Start 2P"',
+      fill: '#1e3cea',
+      fontWeight: 'bold',
+    };
+    let text = this.game.add.text(this.game.world.centerX, this.game.world.centerY - 150, 'CHOOSE A PLAYER', style);
     text.anchor.setTo(0.5);
 
-
+    let calendar = this.game.add.sprite(this.game.world.centerX + 550, this.game.world.centerY - 300, 'wall_calendar');
+    let cal_endar = this.game.add.sprite(this.game.world.centerX + 605, this.game.world.centerY - 250, 'cal_endar');
+    cal_endar.scale.x = 0.15;
+    cal_endar.scale.y = 0.15;
+    cal_endar.anchor.setTo(0.5);
   }
 };

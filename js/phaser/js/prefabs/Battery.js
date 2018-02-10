@@ -16,5 +16,4 @@ SaveTheDate.Battery.prototype.constructor = SaveTheDate.Battery;
 
 SaveTheDate.Battery.prototype.damage = function(amount) {
   Phaser.Sprite.prototype.damage.call(this, amount);
-  console.log('points increased!');
 };

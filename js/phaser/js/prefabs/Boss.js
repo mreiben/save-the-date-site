@@ -11,7 +11,6 @@ SaveTheDate.Boss = function(game, x, y, type, health) {
   this.checkWorldBounds = true;
   this.health = 20;
   this.bossType = type;
-  console.log(this.bossType);
   this.animations.add('still', [0], 1, true)
   this.animations.add('walk', [0,1], 3, true);
   this.animations.add('damaged', [2,3], 3, false);

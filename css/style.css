@@ -32,3 +32,14 @@
 .post-area a:hover {
   color: #0D0017;
 }
+
+.game_holder {
+  padding-bottom: 56.25%;
+  position: relative;
+}
+
+#game_window {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

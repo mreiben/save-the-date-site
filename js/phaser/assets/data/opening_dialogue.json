@@ -1,19 +1,16 @@
 {
   "proposal": [
-    { "speaker": "Jason", "content": "Hey, wanna get\nmarried?", "duration": 2 },
+    { "speaker": "Jason", "content": "Hey...", "duration": 2 },
+    { "speaker": "Jason", "content": "Wanna get\nmarried?", "duration": 2 },
     { "speaker": "Jason", "content": "...", "duration": 2 },
-    { "speaker": "Sarah", "content": "Yep!", "duration": 2 },
-    { "speaker": "Sarah", "content": "So when are we\ndoing this?", "duration": 2 },
-    { "speaker": "Jason", "content": "I don't know. What\ndo you think?", "duration": 2 },
-    { "speaker": "Sarah", "content": "I don't know, do\nyou have any\nideas?", "duration": 2 },
-    { "speaker": "Jason", "content": "...", "duration": 2 },
-    { "speaker": "Jason", "content": "I don't know!", "duration": 2 },
-    { "speaker": "Sarah", "content": "What about July?", "duration": 2 },
-    { "speaker": "Jason", "content": "I have a dentist\nappointment...", "duration": 2 },
-    { "speaker": "Jason", "content": "How about\nAugust?", "duration": 2 },
-    { "speaker": "Sarah", "content": "Weren't we\ngoing to move\nin August?", "duration": 2 },
-    { "speaker": "Sarah", "content": "How about September?", "duration": 2 },
-    { "speaker": "Jason", "content": "I have jury duty!\nAck!", "duration": 2 },
-    { "speaker": "Sarah", "content": "Let's check the\ncalendar...", "duration": 2 }
+    { "speaker": "Sarah", "content": "Yep!", "duration": 2 }
+  ],
+
+  "stolen": [
+    { "speaker": "Cal-Endar", "content": "Mwahahaha!", "duration": 2 },
+    { "speaker": "Cal-Endar", "content": "I am\nCal Endar...", "duration": 2 },
+    { "speaker": "Sarah", "content": "Is that\na thing?", "duration": 2 },
+    { "speaker": "Cal-Endar", "content": "And now\nyou'll never\nsave the\ndate!", "duration": 2 },
+    { "speaker": "Hero", "content": "NOOOOOOOO!", "duration": 2 }
   ]
 }

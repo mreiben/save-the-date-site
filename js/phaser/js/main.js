@@ -1,7 +1,6 @@
 //create game
 var SaveTheDate = SaveTheDate || {};
-SaveTheDate.game = new Phaser.Game(1600, 900, Phaser.AUTO, 'game_window');
-console.log(SaveTheDate);
+SaveTheDate.game = new Phaser.Game(1600, 900, Phaser.CANVAS, 'game_window');
 SaveTheDate.game.state.add('GameState', SaveTheDate.GameState);
 SaveTheDate.game.state.add('HomeState', SaveTheDate.HomeState);
 SaveTheDate.game.state.add('SetupState', SaveTheDate.SetupState);

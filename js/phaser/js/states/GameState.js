@@ -3,10 +3,11 @@ var SaveTheDate = SaveTheDate || {};
 SaveTheDate.GameState = {
 
   create: function() {
-    this.PLAYER_SPEED = 800;
-    this.FIREBALL_SPEED = 2000;
-    this.UHAUL_SPEED = -200;
-    this.BACKGROUND_SPEED = -100;
+    this.GLOBAL_SPEED = .75;
+    this.PLAYER_SPEED = 800 * this.GLOBAL_SPEED;
+    this.FIREBALL_SPEED = 2000 * this.GLOBAL_SPEED;
+    this.UHAUL_SPEED = -200 * this.GLOBAL_SPEED;
+    this.BACKGROUND_SPEED = -100 * this.GLOBAL_SPEED;
 
     // this.selectedPlayer = 'sarah';
 
@@ -68,6 +69,7 @@ SaveTheDate.GameState = {
 
     // add fireball button
     this.pewButton = this.add.sprite(this.game.world.width - 225, this.game.world.height -125, 'pew');
+    this.pewButton.animations.add('fired');
   },
 
   update: function(){
@@ -169,15 +171,14 @@ SaveTheDate.GameState = {
   damagePlayer: function(player, enemy) {
     let enemyType = enemy.category;
     let spacing;
-    console.log(enemy);
     if(enemyType === 'enemy'){
-      spacing = 80;
+      spacing = 130;
     } else if(enemyType === 'bossBullet' && enemy.name === 'floss'){
-      spacing =  50;
+      spacing =  70;
     } else if(enemyType === 'bossBullet') {
       spacing = 100;
     } else if(enemyType === 'boss') {
-      spacing = 160;
+      spacing = 200;
     } else {
       spacing = 0;
     }
@@ -202,7 +203,6 @@ SaveTheDate.GameState = {
       }, invincibleTime);
       if (this.energy === 0){
         // game over
-        console.log('game over!');
         this.game.paused = true;
         setTimeout(() => {
           this.game.paused = false;
@@ -219,6 +219,7 @@ SaveTheDate.GameState = {
   },
 
   createPlayerFireball: function() {
+    this.pewButton.frame = 1;
     if(!this.fireballShot) {
       this.fireballShot = true;
       var fireball = this.playerFireballs.getFirstExists(false);
@@ -235,6 +236,7 @@ SaveTheDate.GameState = {
       // set velocity
       fireball.body.velocity.x = this.FIREBALL_SPEED;
       setTimeout(() => {
+        this.pewButton.frame = 0;
         this.fireballShot = false;
       }, 500);
     }
