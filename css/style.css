@@ -33,7 +33,7 @@
   color: #0D0017;
 }
 
-.game_holder {
+/* .game_holder {
   padding-bottom: 56.25%;
   position: relative;
 }
@@ -42,7 +42,14 @@
   position: absolute;
   top: 0;
   left: 0;
+} */
+
+#game_window {
+  height:80vh;
+  min-height: 300px;
+  width: auto;
 }
+
 .font-loader {
   font-family: 'Press Start 2P';
   position: absolute;

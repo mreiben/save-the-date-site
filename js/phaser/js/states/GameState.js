@@ -6,7 +6,7 @@ SaveTheDate.GameState = {
     this.GLOBAL_SPEED = .75;
     this.PLAYER_SPEED = 800 * this.GLOBAL_SPEED;
     this.FIREBALL_SPEED = 2000 * this.GLOBAL_SPEED;
-    this.UHAUL_SPEED = -200 * this.GLOBAL_SPEED;
+    this.UHAUL_SPEED = -150 * this.GLOBAL_SPEED;
     this.BACKGROUND_SPEED = -100 * this.GLOBAL_SPEED;
 
     // this.selectedPlayer = 'sarah';
@@ -16,16 +16,19 @@ SaveTheDate.GameState = {
 
     // set the score
     this.score = 0;
-    var style = { font: '60px "Press Start 2P"', fill: "#000" };
+    var style = { font: '50px "Press Start 2P"', fill: "#000" };
     this.scoreText = this.game.add.text(50, 50, "Score:" + this.score, style);
     this.energyText = this.game.add.text(50, 150, "Energy:", style);
+
+    let enemy_flag_style = { font: '45px "Press Start 2P"', fill: '#000' };
+    this.line_text = this.game.add.text(this.game.world.centerX - 100, 50, '', enemy_flag_style);
 
     // set player energy
     this.energy = 3;
     this.batteries = this.add.group();
-    this.battery1 = new SaveTheDate.Battery(this.game, 485, 175, 1);
-    this.battery2 = new SaveTheDate.Battery(this.game, 560, 175, 2);
-    this.battery3 = new SaveTheDate.Battery(this.game, 635, 175, 3);
+    this.battery1 = new SaveTheDate.Battery(this.game, 435, 175, 1);
+    this.battery2 = new SaveTheDate.Battery(this.game, 510, 175, 2);
+    this.battery3 = new SaveTheDate.Battery(this.game, 585, 175, 3);
 
     this.batteries.add(this.battery1);
     this.batteries.add(this.battery2);
@@ -276,7 +279,7 @@ SaveTheDate.GameState = {
     var enemy = new SaveTheDate.Enemy(this.game, this.game.world.width, randY, type, health);
     this.enemies.add(enemy);
 
-    enemy.body.velocity.x = speed * (-.4 * this.currentLevel);
+    enemy.body.velocity.x = speed * (-.4 * this.currentLevel) * this.GLOBAL_SPEED;
   },
 
   createBoss: function(type) {
@@ -289,8 +292,30 @@ SaveTheDate.GameState = {
 
     if(nextEnemy){
       if(this.currentLevel % 2 === 0) { // even levels are boss levels
-        this.createBoss(nextEnemy.key);
+        let bossText;
+        if(nextEnemy.key === 'uhaul') bossText = 'Moving Day';
+        if(nextEnemy.key === 'dentist') bossText = 'Dentist Appointment';
+        if(nextEnemy.key === 'judge') bossText = 'Jury Duty';
+        this.line_text.alpha = 0;
+        this.line_text.text = `Calendar Conflict:\n${bossText}`;
+
+        this.game.time.events.add(0, function() {
+          this.game.add.tween(this.line_text).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true);
+        }, this);
+
+        this.game.time.events.add(1000, function() {
+          this.game.add.tween(this.line_text).to({alpha: 0}, 1000, Phaser.Easing.Linear.None, true);
+        }, this);
+
+        this.game.time.events.add(2000, function() {
+          this.game.add.tween(this.line_text).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true);
+        }, this);
+
+        setTimeout(()=>{
+          this.createBoss(nextEnemy.key);
+        }, 4000);
       } else {
+        this.line_text.text = ``;
         var nextTime = 1500 * (nextEnemy.time - (this.currentEnemyIndex == 0 ? 0 : this.levelData.enemies[this.currentEnemyIndex -1].time));
         this.nextEnemyTimer = this.game.time.events.add(nextTime, () =>{
           this.createEnemy(nextEnemy.key, nextEnemy.health, nextEnemy.speedX);
