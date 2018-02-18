@@ -16,7 +16,7 @@ SaveTheDate.SetupState = {
     jason.scale.x = -0.5;
     jason.scale.y = 0.5;
 
-    let cal_endar = this.game.add.sprite(this.game.world.centerX + 605, this.game.world.centerY - 250, 'cal_endar');
+    let cal_endar = this.game.add.sprite(this.game.world.centerX + 610, this.game.world.centerY - 250, 'cal_endar');
     cal_endar.scale.x = 0.15;
     cal_endar.scale.y = 0.15;
     cal_endar.anchor.setTo(0.5);
@@ -43,7 +43,7 @@ SaveTheDate.SetupState = {
     let jason_box = this.game.add.sprite(jason_x, jason_y, 'dialogue_left');
     jason_box.alpha = 0;
 
-    let cal_endar_box = this.game.add.sprite(this.game.world.centerX + 415, this.game.world.centerY + 315, 'dialogue_left');
+    let cal_endar_box = this.game.add.sprite(this.game.world.centerX + 415, this.game.world.centerY + 335, 'dialogue_left');
     cal_endar_box.alpha = 0;
     cal_endar_box.angle = 180;
 
@@ -117,7 +117,7 @@ SaveTheDate.SetupState = {
             jason_box.alpha = 0;
             cal_endar_box.alpha = 1;
             line_text.x = cal_endar_x - 300;
-            line_text.y = cal_endar_y - 150;
+            line_text.y = cal_endar_y - 130;
             line_text.setText(line.content);
           } else {
             sarah_box.alpha = 0;
@@ -129,6 +129,16 @@ SaveTheDate.SetupState = {
       }
 
     }, proposal_dialogue.length * 2000);
+
+    setTimeout(() => {
+      cal_endar.frame = 1;
+    }, proposal_dialogue.length * 2000 + 8000);
+
+    setTimeout(() => {
+      //demo state timer
+      this.state.start('DemoState');
+
+    },(proposal_dialogue.length + stolen_dialogue.length + 5) * 2000)
 
     setTimeout(() => {
       // date goes into calendar
@@ -151,7 +161,6 @@ SaveTheDate.SetupState = {
     }, (proposal_dialogue.length + stolen_dialogue.length) * 2000);
 
     setTimeout(() => {
-      // dramatic no
       sarah_box.alpha = 0;
       jason_box.alpha = 0;
       cal_endar_box.alpha = 0;
@@ -161,7 +170,7 @@ SaveTheDate.SetupState = {
       cal_endar.scale.x = -1;
       let position = this.game.add.tween(cal_endar).to({
         y: this.game.world.centerY - 150,
-        x: this.game.world.centerX + 610
+        x: this.game.world.centerX + 540
       }, 1000, Phaser.Easing.Linear.None, true);
 
       setTimeout(() => {
@@ -180,6 +189,7 @@ SaveTheDate.SetupState = {
       }, 1500);
 
       setTimeout(() =>{
+        // dramatic no
         hero_box.alpha = 1;
         let hero_x = SaveTheDate.selectedPlayer === 'Sarah' ? sarah_x + 25 : jason_x + 25;
         let hero_y = SaveTheDate.selectedPlayer === 'Sarah' ? sarah_y + 25 : jason_y + 25;

@@ -36,7 +36,7 @@ SaveTheDate.HomeState = {
     text.anchor.setTo(0.5);
 
     let calendar = this.game.add.sprite(this.game.world.centerX + 550, this.game.world.centerY - 300, 'wall_calendar');
-    let cal_endar = this.game.add.sprite(this.game.world.centerX + 605, this.game.world.centerY - 250, 'cal_endar');
+    let cal_endar = this.game.add.sprite(this.game.world.centerX + 610, this.game.world.centerY - 250, 'cal_endar');
     cal_endar.scale.x = 0.15;
     cal_endar.scale.y = 0.15;
     cal_endar.anchor.setTo(0.5);
