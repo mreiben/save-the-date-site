@@ -3,28 +3,111 @@ var SaveTheDate = SaveTheDate || {};
 SaveTheDate.HomeState = {
   create: function() {
     let background = this.game.add.sprite(0,0,'living_room');
+    let statsStyle = { font: '35px "Press Start 2P"', fill: '#000' };
+    this.selectedPlayer = '';
 
-    let sarah = this.game.add.sprite(this.game.world.centerX - 150, this.game.world.centerY, 'Sarah');
-    sarah.anchor.setTo(0.5);
-    sarah.scale.x = 0.5;
-    sarah.scale.y = 0.5;
+    let stats_box = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 250, 'stats_box');
+    stats_box.anchor.setTo(0.5);
+    stats_box.alpha = 0;
 
-    sarah.inputEnabled = true;
-    sarah.events.onInputDown.add(function() {
-      SaveTheDate.selectedPlayer = 'Sarah';
+    let playerStats = this.game.add.text(this.game.world.centerX, this.game.world.centerY + 250, '', statsStyle);
+    playerStats.anchor.setTo(0.5);
+    const sarahStats = 'name: Sarah\nspeed: 6\nfirepower: 10\nwords per minute: 102 ';
+    const fade_speed = 300;
+
+    let startButton = this.add.sprite(125, this.game.world.height - 75, 'start_button');
+    startButton.anchor.setTo(0.5);
+
+    startButton.inputEnabled = false;
+    startButton.frame = 1;
+    startButton.events.onInputDown.add(function() {
       this.state.start('SetupState');
     }, this);
 
-    let jason = this.game.add.sprite(this.game.world.centerX + 150, this.game.world.centerY, 'Jason');
+    let sarah = this.game.add.sprite(this.game.world.centerX - 150, this.game.world.centerY, 'Sarah_glow');
+    sarah.anchor.setTo(0.5);
+    sarah.scale.x = 0.5;
+    sarah.scale.y = 0.5;
+    sarah.animations.add('glow', [0,1,2,1], 4, true);
+    sarah.events.onInputOver.add(() => {
+      sarah.play('glow');
+      playerStats.setText(sarahStats);
+      this.game.add.tween(playerStats).to({
+        alpha: 1
+      }, fade_speed, Phaser.Easing.Linear.None, true, 100);
+      this.game.add.tween(stats_box).to({
+        alpha: 1
+      }, fade_speed, Phaser.Easing.Linear.None, true, 100);
+    });
+    sarah.events.onInputOut.add(() => {
+      sarah.animations.stop();
+      sarah.frame = 0;
+      this.game.add.tween(playerStats).to({
+        alpha: 0
+      }, fade_speed, Phaser.Easing.Linear.None, true, 100);
+      this.game.add.tween(stats_box).to({
+        alpha: 0
+      }, fade_speed, Phaser.Easing.Linear.None, true, 100);
+    });
+
+    sarah.inputEnabled = true;
+    sarah.events.onInputDown.add(function() {
+      startButton.inputEnabled = true;
+      startButton.frame = 0;
+      SaveTheDate.selectedPlayer = 'Sarah';
+      this.game.add.tween(sarah.scale).to({
+        x: .6,
+        y: .6
+      }, 500, Phaser.Easing.Linear.None, true, 100);
+      this.game.add.tween(jason.scale).to({
+        x: -0.5,
+        y: 0.5
+      }, 500, Phaser.Easing.Linear.None, true, 100);
+    }, this);
+
+    const jasonStats = 'name: Jason\nspeed: 8\nfirepower: 7\nresting heart rate: 53';
+
+    let jason = this.game.add.sprite(this.game.world.centerX + 150, this.game.world.centerY, 'Jason_glow');
     jason.anchor.setTo(0.5);
     jason.scale.x = -0.5;
     jason.scale.y = 0.5;
+    jason.animations.add('glow', [0,1,2,1], 4, true);
+    jason.events.onInputOver.add(() => {
+      jason.play('glow');
+      playerStats.setText(jasonStats);
+      this.game.add.tween(playerStats).to({
+        alpha: 1
+      }, fade_speed, Phaser.Easing.Linear.None, true, 100);
+      this.game.add.tween(stats_box).to({
+        alpha: 1
+      }, fade_speed, Phaser.Easing.Linear.None, true, 100);
+    });
+
+    jason.events.onInputOut.add(() => {
+      jason.animations.stop();
+      jason.frame = 0;
+      this.game.add.tween(playerStats).to({
+        alpha: 0
+      }, fade_speed, Phaser.Easing.Linear.None, true, 100);
+      this.game.add.tween(stats_box).to({
+        alpha: 0
+      }, fade_speed, Phaser.Easing.Linear.None, true, 100);
+    });
 
     jason.inputEnabled = true;
     jason.events.onInputDown.add(function() {
+      startButton.inputEnabled = true;
+      startButton.frame = 0;
       SaveTheDate.selectedPlayer = 'Jason';
       SaveTheDate.playerSpeed = 1000;
-      this.state.start('SetupState');
+      this.game.add.tween(sarah.scale).to({
+        y: 0.5,
+        x: 0.5
+      }, 500, Phaser.Easing.Linear.None, true, 100);
+      this.game.add.tween(jason.scale).to({
+        x: -.6,
+        y: .6
+      }, 500, Phaser.Easing.Linear.None, true, 100);
     }, this);
 
     let style = {

@@ -6,7 +6,7 @@ SaveTheDate.SetupState = {
 
     let calendar = this.game.add.sprite(this.game.world.centerX + 550, this.game.world.centerY - 300, 'wall_calendar');
 
-    let sarah = this.game.add.sprite(this.game.world.centerX - 150, this.game.world.centerY, 'Sarah');
+    let sarah = this.game.add.sprite(this.game.world.centerX - 152, this.game.world.centerY, 'Sarah');
     sarah.anchor.setTo(0.5);
     sarah.scale.x = 0.5;
     sarah.scale.y = 0.5;
@@ -21,7 +21,8 @@ SaveTheDate.SetupState = {
     cal_endar.scale.y = 0.15;
     cal_endar.anchor.setTo(0.5);
 
-    let skipButton = this.add.sprite(this.game.world.width - 225, this.game.world.height -125, 'pew');
+    let skipButton = this.add.sprite(125, this.game.world.height - 75, 'skip_button');
+    skipButton.anchor.setTo(0.5);
 
     skipButton.inputEnabled = true;
     skipButton.events.onInputDown.add(function() {
@@ -131,14 +132,18 @@ SaveTheDate.SetupState = {
     }, proposal_dialogue.length * 2000);
 
     setTimeout(() => {
+      cal_endar.frame = 2;
+    }, proposal_dialogue.length * 2000 + 7000);
+
+    setTimeout(() => {
       cal_endar.frame = 1;
-    }, proposal_dialogue.length * 2000 + 8000);
+    }, proposal_dialogue.length * 2000 + 12000);
 
     setTimeout(() => {
       //demo state timer
       this.state.start('DemoState');
 
-    },(proposal_dialogue.length + stolen_dialogue.length + 5) * 2000)
+    },(proposal_dialogue.length + stolen_dialogue.length + 3.5) * 2000)
 
     setTimeout(() => {
       // date goes into calendar

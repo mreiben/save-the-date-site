@@ -69,6 +69,14 @@ SaveTheDate.DemoState = {
     // add fireball button
     this.pewButton = this.add.sprite(this.game.world.width - 225, this.game.world.height -125, 'pew');
     // this.pewButton.animations.add('fired');
+
+    let startButton = this.add.sprite(125, this.game.world.height - 75, 'start_button');
+    startButton.anchor.setTo(0.5);
+
+    startButton.inputEnabled = true;
+    startButton.events.onInputDown.add(function() {
+      this.state.start('GameState');
+    }, this);
   },
 
   update: function(){
