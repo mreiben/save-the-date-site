@@ -29,9 +29,14 @@ SaveTheDate.HomeState = {
     sarah.scale.x = 0.5;
     sarah.scale.y = 0.5;
     sarah.animations.add('glow', [0,1,2,1], 4, true);
+
+    // Sarah mouseover - scale up
     sarah.events.onInputOver.add(() => {
-      sarah.play('glow');
       playerStats.setText(sarahStats);
+      this.game.add.tween(sarah.scale).to({
+        x: .6,
+        y: .6
+      }, 500, Phaser.Easing.Linear.None, true, 100);
       this.game.add.tween(playerStats).to({
         alpha: 1
       }, fade_speed, Phaser.Easing.Linear.None, true, 100);
@@ -39,9 +44,13 @@ SaveTheDate.HomeState = {
         alpha: 1
       }, fade_speed, Phaser.Easing.Linear.None, true, 100);
     });
+
+    // Sarah mouseout - scale down
     sarah.events.onInputOut.add(() => {
-      sarah.animations.stop();
-      sarah.frame = 0;
+      this.game.add.tween(sarah.scale).to({
+        x: 0.5,
+        y: 0.5
+      }, 500, Phaser.Easing.Linear.None, true, 100);
       this.game.add.tween(playerStats).to({
         alpha: 0
       }, fade_speed, Phaser.Easing.Linear.None, true, 100);
@@ -50,19 +59,21 @@ SaveTheDate.HomeState = {
       }, fade_speed, Phaser.Easing.Linear.None, true, 100);
     });
 
+    // Sarah selected
     sarah.inputEnabled = true;
     sarah.events.onInputDown.add(function() {
       startButton.inputEnabled = true;
       startButton.frame = 0;
       SaveTheDate.selectedPlayer = 'Sarah';
-      this.game.add.tween(sarah.scale).to({
-        x: .6,
-        y: .6
-      }, 500, Phaser.Easing.Linear.None, true, 100);
-      this.game.add.tween(jason.scale).to({
-        x: -0.5,
-        y: 0.5
-      }, 500, Phaser.Easing.Linear.None, true, 100);
+      sarah.play('glow');
+      jason.animations.stop();
+      jason.frame = 0;
+      this.game.add.tween(playerStats).to({
+        alpha: 1
+      }, fade_speed, Phaser.Easing.Linear.None, true, 100);
+      this.game.add.tween(stats_box).to({
+        alpha: 1
+      }, fade_speed, Phaser.Easing.Linear.None, true, 100);
     }, this);
 
     const jasonStats = 'name: Jason\nspeed: 8\nfirepower: 7\nresting heart rate: 53';
@@ -72,9 +83,14 @@ SaveTheDate.HomeState = {
     jason.scale.x = -0.5;
     jason.scale.y = 0.5;
     jason.animations.add('glow', [0,1,2,1], 4, true);
+    
+    // Jason mouseover - scale up
     jason.events.onInputOver.add(() => {
-      jason.play('glow');
       playerStats.setText(jasonStats);
+      this.game.add.tween(jason.scale).to({
+        x: -0.6,
+        y: 0.6
+      }, 500, Phaser.Easing.Linear.None, true, 100);
       this.game.add.tween(playerStats).to({
         alpha: 1
       }, fade_speed, Phaser.Easing.Linear.None, true, 100);
@@ -83,9 +99,12 @@ SaveTheDate.HomeState = {
       }, fade_speed, Phaser.Easing.Linear.None, true, 100);
     });
 
+    // Jason mouseout - scale down
     jason.events.onInputOut.add(() => {
-      jason.animations.stop();
-      jason.frame = 0;
+      this.game.add.tween(jason.scale).to({
+        x: -0.5,
+        y: 0.5
+      }, 500, Phaser.Easing.Linear.None, true, 100);
       this.game.add.tween(playerStats).to({
         alpha: 0
       }, fade_speed, Phaser.Easing.Linear.None, true, 100);
@@ -94,20 +113,21 @@ SaveTheDate.HomeState = {
       }, fade_speed, Phaser.Easing.Linear.None, true, 100);
     });
 
+    // Jason selected
     jason.inputEnabled = true;
     jason.events.onInputDown.add(function() {
       startButton.inputEnabled = true;
       startButton.frame = 0;
       SaveTheDate.selectedPlayer = 'Jason';
-      SaveTheDate.playerSpeed = 1000;
-      this.game.add.tween(sarah.scale).to({
-        y: 0.5,
-        x: 0.5
-      }, 500, Phaser.Easing.Linear.None, true, 100);
-      this.game.add.tween(jason.scale).to({
-        x: -.6,
-        y: .6
-      }, 500, Phaser.Easing.Linear.None, true, 100);
+      sarah.animations.stop();
+      sarah.frame = 0;
+      jason.play('glow');
+      this.game.add.tween(playerStats).to({
+        alpha: 1
+      }, fade_speed, Phaser.Easing.Linear.None, true, 100);
+      this.game.add.tween(stats_box).to({
+        alpha: 1
+      }, fade_speed, Phaser.Easing.Linear.None, true, 100);
     }, this);
 
     let style = {
