@@ -5,6 +5,15 @@ SaveTheDate.HomeState = {
     let background = this.game.add.sprite(0,0,'living_room');
     let statsStyle = { font: '35px "Press Start 2P"', fill: '#000' };
     this.selectedPlayer = '';
+    let playerSelected = false;
+
+    let style = {
+      font: '40px "Press Start 2P"',
+      fill: '#1e3cea',
+      fontWeight: 'bold',
+    };
+    let text = this.game.add.text(this.game.world.centerX, this.game.world.centerY - 150, 'CHOOSE A PLAYER', style);
+    text.anchor.setTo(0.5);
 
     let stats_box = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 250, 'stats_box');
     stats_box.anchor.setTo(0.5);
@@ -19,7 +28,9 @@ SaveTheDate.HomeState = {
     startButton.anchor.setTo(0.5);
 
     startButton.inputEnabled = false;
-    startButton.frame = 1;
+    startButton.frame = 0;
+    startButton.alpha = 0;
+
     startButton.events.onInputDown.add(function() {
       this.state.start('SetupState');
     }, this);
@@ -63,7 +74,19 @@ SaveTheDate.HomeState = {
     sarah.inputEnabled = true;
     sarah.events.onInputDown.add(function() {
       startButton.inputEnabled = true;
-      startButton.frame = 0;
+      this.game.add.tween(startButton).to({
+        alpha: 1
+      }, fade_speed, Phaser.Easing.Linear.None, true, 100);
+      if(!playerSelected){
+        playerSelected = true;
+        this.game.add.tween(text).to({
+          alpha: 0
+        }, fade_speed, Phaser.Easing.Linear.None, true, 100);
+        text.setText("Press START to begin!");
+        this.game.add.tween(text).to({
+          alpha: 1
+        }, fade_speed, Phaser.Easing.Linear.None, true, 100);
+      }
       SaveTheDate.selectedPlayer = 'Sarah';
       sarah.play('glow');
       jason.animations.stop();
@@ -117,7 +140,19 @@ SaveTheDate.HomeState = {
     jason.inputEnabled = true;
     jason.events.onInputDown.add(function() {
       startButton.inputEnabled = true;
-      startButton.frame = 0;
+      this.game.add.tween(startButton).to({
+        alpha: 1
+      }, fade_speed, Phaser.Easing.Linear.None, true, 100);
+      if(!playerSelected){
+        playerSelected = true;
+        this.game.add.tween(text).to({
+          alpha: 0
+        }, fade_speed, Phaser.Easing.Linear.None, true, 100);
+        text.setText("Press START to begin!");
+        this.game.add.tween(text).to({
+          alpha: 1
+        }, fade_speed, Phaser.Easing.Linear.None, true, 100);
+      }
       SaveTheDate.selectedPlayer = 'Jason';
       sarah.animations.stop();
       sarah.frame = 0;
@@ -129,14 +164,6 @@ SaveTheDate.HomeState = {
         alpha: 1
       }, fade_speed, Phaser.Easing.Linear.None, true, 100);
     }, this);
-
-    let style = {
-      font: '40px "Press Start 2P"',
-      fill: '#1e3cea',
-      fontWeight: 'bold',
-    };
-    let text = this.game.add.text(this.game.world.centerX, this.game.world.centerY - 150, 'CHOOSE A PLAYER', style);
-    text.anchor.setTo(0.5);
 
     let calendar = this.game.add.sprite(this.game.world.centerX + 550, this.game.world.centerY - 300, 'wall_calendar');
     let cal_endar = this.game.add.sprite(this.game.world.centerX + 610, this.game.world.centerY - 250, 'cal_endar');
