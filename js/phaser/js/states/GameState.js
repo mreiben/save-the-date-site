@@ -3,6 +3,8 @@ var SaveTheDate = SaveTheDate || {};
 SaveTheDate.GameState = {
 
   create: function() {
+    this.game.currentState = 'GameState';
+    
     this.GLOBAL_SPEED = .75;
     this.PLAYER_SPEED = 800 * this.GLOBAL_SPEED;
     this.FIREBALL_SPEED = 2000 * this.GLOBAL_SPEED;

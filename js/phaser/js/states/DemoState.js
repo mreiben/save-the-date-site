@@ -3,15 +3,16 @@ var SaveTheDate = SaveTheDate || {};
 SaveTheDate.DemoState = {
 
   create: function() {
+    this.game.currentState = 'DemoState';
+
     this.GLOBAL_SPEED = .75;
     this.PLAYER_SPEED = 800 * this.GLOBAL_SPEED;
     this.FIREBALL_SPEED = 2000 * this.GLOBAL_SPEED;
     this.UHAUL_SPEED = -150 * this.GLOBAL_SPEED;
     this.BACKGROUND_SPEED = -100 * this.GLOBAL_SPEED;
 
-    // this.selectedPlayer = 'sarah';
 
-    this.background = this.add.tileSprite(0,0, this.game.world.width, this.game.world.height, 'background');
+    this.background = this.add.tileSprite(0,0, this.game.world.width, this.game.world.height, 'background_demo');
     this.background.autoScroll(this.BACKGROUND_SPEED, 0);
 
     // set the score
@@ -20,8 +21,9 @@ SaveTheDate.DemoState = {
     this.scoreText = this.game.add.text(50, 50, "Score:" + this.score, style);
     this.energyText = this.game.add.text(50, 150, "Energy:", style);
 
-    let enemy_flag_style = { font: '45px "Press Start 2P"', fill: '#000' };
-    this.line_text = this.game.add.text(this.game.world.centerX - 100, 50, '', enemy_flag_style);
+    //instruction flag
+    let instruction_flag_style = { font: '45px "Press Start 2P"', fill: '#000' };
+    this.instruction_text = this.game.add.text(this.game.world.centerX - 100, 50, '', instruction_flag_style);
 
     // set player energy
     this.energy = 3;
@@ -77,7 +79,76 @@ SaveTheDate.DemoState = {
     startButton.events.onInputDown.add(function() {
       this.state.start('GameState');
     }, this);
+
+    // movement instructions ~ 5 seconds to try
+
+    this.game.time.events.add(Phaser.Timer.SECOND * 1, this.showMovementInstructions, this);
+
+    //fireball instructions - space bar to shoot or hit pew
+
+    // enemy stands
   },
+
+  showMovementInstructions(){
+    this.instruction_text.text = 'Move with the \narrow keys or your\ntouch screen.';
+    this.instruction_text.alpha = 0;
+    this.game.add.tween(this.instruction_text).to({alpha: 1}, 2000, Phaser.Easing.Linear.None, true);
+    setTimeout(() => {
+      this.game.add.tween(this.instruction_text).to({alpha: 0}, 2000, Phaser.Easing.Linear.None, true);
+      setTimeout(() => {
+        this.showFireballInstructions();
+      }, 2000);
+    }, 5000);
+  },
+
+  showFireballInstructions(){
+    this.instruction_text.text = 'Throw a fireball\nwith the space bar\nor "PEW" button.';
+    this.instruction_text.alpha = 0;
+    this.game.add.tween(this.instruction_text).to({alpha: 1}, 2000, Phaser.Easing.Linear.None, true);
+    setTimeout(() => {
+      this.game.add.tween(this.instruction_text).to({alpha: 0}, 1000, Phaser.Easing.Linear.None, true);
+      setTimeout(() => {
+        this.showEnemyInstructions();
+      }, 2000);
+    }, 4000);
+  },
+
+  showEnemyInstructions(){
+    this.instruction_text.text = 'Shoot or dodge\nenemies before\nthey drain\nyour energy!';
+    this.instruction_text.alpha = 0;
+    this.game.add.tween(this.instruction_text).to({alpha: 1}, 2000, Phaser.Easing.Linear.None, true);
+    setTimeout(() => {
+      this.game.add.tween(this.instruction_text).to({alpha: 0}, 1000, Phaser.Easing.Linear.None, true);
+      setTimeout(() => {
+        this.showHeartInstructions();
+      }, 2000);
+    }, 4000);
+    this.createEnemy('tooth', 2, 0, 'DemoState');
+  },
+
+  showHeartInstructions(){
+    this.instruction_text.text = 'Collect hearts from\ndefeated enemies to\nscore points!';
+    this.instruction_text.alpha = 0;
+    this.game.add.tween(this.instruction_text).to({alpha: 1}, 2000, Phaser.Easing.Linear.None, true);
+    setTimeout(() => {
+      this.game.add.tween(this.instruction_text).to({alpha: 0}, 1000, Phaser.Easing.Linear.None, true);
+    }, 4000);
+  },
+
+  // 
+
+  createHeart: function(x, y, size) {
+    var heart = new SaveTheDate.Heart(this.game, x, y, size);
+    this.hearts.add(heart);
+    // set velocity
+    heart.body.velocity.x = this.BACKGROUND_SPEED;
+  },
+
+  collectHeart: function(player, heart) {
+    heart.damage(1);
+    this.scoreText.text = "Score:" + this.score;
+  },
+
 
   update: function(){
     // player movement
@@ -145,15 +216,6 @@ SaveTheDate.DemoState = {
     // check for overlap between enemies and player
     this.game.physics.arcade.overlap(this.player, this.enemies, this.damagePlayer, null, this);
 
-    // check for overlap between fireballs and bosses
-    this.game.physics.arcade.overlap(this.playerFireballs, this.bosses, this.damageEnemy, null, this);
-
-    // check for overlap between player and bosses
-    this.game.physics.arcade.overlap(this.player, this.bosses, this.damagePlayer, null, this);
-
-    // check for overlap between player and bossBullets
-    this.game.physics.arcade.overlap(this.player, this.bossBullets, this.damagePlayer, null, this);
-
     // flash player when damaged
     if (this.invincible) {
       this.player.alpha = 0.5;
@@ -219,6 +281,7 @@ SaveTheDate.DemoState = {
     }
   },
 
+
   initFireballs: function() {
     this.playerFireballs = this.add.group();
     this.playerFireballs.enableBody = true;
@@ -264,76 +327,19 @@ SaveTheDate.DemoState = {
 
   loadLevel: function(){
 
-  //   if(this.currentLevel > this.numLevels){
-  //     this.game.state.start('ResultState', true, false, this.score);
-  //   }
-  //   else {
-  //     this.currentEnemyIndex = 0;
-  //     this.levelData = JSON.parse(this.game.cache.getText('level' + this.currentLevel));
-  //     this.scheduleNextEnemy();
-  //   }
   },
 
   //create enemy
-  createEnemy: function(type, health, speed) {
+  createEnemy: function(type, health, speed, gameState) {
     let sprite;
     // find random valid y
     let randY = Math.floor(Math.random()*490) + 335;
 
-    var enemy = new SaveTheDate.Enemy(this.game, this.game.world.width, randY, type, health);
+    var enemy = new SaveTheDate.Enemy(this.game, this.game.world.width, randY, type, health, gameState);
     this.enemies.add(enemy);
 
     enemy.body.velocity.x = speed * (-.4 * this.currentLevel) * this.GLOBAL_SPEED;
   },
 
-  createBoss: function(type) {
-    let boss = new SaveTheDate.Boss(this.game, this.game.world.width - 200, 500, type, 20);
-    this.bosses.add(boss);
-  },
-
-  scheduleNextEnemy: function(){
-    var nextEnemy = this.levelData.enemies[this.currentEnemyIndex];
-
-    if(nextEnemy){
-      if(this.currentLevel % 2 === 0) { // even levels are boss levels
-        let bossText;
-        if(nextEnemy.key === 'uhaul') bossText = 'Moving Day';
-        if(nextEnemy.key === 'dentist') bossText = 'Dentist Appointment';
-        if(nextEnemy.key === 'judge') bossText = 'Jury Duty';
-        this.line_text.alpha = 0;
-        this.line_text.text = `Calendar Conflict:\n${bossText}`;
-
-        this.game.time.events.add(0, function() {
-          this.game.add.tween(this.line_text).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true);
-        }, this);
-
-        this.game.time.events.add(1000, function() {
-          this.game.add.tween(this.line_text).to({alpha: 0}, 1000, Phaser.Easing.Linear.None, true);
-        }, this);
-
-        this.game.time.events.add(2000, function() {
-          this.game.add.tween(this.line_text).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true);
-        }, this);
-
-        setTimeout(()=>{
-          this.createBoss(nextEnemy.key);
-        }, 4000);
-      } else {
-        this.line_text.text = ``;
-        var nextTime = 1500 * (nextEnemy.time - (this.currentEnemyIndex == 0 ? 0 : this.levelData.enemies[this.currentEnemyIndex -1].time));
-        this.nextEnemyTimer = this.game.time.events.add(nextTime, () =>{
-          this.createEnemy(nextEnemy.key, nextEnemy.health, nextEnemy.speedX);
-          this.currentEnemyIndex++;
-          this.scheduleNextEnemy();
-        });
-      }
-    }
-    else {
-      setTimeout(() =>{
-        this.currentLevel++;
-        this.loadLevel();
-      }, 4000);
-    }
-  },
 
 };

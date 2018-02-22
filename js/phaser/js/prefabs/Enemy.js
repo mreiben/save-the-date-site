@@ -1,7 +1,19 @@
 var SaveTheDate = SaveTheDate || {};
 
-SaveTheDate.Enemy = function(game, x, y, type, health) {
+SaveTheDate.Enemy = function(game, x, y, type, health, gameState) {
+  if(gameState === 'DemoState'){
+    x = game.world.width;
+    y = game.world.centerY;
+  }
   Phaser.Sprite.call(this, game, x, y, type);
+
+  if(gameState === 'DemoState'){
+    game.add.tween(this).to({
+
+      y: game.world.centerY,
+      x: game.world.width - 300
+    }, 1000, Phaser.Easing.Linear.None, true);
+  }
 
   this.category = 'enemy';
   this.anchor.setTo(0.5);
@@ -29,7 +41,7 @@ SaveTheDate.Enemy.prototype.damage = function(amount) {
     emitter.start(true, 500, null, 100);
 
     // create heart
-    SaveTheDate.GameState.createHeart(this.x, this.y, 1);
+    SaveTheDate.DemoState.createHeart(this.x, this.y, 1);
 
   }
 

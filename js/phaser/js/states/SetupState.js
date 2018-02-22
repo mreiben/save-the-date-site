@@ -24,9 +24,18 @@ SaveTheDate.SetupState = {
     let skipButton = this.add.sprite(125, this.game.world.height - 75, 'skip_button');
     skipButton.anchor.setTo(0.5);
 
+    // let gameStarted = false;
+    // skipButton.inputEnabled = true;
+    // skipButton.events.onInputDown.add(function() {
+    //   gameStarted = true;
+    //   this.state.start('GameState');
+    // }, this);
+
+    let gameStarted = false;
     skipButton.inputEnabled = true;
     skipButton.events.onInputDown.add(function() {
-      this.state.start('GameState');
+      gameStarted = true;
+      this.state.start('DemoState');
     }, this);
 
     // load dialogue
@@ -141,8 +150,9 @@ SaveTheDate.SetupState = {
 
     setTimeout(() => {
       //demo state timer
-      this.state.start('DemoState');
-
+      if(!gameStarted){
+        this.state.start('DemoState');
+      }
     },(proposal_dialogue.length + stolen_dialogue.length + 3.5) * 2000)
 
     setTimeout(() => {

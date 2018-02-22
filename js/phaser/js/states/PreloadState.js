@@ -14,6 +14,7 @@ SaveTheDate.PreloadState = {
 
 
     this.load.image('background', './js/phaser/assets/images/background.png');
+    this.load.image('background_demo', './js/phaser/assets/images/background_demo.png');
     this.load.image('dialogue_left', './js/phaser/assets/images/dialogue_left.png');
     this.load.image('dialogue_right', './js/phaser/assets/images/dialogue_right.png');
     this.load.image('living_room', './js/phaser/assets/images/living_room.png');

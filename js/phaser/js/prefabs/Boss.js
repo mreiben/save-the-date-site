@@ -138,12 +138,16 @@ let createGavel = function() {
 let createFloss = function() {
   let floss = new SaveTheDate.BossBullet(this.game, this.x - 770, this.y - 35, 'floss');
   this.isPaused = true;
-  this.body.velocity.y = 0;
+  if(this.body){
+    this.body.velocity.y = 0;
+  }
   SaveTheDate.GameState.bossBullets.add(floss);
   this.play('still');
   setTimeout(() => {
     this.isPaused = false;
-    Math.floor(Math.random() * 2) === 0 ? this.body.velocity.y = -300 : this.body.velocity.y = 300;
+    let rand = Math.floor(Math.random() * 2);
+    let velo = rand === 0 ? -300 : 300;
+    this.body.velocity.y = velo;
     SaveTheDate.GameState.bossBullets.remove(floss);
     this.play('walk');
   }, 2000)
