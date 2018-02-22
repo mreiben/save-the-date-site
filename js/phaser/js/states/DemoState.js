@@ -123,7 +123,9 @@ SaveTheDate.DemoState = {
         this.showHeartInstructions();
       }, 2000);
     }, 4000);
-    this.createEnemy('tooth', 2, 0, 'DemoState');
+    if(this.game.currentState === 'DemoState'){
+      this.createEnemy('tooth', 2, 0, 'DemoState');
+    }
   },
 
   showHeartInstructions(){
