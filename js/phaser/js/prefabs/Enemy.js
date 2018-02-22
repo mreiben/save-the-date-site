@@ -41,8 +41,11 @@ SaveTheDate.Enemy.prototype.damage = function(amount) {
     emitter.start(true, 500, null, 100);
 
     // create heart
-    SaveTheDate.DemoState.createHeart(this.x, this.y, 1);
-
+    if(this.game.currentState === 'DemoState') {
+      SaveTheDate.DemoState.createHeart(this.x, this.y, 1);
+    } else {
+      SaveTheDate.GameState.createHeart(this.x, this.y, 1);
+    }
   }
 
   setTimeout(() => {
