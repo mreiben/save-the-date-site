@@ -31,7 +31,7 @@ SaveTheDate.PreloadState = {
     this.load.spritesheet('judge','./js/phaser/assets/images/judge.png', 310, 381, 4, 0, 0);
     this.load.spritesheet('heart','./js/phaser/assets/images/heart.png', 240, 224, 3, 0, 0);
     this.load.spritesheet('battery','./js/phaser/assets/images/battery.png', 50, 75, 3, 0, 0);
-    this.load.spritesheet('box','./js/phaser/assets/images/box.png', 150, 150, 6, 0, 0);
+    this.load.spritesheet('box','./js/phaser/assets/images/box.png', 194, 129, 6, 0, 0);
     this.load.spritesheet('gavel','./js/phaser/assets/images/gavel.png', 180, 150, 6, 0, 0);
     this.load.spritesheet('bossGavel','./js/phaser/assets/images/bossGavel.png', 180, 180, 4, 0, 0);
     this.load.spritesheet('tooth','./js/phaser/assets/images/tooth.png', 150, 180, 6, 0, 0);
