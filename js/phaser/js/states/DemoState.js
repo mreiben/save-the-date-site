@@ -39,6 +39,7 @@ SaveTheDate.DemoState = {
     //player
     this.player = this.add.sprite(this.game.world.width * .15, this.game.world.centerY, SaveTheDate.selectedPlayer);
     this.player.animations.add('walk', [1, 2, 3, 4, 5], 10, true);
+    this.player.animations.add('walkBackwards', [5, 4, 3, 2, 1], 10, true);
     this.player.play('walk');
     this.player.anchor.setTo(0.5);
     this.player.scale.x = 0.5;
@@ -78,6 +79,9 @@ SaveTheDate.DemoState = {
     startButton.inputEnabled = true;
     startButton.events.onInputDown.add(function() {
       this.state.start('GameState');
+      this.game.score = this.score;
+      this.game.playerX = this.player.x;
+      this.game.playerY = this.player.y;
     }, this);
 
     // movement instructions ~ 5 seconds to try
@@ -134,7 +138,16 @@ SaveTheDate.DemoState = {
     this.game.add.tween(this.instruction_text).to({alpha: 1}, 2000, Phaser.Easing.Linear.None, true);
     setTimeout(() => {
       this.game.add.tween(this.instruction_text).to({alpha: 0}, 1000, Phaser.Easing.Linear.None, true);
+      setTimeout(() => {
+        this.showStartInstructions();
+      }, 2000);
     }, 4000);
+  },
+
+  showStartInstructions(){
+    this.instruction_text.text = 'Press "START"\nwhen you\'re ready\nto play!';
+    this.instruction_text.alpha = 0;
+    this.game.add.tween(this.instruction_text).to({alpha: 1}, 2000, Phaser.Easing.Linear.None, true);
   },
 
   // 
@@ -177,6 +190,11 @@ SaveTheDate.DemoState = {
         var directionX = targetX >= this.player.body.center.x ? 1 : -1;
         if (xDiff > 25) {
           this.player.body.velocity.x = directionX * this.PLAYER_SPEED;
+          if(this.player.body.velocity < 0){
+            this.player.play('walkBackwards');
+          } else {
+            this.player.play('walk');
+          }
         }
         //Y
         let playerY = this.player.body.center.y;
@@ -195,8 +213,14 @@ SaveTheDate.DemoState = {
     }
 
     // player movement with keyboard
-    if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) { this.player.body.velocity.x = -1 * this.PLAYER_SPEED }
-    if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) { this.player.body.velocity.x = 1 * this.PLAYER_SPEED }
+    if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+      this.player.body.velocity.x = -1 * this.PLAYER_SPEED;
+      this.player.play('walkBackwards');
+    }
+    if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+      this.player.body.velocity.x = 1 * this.PLAYER_SPEED;
+      this.player.play('walk');
+    }
     if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP) && this.player.body.bottom > 410) {
       this.player.body.velocity.y = -1 * this.PLAYER_SPEED
     }

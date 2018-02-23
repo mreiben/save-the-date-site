@@ -4,7 +4,7 @@ SaveTheDate.GameState = {
 
   create: function() {
     this.game.currentState = 'GameState';
-    
+
     this.GLOBAL_SPEED = .75;
     this.PLAYER_SPEED = 800 * this.GLOBAL_SPEED;
     this.FIREBALL_SPEED = 2000 * this.GLOBAL_SPEED;
@@ -17,7 +17,7 @@ SaveTheDate.GameState = {
     this.background.autoScroll(this.BACKGROUND_SPEED, 0);
 
     // set the score
-    this.score = 0;
+    this.score = this.game.score;
     var style = { font: '50px "Press Start 2P"', fill: "#000" };
     this.scoreText = this.game.add.text(50, 50, "Score:" + this.score, style);
     this.energyText = this.game.add.text(50, 150, "Energy:", style);
@@ -37,8 +37,9 @@ SaveTheDate.GameState = {
     this.batteries.add(this.battery3);
 
     //player
-    this.player = this.add.sprite(this.game.world.width * .15, this.game.world.centerY, SaveTheDate.selectedPlayer);
+    this.player = this.add.sprite(this.game.playerX, this.game.playerY, SaveTheDate.selectedPlayer);
     this.player.animations.add('walk', [1, 2, 3, 4, 5], 10, true);
+    this.player.animations.add('walkBackwards', [5, 4, 3, 2, 1], 10, true);
     this.player.play('walk');
     this.player.anchor.setTo(0.5);
     this.player.scale.x = 0.5;
@@ -102,6 +103,11 @@ SaveTheDate.GameState = {
         var directionX = targetX >= this.player.body.center.x ? 1 : -1;
         if (xDiff > 25) {
           this.player.body.velocity.x = directionX * this.PLAYER_SPEED;
+          if(this.player.body.velocity < 0){
+            this.player.play('walkBackwards');
+          } else {
+            this.player.play('walk');
+          }
         }
         //Y
         let playerY = this.player.body.center.y;
@@ -120,8 +126,15 @@ SaveTheDate.GameState = {
     }
 
     // player movement with keyboard
-    if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) { this.player.body.velocity.x = -1 * this.PLAYER_SPEED }
-    if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) { this.player.body.velocity.x = 1 * this.PLAYER_SPEED }
+    if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+      this.player.body.velocity.x = -1 * this.PLAYER_SPEED;
+      this.player.play('walkBackwards');
+    }
+    if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+      this.player.body.velocity.x = 1 * this.PLAYER_SPEED;
+      this.player.play('walk');
+    }
+
     if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP) && this.player.body.bottom > 410) {
       this.player.body.velocity.y = -1 * this.PLAYER_SPEED
     }
@@ -183,7 +196,7 @@ SaveTheDate.GameState = {
     } else if(enemyType === 'bossBullet') {
       spacing = 100;
     } else if(enemyType === 'boss') {
-      spacing = 200;
+      spacing = 225 ;
     } else {
       spacing = 0;
     }
@@ -194,7 +207,7 @@ SaveTheDate.GameState = {
       xDiff = 0;
     }
     if (!this.invincible && yDiff < spacing && xDiff < spacing) {
-      if (this.energy === 3) {
+      if (this.energy === 3) { 
         this.battery3.kill();
       } else if (this.energy === 2) {
         this.battery2.kill();
@@ -253,6 +266,13 @@ SaveTheDate.GameState = {
     this.hearts.add(heart);
     // set velocity
     heart.body.velocity.x = this.BACKGROUND_SPEED;
+    if(SaveTheDate.GameState.currentBoss === "judge" && size === 2){
+      console.log('judge heart created');
+      setTimeout(() => {
+        console.log('times up');
+        heart.body.velocity.x = 0;
+      }, 8000);
+    }
   },
 
   collectHeart: function(player, heart) {
@@ -261,15 +281,9 @@ SaveTheDate.GameState = {
   },
 
   loadLevel: function(){
-
-    if(this.currentLevel > this.numLevels){
-      this.game.state.start('ResultState', true, false, this.score);
-    }
-    else {
-      this.currentEnemyIndex = 0;
-      this.levelData = JSON.parse(this.game.cache.getText('level' + this.currentLevel));
-      this.scheduleNextEnemy();
-    }
+    this.currentEnemyIndex = 0;
+    this.levelData = JSON.parse(this.game.cache.getText('level' + this.currentLevel));
+    this.scheduleNextEnemy();
   },
 
   //create enemy
@@ -295,6 +309,7 @@ SaveTheDate.GameState = {
     if(nextEnemy){
       if(this.currentLevel % 2 === 0) { // even levels are boss levels
         let bossText;
+        this.currentBoss = nextEnemy.key;
         if(nextEnemy.key === 'uhaul') bossText = 'Moving Day';
         if(nextEnemy.key === 'dentist') bossText = 'Dentist Appointment';
         if(nextEnemy.key === 'judge') bossText = 'Jury Duty';

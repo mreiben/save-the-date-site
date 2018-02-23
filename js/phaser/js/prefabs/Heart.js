@@ -10,6 +10,7 @@ SaveTheDate.Heart = function(game, x, y, size) {
   this.animations.add('glow', [0,1,2,1], 3, true);
   this.play('glow');
   this.health = 1;
+  this.size = size;
   if(size === 1){
     this.points = 100;
   } else {
@@ -22,5 +23,13 @@ SaveTheDate.Heart.prototype.constructor = SaveTheDate.Heart;
 
 SaveTheDate.Heart.prototype.damage = function(amount) {
   Phaser.Sprite.prototype.damage.call(this, amount);
-  SaveTheDate.GameState.score += this.points;
+  if(this.game.currentState === 'DemoState'){
+    SaveTheDate.DemoState.score += this.points;
+  } else {
+    SaveTheDate.GameState.score += this.points;
+    console.log('heart: ', this.size);
+    if(SaveTheDate.GameState.currentBoss === 'judge' && this.size === 2) {
+      this.game.state.start('ResultState', true, false, SaveTheDate.GameState.score);
+    }
+  }
 };
