@@ -4,6 +4,7 @@ SaveTheDate.GameState = {
 
   create: function() {
     this.game.currentState = 'GameState';
+    this.movementEnabled = true;
 
     this.GLOBAL_SPEED = .75;
     this.PLAYER_SPEED = 800 * this.GLOBAL_SPEED;
@@ -35,6 +36,8 @@ SaveTheDate.GameState = {
     this.batteries.add(this.battery1);
     this.batteries.add(this.battery2);
     this.batteries.add(this.battery3);
+
+    this.cave = this.add.sprite(this.game.width, 200, 'cave_mouth');
 
     //player
     this.player = this.add.sprite(this.game.playerX, this.game.playerY, SaveTheDate.selectedPlayer);
@@ -84,7 +87,7 @@ SaveTheDate.GameState = {
     this.player.body.velocity.y = 0;
 
     // player movment with cursor
-    if(this.game.input.activePointer.isDown){
+    if(this.game.input.activePointer.isDown && this.movementEnabled){
       // check if pointer is over fireball button
       let targetX = this.game.input.activePointer.position.x;
       let targetY = this.game.input.activePointer.position.y;
@@ -126,44 +129,48 @@ SaveTheDate.GameState = {
     }
 
     // player movement with keyboard
-    if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+    if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && this.movementEnabled) {
       this.player.body.velocity.x = -1 * this.PLAYER_SPEED;
       this.player.play('walkBackwards');
     }
-    if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+    if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)&& this.movementEnabled) {
       this.player.body.velocity.x = 1 * this.PLAYER_SPEED;
       this.player.play('walk');
     }
 
-    if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP) && this.player.body.bottom > 410) {
-      this.player.body.velocity.y = -1 * this.PLAYER_SPEED
+    if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP) && this.player.body.bottom > 410 && this.movementEnabled) {
+      this.player.body.velocity.y = -1 * this.PLAYER_SPEED;
     }
-    if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) { this.player.body.velocity.y = 1 * this.PLAYER_SPEED }
+    if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && this.movementEnabled) {
+      this.player.body.velocity.y = 1 * this.PLAYER_SPEED;
+    }
 
     // fireball with Keyboard
 
-    if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+    if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && this.movementEnabled) {
       this.createPlayerFireball();
     }
 
+    // damage cannot happen when movement is disabled
+    if(this.movementEnabled){
+      // check for overlap between fireballs and enemies
+      this.game.physics.arcade.overlap(this.playerFireballs, this.enemies, this.damageEnemy, null, this);
 
-    // check for overlap between fireballs and enemies
-    this.game.physics.arcade.overlap(this.playerFireballs, this.enemies, this.damageEnemy, null, this);
+      // check for overlap between player and hearts
+      this.game.physics.arcade.overlap(this.player, this.hearts, this.collectHeart, null, this);
 
-    // check for overlap between player and hearts
-    this.game.physics.arcade.overlap(this.player, this.hearts, this.collectHeart, null, this);
+      // check for overlap between enemies and player
+      this.game.physics.arcade.overlap(this.player, this.enemies, this.damagePlayer, null, this);
 
-    // check for overlap between enemies and player
-    this.game.physics.arcade.overlap(this.player, this.enemies, this.damagePlayer, null, this);
+      // check for overlap between fireballs and bosses
+      this.game.physics.arcade.overlap(this.playerFireballs, this.bosses, this.damageEnemy, null, this);
 
-    // check for overlap between fireballs and bosses
-    this.game.physics.arcade.overlap(this.playerFireballs, this.bosses, this.damageEnemy, null, this);
+      // check for overlap between player and bosses
+      this.game.physics.arcade.overlap(this.player, this.bosses, this.damagePlayer, null, this);
 
-    // check for overlap between player and bosses
-    this.game.physics.arcade.overlap(this.player, this.bosses, this.damagePlayer, null, this);
-
-    // check for overlap between player and bossBullets
-    this.game.physics.arcade.overlap(this.player, this.bossBullets, this.damagePlayer, null, this);
+      // check for overlap between player and bossBullets
+      this.game.physics.arcade.overlap(this.player, this.bossBullets, this.damagePlayer, null, this);
+    }
 
     // flash player when damaged
     if (this.invincible) {
@@ -200,7 +207,7 @@ SaveTheDate.GameState = {
     } else {
       spacing = 0;
     }
-    let invincibleTime = enemyType === 'enemy' ? 1000 : 2000;
+    let invincibleTime = enemyType === 'enemy' ? 2000 : 3000;
     let yDiff = Math.abs(player.body.center.y - enemy.body.center.y);
     let xDiff = Math.abs(player.body.center.x - enemy.body.center.x);
     if(enemy.name === "floss"){
@@ -224,10 +231,66 @@ SaveTheDate.GameState = {
         this.game.paused = true;
         setTimeout(() => {
           this.game.paused = false;
-          this.state.start('ResultState');
+          this.transitionToResults(this.player.x, this.player.y, this.game.score);
         }, 1000);
       }
     }
+  },
+
+  transitionToResults: function(playerX, playerY, score) {
+    this.game.score = score;
+    let screenElements = [this.enemies, this.bosses, this.playerFireballs, this.bossBullets, this.hearts];
+    screenElements.forEach((el) =>{
+      this.game.add.tween(el).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
+      setTimeout(() => {
+        el.kill;
+      }, 1500);
+    });
+    this.movementEnabled = false;
+    // bring cave to screen
+    this.game.add.tween(this.cave).to({
+      x: this.game.world.width - 400
+    }, 9000, Phaser.Easing.Linear.None, true);
+
+    // move character to center
+    this.game.add.tween(this.player).to({
+      y: this.game.world.centerY + 100,
+      x: this.game.world.centerX
+    }, 3000, Phaser.Easing.Linear.None, true);
+
+    setTimeout(() => {
+      // pause background after transitions
+      this.background.autoScroll(0,0);
+      this.player.animations.stop(null, true);
+      this.player.frame = 0;
+
+      // say something then enter cave
+      setTimeout(() =>{
+        let player_box = this.game.add.sprite(this.player.x -30, this.player.y - 315, 'dialogue_left');
+        player_box.alpha = 1;
+        let style = { font: '25px "Press Start 2P"', fill: '#000' };
+
+        let line_text = this.game.add.text(this.player.x - 10, this.player.y - 295, 'Ooh,\na cave!', style);
+
+        setTimeout(() => {
+          player_box.alpha = 0;
+          line_text.text = '';
+
+          this.player.play('walk');
+          this.game.add.tween(this.player).to({
+            y: 350,
+            x: this.game.world.width -170
+          }, 3000, Phaser.Easing.Linear.None, true);
+
+          setTimeout(()=> {
+            this.camera.fade('#000000');
+            this.camera.onFadeComplete.add(function(){
+              this.game.state.start('ResultState');
+            },this)
+          }, 2500)
+        }, 2000)
+      }, 1000);
+    }, 9000);
   },
 
   initFireballs: function() {
@@ -281,9 +344,12 @@ SaveTheDate.GameState = {
   },
 
   loadLevel: function(){
-    this.currentEnemyIndex = 0;
-    this.levelData = JSON.parse(this.game.cache.getText('level' + this.currentLevel));
-    this.scheduleNextEnemy();
+    // only load new level if player has energy
+    if(this.movementEnabled){
+      this.currentEnemyIndex = 0;
+      this.levelData = JSON.parse(this.game.cache.getText('level' + this.currentLevel));
+      this.scheduleNextEnemy();
+    }
   },
 
   //create enemy

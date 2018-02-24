@@ -15,6 +15,7 @@ SaveTheDate.PreloadState = {
 
     this.load.image('background', './js/phaser/assets/images/background.png');
     this.load.image('background_demo', './js/phaser/assets/images/background_demo.png');
+    this.load.image('background_cave', './js/phaser/assets/images/background_cave.png');
     this.load.image('dialogue_left', './js/phaser/assets/images/dialogue_left.png');
     this.load.image('dialogue_right', './js/phaser/assets/images/dialogue_right.png');
     this.load.image('living_room', './js/phaser/assets/images/living_room.png');
@@ -41,6 +42,7 @@ SaveTheDate.PreloadState = {
     this.load.spritesheet('cal_endar','./js/phaser/assets/images/cal_endar.png', 475, 475, 4, 0, 0);
     this.load.image('wall_calendar', './js/phaser/assets/images/wall_calendar.png');
     this.load.image('stats_box', './js/phaser/assets/images/stats_box.png');
+    this.load.image('cave_mouth', './js/phaser/assets/images/cave_mouth.png');
 
 
     this.load.audio('orchestra', ['./js/phaser/assets/audio/JPEinstrumental.mp3', 'assets/audio/JPEinstrumental.ogg']);

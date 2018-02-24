@@ -3,6 +3,8 @@ var SaveTheDate = SaveTheDate || {};
 SaveTheDate.DemoState = {
 
   create: function() {
+    this.camera.flash('#000000');
+    
     this.game.currentState = 'DemoState';
 
     this.GLOBAL_SPEED = .75;
