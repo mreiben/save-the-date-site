@@ -42,6 +42,7 @@ SaveTheDate.PreloadState = {
     this.load.spritesheet('cal_endar','./js/phaser/assets/images/cal_endar.png', 475, 475, 4, 0, 0);
     this.load.image('wall_calendar', './js/phaser/assets/images/wall_calendar.png');
     this.load.image('stats_box', './js/phaser/assets/images/stats_box.png');
+    this.load.image('save_score_box', './js/phaser/assets/images/save_score_box.png');
     this.load.image('cave_mouth', './js/phaser/assets/images/cave_mouth.png');
 
 

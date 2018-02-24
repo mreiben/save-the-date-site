@@ -39,12 +39,56 @@ SaveTheDate.ResultState = {
     setTimeout(() => {
       this.player.animations.stop();
       this.player.frame = 0;
+      this.setPlayerScore();
       // start convo
     }, 2000)
+  },
+
+  setPlayerScore: function() {
+    var score_style = { font: '36px "Press Start 2P"', fill: "#000" };
+    var bonus_score_style = { font: '36px "Press Start 2P"', fill: "#888" };
+    var final_score_style = { font: '36px "Press Start 2P"', fill: "#EA0000" };
+
+    let score_box = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'save_score_box');
+    score_box.anchor.setTo(0.5);
+    score_box.scale.x = 2.5;
+    score_box.scale.y = 2.5;
+    score_box.alpha = 0;
+
+    let heart_text = `Heart Score: ${SaveTheDate.GameState.score}`;
+    let energy_text = `Energy: ${this.game.energy} X 250 = ${this.game.energy * 250}`;
+    let accuracy = Math.floor((this.game.hits / this.game.shots) * 100);
+    let accuracy_text = `Accuracy: ${accuracy}% x 10 = ${accuracy * 10}`;
+    // TODO: add difficulty settings
+    let difficulty = SaveTheDate.difficulty === 'hard' ? 1000 : 0;
+    let difficulty_text = `Difficulty: ${difficulty}`;
+
+    let total_points = SaveTheDate.GameState.score + (this.game.energy * 250) + (accuracy * 10);
+    let total_text = `TOTAL: ${total_points}`;
+
+    let heart_score = this.game.add.text(310, 200, heart_text, score_style);
+    heart_score.alpha = 0;
+    let energy_score = this.game.add.text(310, 260, energy_text, score_style);
+    energy_score.alpha = 0;
+    let accuracy_score = this.game.add.text(310, 320, accuracy_text, score_style);
+    accuracy_score.alpha = 0;
+    let difficulty_score = this.game.add.text(310, 380, difficulty_text, score_style);
+    difficulty_score.alpha = 0;
+    let total_score = this.game.add.text(310, 440, total_text, final_score_style);
+    total_score.alpha = 0;
+
+    let text_group = [heart_score, energy_score, accuracy_score, difficulty_score, total_score];
+
+    this.game.add.tween(score_box).to({alpha: 1}, 500, Phaser.Easing.Linear.None, true);
+    text_group.forEach((text) => {
+      this.game.add.tween(text).to({alpha: 1}, 500, Phaser.Easing.Linear.None, true);
+    })
   }
 };
 
-
+    // this.game.time.events.add(0, function() {
+    //   this.game.add.tween(this.line_text).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true);
+    // }, this);
 
     // start awesome music
     // this.scoreMusic = this.add.audio('highScore');

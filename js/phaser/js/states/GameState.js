@@ -4,13 +4,17 @@ SaveTheDate.GameState = {
 
   create: function() {
     this.game.currentState = 'GameState';
+    SaveTheDate.GameState.score = 0;
     this.movementEnabled = true;
+    this.game.shots = 0;
+    this.game.hits = 0;
 
     this.GLOBAL_SPEED = .75;
-    this.PLAYER_SPEED = 800 * this.GLOBAL_SPEED;
+    this.PLAYER_SPEED = SaveTheDate.selectedPlayer === 'Sarah' ? 650 * this.GLOBAL_SPEED : 800 * this.GLOBAL_SPEED;
     this.FIREBALL_SPEED = 2000 * this.GLOBAL_SPEED;
     this.UHAUL_SPEED = -150 * this.GLOBAL_SPEED;
     this.BACKGROUND_SPEED = -100 * this.GLOBAL_SPEED;
+    this.FIRE_POWER = SaveTheDate.selectedPlayer === 'Sarah' ? 500 : 650;
 
     // this.selectedPlayer = 'sarah';
 
@@ -18,16 +22,15 @@ SaveTheDate.GameState = {
     this.background.autoScroll(this.BACKGROUND_SPEED, 0);
 
     // set the score
-    this.score = this.game.score;
     var style = { font: '50px "Press Start 2P"', fill: "#000" };
-    this.scoreText = this.game.add.text(50, 50, "Score:" + this.score, style);
+    this.scoreText = this.game.add.text(50, 50, "Score:" + this.game.score, style);
     this.energyText = this.game.add.text(50, 150, "Energy:", style);
 
     let enemy_flag_style = { font: '45px "Press Start 2P"', fill: '#000' };
     this.line_text = this.game.add.text(this.game.world.centerX - 100, 50, '', enemy_flag_style);
 
     // set player energy
-    this.energy = 3;
+    this.game.energy = 3;
     this.batteries = this.add.group();
     this.battery1 = new SaveTheDate.Battery(this.game, 435, 175, 1);
     this.battery2 = new SaveTheDate.Battery(this.game, 510, 175, 2);
@@ -37,7 +40,9 @@ SaveTheDate.GameState = {
     this.batteries.add(this.battery2);
     this.batteries.add(this.battery3);
 
-    this.cave = this.add.sprite(this.game.width, 200, 'cave_mouth');
+    this.cave = this.add.sprite(this.game.width, 100, 'cave_mouth');
+    this.cave.scale.x = 1.2;
+    this.cave.scale.y = 1.2;
 
     //player
     this.player = this.add.sprite(this.game.playerX, this.game.playerY, SaveTheDate.selectedPlayer);
@@ -128,6 +133,11 @@ SaveTheDate.GameState = {
       }
     }
 
+    // TEMPORARY: skip to results stage
+    if (this.game.input.keyboard.isDown(Phaser.Keyboard.K)) {
+      this.game.state.start('ResultState');
+    }
+
     // player movement with keyboard
     if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && this.movementEnabled) {
       this.player.body.velocity.x = -1 * this.PLAYER_SPEED;
@@ -189,6 +199,7 @@ SaveTheDate.GameState = {
   },
 
   damageEnemy: function(fireball, enemy) {
+    this.game.hits++;
     enemy.damage(1);
     fireball.kill();
   },
@@ -214,31 +225,30 @@ SaveTheDate.GameState = {
       xDiff = 0;
     }
     if (!this.invincible && yDiff < spacing && xDiff < spacing) {
-      if (this.energy === 3) { 
+      if (this.game.energy === 3) { 
         this.battery3.kill();
-      } else if (this.energy === 2) {
+      } else if (this.game.energy === 2) {
         this.battery2.kill();
-      } else if (this.energy === 1) {
+      } else if (this.game.energy === 1) {
         this.battery1.kill();
       }
-      this.energy -= 1;
+      this.game.energy -= 1;
       this.invincible = true;
       setTimeout(() => {
         this.invincible = false;
       }, invincibleTime);
-      if (this.energy === 0){
+      if (this.game.energy === 0){
         // game over
         this.game.paused = true;
         setTimeout(() => {
           this.game.paused = false;
-          this.transitionToResults(this.player.x, this.player.y, this.game.score);
+          this.transitionToResults(this.player.x, this.player.y);
         }, 1000);
       }
     }
   },
 
-  transitionToResults: function(playerX, playerY, score) {
-    this.game.score = score;
+  transitionToResults: function(playerX, playerY) {
     let screenElements = [this.enemies, this.bosses, this.playerFireballs, this.bossBullets, this.hearts];
     screenElements.forEach((el) =>{
       this.game.add.tween(el).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
@@ -302,6 +312,7 @@ SaveTheDate.GameState = {
   createPlayerFireball: function() {
     this.pewButton.frame = 1;
     if(!this.fireballShot) {
+      this.game.shots++;
       this.fireballShot = true;
       var fireball = this.playerFireballs.getFirstExists(false);
 
@@ -319,7 +330,7 @@ SaveTheDate.GameState = {
       setTimeout(() => {
         this.pewButton.frame = 0;
         this.fireballShot = false;
-      }, 500);
+      }, this.FIRE_POWER);
     }
 
   },
@@ -340,7 +351,7 @@ SaveTheDate.GameState = {
 
   collectHeart: function(player, heart) {
     heart.damage(1);
-    this.scoreText.text = "Score:" + this.score;
+    this.scoreText.text = "Score:" + SaveTheDate.GameState.score;
   },
 
   loadLevel: function(){
