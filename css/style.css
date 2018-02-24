@@ -33,12 +33,14 @@
   color: #0D0017;
 }
 
-/* .game_holder {
-  padding-bottom: 56.25%;
-  position: relative;
+.game_holder {
+  /* padding-bottom: 56.25%; */
+  border: 1px solid red;
+  /* padding-top: 150px;
+  position: relative; */
 }
 
-#game_window {
+/* #game_window {
   position: absolute;
   top: 0;
   left: 0;
@@ -46,7 +48,7 @@
 
 #game_window {
   height:80vh;
-  min-height: 300px;
+  /* min-height: 300px; */
   width: auto;
 }
 
