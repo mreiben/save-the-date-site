@@ -95,7 +95,7 @@ SaveTheDate.ResultState = {
       fontWeight:'bold',
       width: 675,
       padding: 26,
-      borderRadius: 4,
+      borderWidth: 10,
       placeHolder: 'Your Name'
     });
 
