@@ -35,15 +35,28 @@ permalink: /
   <script src="./js/phaser-input.js"></script>
   <script src="/js/main.js"></script>
   <script>
-    window.addEventListener("load",function() {
-      window.scrollTo(0, 1);
-      console.log('test');
-    });
+    function hideAddressBar()
+    {
+      if(!window.location.hash)
+      {
+          if(document.height < window.outerHeight)
+          {
+              document.body.style.height = (window.outerHeight + 50) + 'px';
+          }
+
+          setTimeout( function(){ window.scrollTo(0, 1); }, 50 );
+      }
+    }
+
+    window.addEventListener("load", function(){ if(!window.pageYOffset){ hideAddressBar(); } } );
+    window.addEventListener("orientationchange", hideAddressBar );
   </script>
 </head>
-<div class="game_holder">
-  <div id="game_window"></div>
-  <div style="font-family: 'Press Start 2P'"> </div>
+<div class="game_box">
+  <div class="game_holder">
+    <div id="game_window"></div>
+    <div style="font-family: 'Press Start 2P'"> </div>
+  </div>
 </div>
 
 <!-- /home/jason/Documents/code/jekyll/save-the-date/js/phaser/js/states/GameState.js -->
