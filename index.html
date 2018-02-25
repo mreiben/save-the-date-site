@@ -34,6 +34,14 @@ permalink: /
   
   <script src="./js/phaser-input.js"></script>
   <script src="/js/main.js"></script>
+  <script>
+    window.addEventListener("load",function() {
+      setTimeout(function(){
+          // This hides the address bar:
+          window.scrollTo(0, 1);
+      }, 0);
+    });
+  </script>
 </head>
 <div class="game_holder">
   <div id="game_window"></div>
