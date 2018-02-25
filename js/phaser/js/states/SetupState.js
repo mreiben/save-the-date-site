@@ -181,6 +181,7 @@ SaveTheDate.SetupState = {
       cal_endar_box.alpha = 0;
       line_text.setText('');
       let date = SaveTheDate.selectedPlayer === 'Sarah' ? jason : sarah;
+      date.frame = 6;
       let hero_box = SaveTheDate.selectedPlayer === 'Sarah' ? sarah_box : jason_box;
       cal_endar.scale.x = -1;
       let position = this.game.add.tween(cal_endar).to({
@@ -189,7 +190,6 @@ SaveTheDate.SetupState = {
       }, 1000, Phaser.Easing.Linear.None, true);
 
       setTimeout(() => {
-        date.frame = 6;
         this.game.add.tween(cal_endar).to({
           y: this.game.world.centerY - 150,
           x: this.game.world.centerX + 1100
