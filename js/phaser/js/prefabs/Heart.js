@@ -27,7 +27,6 @@ SaveTheDate.Heart.prototype.damage = function(amount) {
     SaveTheDate.DemoState.score += this.points;
   } else {
     SaveTheDate.GameState.score += this.points;
-    console.log('heart: ', this.size);
     if(SaveTheDate.GameState.currentBoss === 'judge' && this.size === 2) {
       this.game.state.start('ResultState', true, false, SaveTheDate.GameState.score);
     }

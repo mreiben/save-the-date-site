@@ -26,6 +26,7 @@ SaveTheDate.PreloadState = {
     this.load.image('replay', './js/phaser/assets/images/replay.png');
     this.load.image('enemyParticle', './js/phaser/assets/images/enemyParticle.png');
     this.load.spritesheet('skip_button','./js/phaser/assets/images/skip_button.png', 200, 100, 2, 0, 0);
+    this.load.spritesheet('save_button','./js/phaser/assets/images/save_button.png', 200, 100, 2, 0, 0);
     this.load.spritesheet('pew','./js/phaser/assets/images/pew.png', 200, 100, 2, 0, 0);
     this.load.spritesheet('start_button','./js/phaser/assets/images/start_button.png', 200, 100, 2, 0, 0);
     this.load.spritesheet('uhaul','./js/phaser/assets/images/uhaul.png', 435, 330, 5, 0, 0);

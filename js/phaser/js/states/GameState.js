@@ -341,9 +341,7 @@ SaveTheDate.GameState = {
     // set velocity
     heart.body.velocity.x = this.BACKGROUND_SPEED;
     if(SaveTheDate.GameState.currentBoss === "judge" && size === 2){
-      console.log('judge heart created');
       setTimeout(() => {
-        console.log('times up');
         heart.body.velocity.x = 0;
       }, 8000);
     }

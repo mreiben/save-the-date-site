@@ -2,6 +2,8 @@ var SaveTheDate = SaveTheDate || {};
 
 SaveTheDate.ResultState = {
   create: function() {
+    this.game.add.plugin(PhaserInput.Plugin);
+
     this.camera.flash('#000000');
     var background = this.game.add.sprite(0,0,'background_cave');
 
@@ -57,7 +59,8 @@ SaveTheDate.ResultState = {
 
     let heart_text = `Heart Score: ${SaveTheDate.GameState.score}`;
     let energy_text = `Energy: ${this.game.energy} X 250 = ${this.game.energy * 250}`;
-    let accuracy = Math.floor((this.game.hits / this.game.shots) * 100);
+    let hitMiss = this.game.shots != 0 ? (this.game.hits / this.game.shots) : 1;
+    let accuracy = Math.floor(hitMiss * 100);
     let accuracy_text = `Accuracy: ${accuracy}% x 10 = ${accuracy * 10}`;
     // TODO: add difficulty settings
     let difficulty = SaveTheDate.difficulty === 'hard' ? 1000 : 0;
@@ -68,21 +71,78 @@ SaveTheDate.ResultState = {
 
     let heart_score = this.game.add.text(310, 200, heart_text, score_style);
     heart_score.alpha = 0;
-    let energy_score = this.game.add.text(310, 260, energy_text, score_style);
+    let energy_score = this.game.add.text(310, 280, energy_text, score_style);
     energy_score.alpha = 0;
-    let accuracy_score = this.game.add.text(310, 320, accuracy_text, score_style);
+    let accuracy_score = this.game.add.text(310, 360, accuracy_text, score_style);
     accuracy_score.alpha = 0;
-    let difficulty_score = this.game.add.text(310, 380, difficulty_text, score_style);
+    let difficulty_score = this.game.add.text(310, 440, difficulty_text, score_style);
     difficulty_score.alpha = 0;
-    let total_score = this.game.add.text(310, 440, total_text, final_score_style);
+    let total_score = this.game.add.text(310, 520, total_text, final_score_style);
     total_score.alpha = 0;
+
+    let save_button = this.game.add.sprite(1075, 600, 'save_button');
 
     let text_group = [heart_score, energy_score, accuracy_score, difficulty_score, total_score];
 
     this.game.add.tween(score_box).to({alpha: 1}, 500, Phaser.Easing.Linear.None, true);
     text_group.forEach((text) => {
       this.game.add.tween(text).to({alpha: 1}, 500, Phaser.Easing.Linear.None, true);
-    })
+    });
+
+    this.inputName = this.game.add.inputField(310, 605, {
+      font: '36px "Press Start 2p"',
+      fontWeight:'bold',
+      width: 675,
+      padding: 26,
+      borderRadius: 4,
+      placeHolder: 'Your Name'
+    });
+
+    save_button.inputEnabled = true;
+    save_button.events.onInputDown.add(function() {
+      save_button.frame = 1;
+      this.submitScore(total_points);
+      setTimeout(() => {
+        text_group.forEach((el) => {
+          this.game.add.tween(el).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
+        });
+        this.game.add.tween(save_button).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
+        // this.game.add.tween(this.inputName).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
+        this.game.add.tween(score_box).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
+        this.inputName.destroy();
+        this.playEnding();
+      }, 500);
+    }, this);
+  },
+
+  submitScore(score) {
+    let name = this.inputName.value;
+    let initials = name.toUpperCase().split(' ').map((word) =>{
+      return word.substring(0, 1);
+    }).reduce((final, el) => {
+      return final += el;
+    });
+    let value = score;
+    let player = SaveTheDate.selectedPlayer;
+    let mode = SaveTheDate.difficulty;
+    let payload = {
+      name,
+      value,
+      player,
+      initials,
+      mode
+    }
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://save-the-date-api.herokuapp.com/api/scores/', true);
+    xhr.setRequestHeader('Content-Type' ,'application/json');
+    xhr.send(JSON.stringify(payload));
+
+    
+  },
+
+  playEnding() {
+    
   }
 };
 

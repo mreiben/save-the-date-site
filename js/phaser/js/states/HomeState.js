@@ -6,6 +6,7 @@ SaveTheDate.HomeState = {
     let statsStyle = { font: '35px "Press Start 2P"', fill: '#000' };
     this.selectedPlayer = '';
     let playerSelected = false;
+    this.difficulty = 'normal';
 
     let style = {
       font: '40px "Press Start 2P"',
@@ -32,6 +33,7 @@ SaveTheDate.HomeState = {
     startButton.alpha = 0;
 
     startButton.events.onInputDown.add(function() {
+      SaveTheDate.difficulty = this.difficulty;
       this.state.start('SetupState');
     }, this);
 
