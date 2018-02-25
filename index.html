@@ -4,17 +4,17 @@ title: Game
 permalink: /
 ---
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" / />
-    <title>Save the Date</title>
-    <script src="../js/phaser/js/phaser.js"></script>
-    <!-- <script
-      src="https://code.jquery.com/jquery-3.3.1.min.js"
-      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-      crossorigin="anonymous"></script> -->
-    <link rel="stylesheet" type="text/css" href="../js/phaser/css/stylesheet.css">
-    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
-<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" / />
+  <title>Save the Date</title>
+  <script src="../js/phaser/js/phaser.js"></script>
+  <!-- <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script> -->
+  <link rel="stylesheet" type="text/css" href="../js/phaser/css/stylesheet.css">
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
   <!-- Phaser game dependencies -->
   <script src="./js/phaser/js/states/PreloadState.js"></script>
@@ -34,29 +34,16 @@ permalink: /
   
   <script src="./js/phaser-input.js"></script>
   <script src="/js/main.js"></script>
-  <script>
-    function hideAddressBar()
-    {
-      if(!window.location.hash)
-      {
-          if(document.height < window.outerHeight)
-          {
-              document.body.style.height = (window.outerHeight + 50) + 'px';
-          }
-
-          setTimeout( function(){ window.scrollTo(0, 1); }, 50 );
-      }
-    }
-
-    window.addEventListener("load", function(){ if(!window.pageYOffset){ hideAddressBar(); } } );
-    window.addEventListener("orientationchange", hideAddressBar );
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <script type='text/javascript' charset='utf-8'>
+      // Hides mobile browser's address bar when page is done loading.
+        window.addEventListener('load', function(e) {
+          setTimeout(function() { window.scrollTo(0, 1); }, 1);
+        }, false);
   </script>
 </head>
-<div class="game_box">
-  <div class="game_holder">
-    <div id="game_window"></div>
-    <div style="font-family: 'Press Start 2P'"> </div>
-  </div>
+<div class="game_holder">
+  <div id="game_window"></div>
+  <div style="font-family: 'Press Start 2P'"> </div>
 </div>
-
-<!-- /home/jason/Documents/code/jekyll/save-the-date/js/phaser/js/states/GameState.js -->
