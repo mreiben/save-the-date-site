@@ -189,6 +189,7 @@ SaveTheDate.SetupState = {
       }, 1000, Phaser.Easing.Linear.None, true);
 
       setTimeout(() => {
+        date.frame = 6;
         this.game.add.tween(cal_endar).to({
           y: this.game.world.centerY - 150,
           x: this.game.world.centerX + 1100
@@ -211,6 +212,11 @@ SaveTheDate.SetupState = {
         line_text.x = hero_x;
         line_text.y = hero_y;
         line_text.setText("NOOOOOO!");
+        if (SaveTheDate.selectedPlayer === 'Sarah') {
+          sarah.frame = 6;
+        } else {
+          jason.frame = 6;
+        }
       }, 3000);
     }, (proposal_dialogue.length + stolen_dialogue.length + 1) * 2000);
 
