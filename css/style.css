@@ -65,8 +65,9 @@ body {
 #absolute-header {
   position: absolute;
   top: 0;
+  right: 0;
   z-index: 1;
-  width: 100%;
+  width: 70%;
   height: 50px;
 }
 
@@ -84,6 +85,11 @@ body {
     margin: 20px auto 0 auto;
     position: relative;
   }
+}
+
+#collapse-button {
+  margin-top: 5px;
+  margin-right: 0px;
 }
 
 /* @media (max-width: 2000px) {

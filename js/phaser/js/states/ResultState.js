@@ -26,7 +26,6 @@ SaveTheDate.ResultState = {
     let the_date = this.game.add.sprite(this.game.world.centerX - 15, this.game.world.centerY - 350, date_name);
     the_date.scale.x = 0.15;
     the_date.scale.y = 0.15;
-    the_date.frame = 6;
     the_date.anchor.setTo(0.5);
 
     // add cal-endar
@@ -95,7 +94,7 @@ SaveTheDate.ResultState = {
       fontWeight:'bold',
       width: 675,
       padding: 26,
-      borderWidth: 10,
+      borderRadius: 4,
       placeHolder: 'Your Name'
     });
 
