@@ -2,6 +2,7 @@ var SaveTheDate = SaveTheDate || {};
 
 SaveTheDate.SetupState = {
   create: function() {
+
     let background = this.game.add.sprite(0,0,'living_room');
 
     let calendar = this.game.add.sprite(this.game.world.centerX + 550, this.game.world.centerY - 300, 'wall_calendar');
