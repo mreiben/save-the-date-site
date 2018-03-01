@@ -9,22 +9,6 @@ SaveTheDate.HomeState = {
     let playerSelected = false;
     this.difficulty = 'normal';
 
-    let full_style = { font: '25px "Press Start 2P"', fill: '#000' };
-
-    let full_screen = this.game.add.text(20, 20, 'Full Screen', full_style);
-
-    full_screen.inputEnabled = true;
-    // full_screen.events.onInputDown.add(this.buttonClick, this);
-    full_screen.events.onInputDown.add(function() {
-      console.log('hhh');
-      this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
-      this.game.scale.startFullScreen(false, false);
-      this.isFullScreen = true;
-    }, this);
-
-    let full_button = this.game.add.button(0, 0, 'wall_calendar', this.buttonClick, this, 2, 1, 0);
-    full_button.visible = false;
-
     let style = {
       font: '40px "Press Start 2P"',
       fill: '#1e3cea',
