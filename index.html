@@ -13,7 +13,7 @@ permalink: /
   <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/screenfull.js/3.3.2/screenfull.min.js"></script>
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
+  
   <!-- Phaser game dependencies -->
   <script src="./js/phaser/js/states/PreloadState.js"></script>
   <script src="./js/phaser/js/states/BootState.js"></script>
@@ -34,6 +34,13 @@ permalink: /
   <script src="/js/main.js"></script>
 
 </head>
+<script>
+  let game = document.getElementById("game_window");
+  $("#expand_icon").click(function() {
+    console.log('screen toggle');
+    screenfull.toggle(game);
+  });
+</script>
 <div class="game_holder" id="game_holder">
   <div id="game_window"></div>
   <div style="font-family: 'Press Start 2P'"> </div>

@@ -118,11 +118,12 @@ SaveTheDate.ResultState = {
 
   submitScore(score) {
     let name = this.inputName.value;
-    let initials = name.toUpperCase().split(' ').map((word) =>{
-      return word.substring(0, 1);
-    }).reduce((final, el) => {
-      return final += el;
+    let names = name.toUpperCase().split(' ');
+    let initials = '';
+    names.forEach((word) =>{
+      initials += word.substring(0, 1);
     });
+
     let value = score;
     let player = SaveTheDate.selectedPlayer;
     let mode = SaveTheDate.difficulty;
@@ -143,7 +144,29 @@ SaveTheDate.ResultState = {
   },
 
   playEnding() {
-    
+    let cal_endar = this.game.add.sprite(this.game.world.centerX + 500, this.game.world.centerY, 'cal_endar');
+    cal_endar.anchor.setTo(0.5);
+    cal_endar.frame = 2;
+
+    setTimeout(() => {
+      // date goes into calendar
+      sarah_box.alpha = 0;
+      jason_box.alpha = 0;
+      cal_endar_box.alpha = 0;
+      line_text.setText('');
+      let date = SaveTheDate.selectedPlayer === 'Sarah' ? jason : sarah;
+      let position = this.game.add.tween(date).to({
+        y: this.game.world.centerY - 250,
+        x: this.game.world.centerX + 610
+      }, 2000, Phaser.Easing.Linear.None, true);
+      let size = this.game.add.tween(date.scale).to({
+        y: 0.15,
+        x: 0.15
+      }, 2000, Phaser.Easing.Linear.None, true, 100);
+      let angle = this.game.add.tween(date).to({
+        angle: 720
+      }, 2000, Phaser.Easing.Linear.None, true, 100);
+    }, 2000);
   }
 };
 

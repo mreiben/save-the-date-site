@@ -1,24 +1,6 @@
 var SaveTheDate = SaveTheDate || {};
 
 SaveTheDate.HomeState = {
-  onFullScreenChange(scale) {
-
-    if (scale.isFullScreen)
-    {
-        button.visible = true;
-    }
-    else
-    {
-        button.visible = false;
-    }
-
-  },
-
-  gofull() {
-
-      this.game.scale.startFullScreen();
-
-  },
 
   create: function() {
     let background = this.game.add.sprite(0,0,'living_room');
@@ -28,27 +10,27 @@ SaveTheDate.HomeState = {
     this.difficulty = 'normal';
 
     let full_style = { font: '25px "Press Start 2P"', fill: '#000' };
-    this.isFullScreen = false;
+    // this.isFullScreen = false;
 
-    let full_screen = this.game.add.text(200, 200, 'abcdefg', full_style);
+    // let full_screen = this.game.add.text(200, 200, 'abcdefg', full_style);
 
-    full_screen.inputEnabled = true;
-    full_screen.events.onInputDown.add(function() {
-      if (!this.isFullScreen) {
-        this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
-        this.game.scale.startFullScreen(false, false);
-        this.isFullScreen = true;
-      } else {
-        this.scale.stopFullScreen();
-        this.isFullScreen = false;
-      }
-    }, this);
+    // full_screen.inputEnabled = true;
+    // full_screen.events.onInputDown.add(function() {
+    //   if (!this.isFullScreen) {
+    //     this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
+    //     this.game.scale.startFullScreen(false, false);
+    //     this.isFullScreen = true;
+    //   } else {
+    //     this.scale.stopFullScreen();
+    //     this.isFullScreen = false;
+    //   }
+    // }, this);
 
-    let full_button = this.game.add.button(10, 10, 'button', null, this, 2, 1, 0);
+    // let full_button = this.game.add.button(10, 10, 'button', null, this, 2, 1, 0);
 
-    this.game.scale.onFullScreenChange.add(onFullScreenChange, this);
+    // this.game.scale.onFullScreenChange.add(onFullScreenChange, this);
 
-    full_button.input.onDown.add(gofull, this);
+    // full_button.input.onDown.add(gofull, this);
 
     let style = {
       font: '40px "Press Start 2P"',
