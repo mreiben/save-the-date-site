@@ -57,7 +57,8 @@ SaveTheDate.PreloadState = {
     this.load.text('level4', './js/phaser/assets/data/level4.json');
     this.load.text('level5', './js/phaser/assets/data/level5.json');
     this.load.text('level6', './js/phaser/assets/data/level6.json');
-    this.load.text('opening_dialogue', './js/phaser/assets/data/opening_dialogue.json')
+    this.load.text('opening_dialogue', './js/phaser/assets/data/opening_dialogue.json');
+    this.load.text('closing_dialogue', './js/phaser/assets/data/closing_dialogue.json');
   },
 
   create: function() {

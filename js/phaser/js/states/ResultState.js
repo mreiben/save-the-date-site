@@ -19,19 +19,20 @@ SaveTheDate.ResultState = {
     this.player.scale.y = 0.5;
 
     // add calendar
-    let calendar = this.game.add.sprite(this.game.world.centerX - 75, this.game.world.centerY - 400, 'wall_calendar');
+    this.calendar = this.game.add.sprite(this.game.world.centerX - 75, this.game.world.centerY - 400, 'wall_calendar');
 
     // add date (in calendar)
     let date_name = SaveTheDate.selectedPlayer === 'Sarah' ? 'Jason' : 'Sarah'
-    let the_date = this.game.add.sprite(this.game.world.centerX - 15, this.game.world.centerY - 350, date_name);
-    the_date.scale.x = 0.15;
-    the_date.scale.y = 0.15;
-    the_date.anchor.setTo(0.5);
+    this.the_date = this.game.add.sprite(this.game.world.centerX - 15, this.game.world.centerY - 350, date_name);
+    this.the_date.scale.x = 0.15;
+    this.the_date.scale.y = 0.15;
+    this.the_date.anchor.setTo(0.5);
+    this.the_date.frame = 6;
 
     // add cal-endar
-    let cal_endar = this.game.add.sprite(this.game.world.centerX + 500, this.game.world.centerY, 'cal_endar');
-    cal_endar.anchor.setTo(0.5);
-    cal_endar.frame = 3;
+    this.cal_endar = this.game.add.sprite(this.game.world.centerX + 500, this.game.world.centerY, 'cal_endar');
+    this.cal_endar.anchor.setTo(0.5);
+    this.cal_endar.frame = 0;
     
     this.game.add.tween(this.player).to({
       y: this.game.world.centerY + 100,
@@ -143,30 +144,156 @@ SaveTheDate.ResultState = {
   },
 
   playEnding() {
-    let cal_endar = this.game.add.sprite(this.game.world.centerX + 500, this.game.world.centerY, 'cal_endar');
-    cal_endar.anchor.setTo(0.5);
-    cal_endar.frame = 2;
+    this.cal_endar.frame = 3;
+
+    // add all dialogue boxes, make invisible
+    // load dialogue
+    // add text obj
+    // loop through dialogue and put in the right place
+    this.player_x_dialogue_box = this.player.position.x + 40;
+    this.player_y_dialogue_box = this.player.position.y - 280;
+    this.player_x = this.player.position.x;
+    this.player_y = this.player.position.y;
+    this.cal_endar_x = this.cal_endar.position.x - 480;
+    this.cal_endar_y = this.cal_endar.position.y - 250;
+    
+    this.player_dialogue = this.game.add.sprite(this.player_x_dialogue_box, this.player_y_dialogue_box, 'dialogue_left')
+    this.cal_endar_dialogue = this.game.add.sprite(this.cal_endar.position.x - 480, this.cal_endar.position.y - 250, 'dialogue_right')
+    this.cal_endar_dialogue.alpha = 0;
+    this.player_dialogue.alpha = 0;
+
+    let closing_dialogue = JSON.parse(this.game.cache.getText('closing_dialogue'))['wrapup'];
+
+    let line_num = 0;
+
+    let style = { font: '25px "Press Start 2P"', fill: '#000' };
+
+    let line_text = this.game.add.text(this.player_x_dialogue_box, this.player_y_dialogue_box, '', style);
+
+    for(let i = 0; i < closing_dialogue.length; i++){
+      const line = closing_dialogue[i];
+      setTimeout(() =>{
+        if(line.speaker === "hero"){
+          this.player_dialogue.alpha = 1;
+          this.cal_endar_dialogue.alpha = 0;
+          line_text.x = this.player_x_dialogue_box + 25;
+          line_text.y = this.player_y_dialogue_box + 25;
+          line_text.setText(line.content);
+        }
+        else {
+          this.player_dialogue.alpha = 0;
+          this.cal_endar_dialogue.alpha = 1;
+          line_text.x = this.cal_endar_x + 25;
+          line_text.y = this.cal_endar_y + 25;
+          line_text.setText(line.content);
+        }
+      }, i * line.duration * 1000);
+    }
 
     setTimeout(() => {
-      // date goes into calendar
-      sarah_box.alpha = 0;
-      jason_box.alpha = 0;
-      cal_endar_box.alpha = 0;
+      // date leaves calendar
+      this.player_dialogue.alpha = 0;
+      this.cal_endar_dialogue.alpha = 0;
       line_text.setText('');
-      let date = SaveTheDate.selectedPlayer === 'Sarah' ? jason : sarah;
-      let position = this.game.add.tween(date).to({
-        y: this.game.world.centerY - 250,
-        x: this.game.world.centerX + 610
+      let position = this.game.add.tween(this.the_date).to({
+        y: this.player_y,
+        x: this.player_x + 125,
       }, 2000, Phaser.Easing.Linear.None, true);
-      let size = this.game.add.tween(date.scale).to({
-        y: 0.15,
-        x: 0.15
+      let size = this.game.add.tween(this.the_date.scale).to({
+        y: 0.5,
+        x: -0.5
       }, 2000, Phaser.Easing.Linear.None, true, 100);
-      let angle = this.game.add.tween(date).to({
+      let angle = this.game.add.tween(this.the_date).to({
         angle: 720
       }, 2000, Phaser.Easing.Linear.None, true, 100);
-    }, 2000);
+    }, closing_dialogue.length * 2000);
+
+
+    setTimeout(()=> {
+      this.the_date.frame = 2;
+      this.player.frame = 2;
+      this.the_date.scale.x = -.5;
+    }, (closing_dialogue.length + 1.25) * 2000);
+
+    setTimeout(()=> {
+      let heart = this.game.add.sprite(this.player_x + 65, this.player_y, 'heart');
+      heart.scale.x = 0.2;
+      heart.scale.y = 0.2;
+      heart.anchor.setTo(0.5);
+      let alpha = this.game.add.tween(heart).to({
+        alpha: 0
+      }, 2000, Phaser.Easing.Linear.None, true);
+      let size = this.game.add.tween(heart.scale).to({
+        y: 2,
+        x: 2
+      }, 2000, Phaser.Easing.Linear.None, true, 100);
+      let angle = this.game.add.tween(heart).to({
+        angle: 720
+      }, 2000, Phaser.Easing.Linear.None, true, 100);
+    }, (closing_dialogue.length + 1.25) * 2000);
+
+    setTimeout(()=> {
+      this.the_date.frame = 0;
+      this.player.frame = 0;
+    }, (closing_dialogue.length + 2) * 2000);
+
+    setTimeout(()=> {
+      this.playConfrontation();
+    }, (closing_dialogue.length + 2.5) * 2000);
+  },
+
+  playConfrontation() {
+    this.date_x_dialogue_box = this.the_date.position.x + 40;
+    this.date_y_dialogue_box = this.the_date.position.y - 280;
+    this.date_dialogue = this.game.add.sprite(this.date_x_dialogue_box, this.date_y_dialogue_box, 'dialogue_left')
+    this.cal_endar_dialogue.alpha = 0;
+    this.player_dialogue.alpha = 0;
+    this.date_dialogue.alpha = 0;
+
+    let confrontation_dialogue = JSON.parse(this.game.cache.getText('closing_dialogue'))['confrontation'];
+
+    let line_num = 0;
+
+    let style = { font: '25px "Press Start 2P"', fill: '#000' };
+
+    let line_text = this.game.add.text(this.player_x_dialogue_box, this.player_y_dialogue_box, '', style);
+
+    for(let i = 0; i < confrontation_dialogue.length; i++){
+      const line = confrontation_dialogue[i];
+      setTimeout(() =>{
+        if(line.speaker === "hero"){
+          this.player_dialogue.alpha = 1;
+          this.cal_endar_dialogue.alpha = 0;
+          this.date_dialogue.alpha = 0;
+          line_text.x = this.player_x_dialogue_box + 25;
+          line_text.y = this.player_y_dialogue_box + 25;
+          line_text.setText(line.content);
+        }
+        else if (line.speaker === "date"){
+          this.date_dialogue.alpha = 1;
+          this.player_dialogue.alpha = 0;
+          this.cal_endar_dialogue.alpha = 0;
+          line_text.x = this.date_x_dialogue_box + 25;
+          line_text.y = this.date_y_dialogue_box + 25;
+          line_text.setText(line.content);
+        }
+        else {
+          this.date_dialogue.alpha = 0;
+          this.player_dialogue.alpha = 0;
+          this.cal_endar_dialogue.alpha = 1;
+          line_text.x = this.cal_endar_x + 25;
+          line_text.y = this.cal_endar_y + 25;
+          line_text.setText(line.content);
+        }
+      }, i * line.duration * 1000);
+    }
+
+    setTimeout(()=> {
+      this.the_date.scale.x = 0.5;
+    }, 10000);
   }
+
+
 };
 
     // this.game.time.events.add(0, function() {
