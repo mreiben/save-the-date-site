@@ -40,7 +40,9 @@ SaveTheDate.PreloadState = {
     this.load.spritesheet('fireball', './js/phaser/assets/images/fireball.png', 40, 40, 4, 0, 0);
     this.load.spritesheet('floss','./js/phaser/assets/images/floss.png', 1200, 100, 2, 0, 0);
     this.load.spritesheet('dentist','./js/phaser/assets/images/dentist.png', 305, 500, 4, 0, 0);
-    this.load.spritesheet('cal_endar','./js/phaser/assets/images/cal_endar.png', 475, 475, 4, 0, 0);
+    this.load.spritesheet('cal_endar','./js/phaser/assets/images/cal_endar.png', 475, 475, 6, 0, 0);
+    this.load.spritesheet('blue_endar','./js/phaser/assets/images/blue_endar.png', 475, 475, 2, 0, 0);
+    this.load.spritesheet('orange_endar','./js/phaser/assets/images/orange_endar.png', 332, 332, 2, 0, 0);
     this.load.image('wall_calendar', './js/phaser/assets/images/wall_calendar.png');
     this.load.image('stats_box', './js/phaser/assets/images/stats_box.png');
     this.load.image('save_score_box', './js/phaser/assets/images/save_score_box.png');

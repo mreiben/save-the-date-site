@@ -20,6 +20,6 @@
     { "speaker": "date", "content": "That's what\nwe want to\ndo too!", "duration": 2 },
     { "speaker": "date", "content": "Ours is\nOctober 7th!", "duration": 2 },
     { "speaker": "hero", "content": "When's\nyours?", "duration": 2 },
-    { "speaker": "cal_endar", "content": "Right now!", "duration": 2 }
+    { "speaker": "cal_endar", "content": "Right now!", "duration": 2, "start_dance": true }
   ]
 }
