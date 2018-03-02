@@ -10,6 +10,9 @@ SaveTheDate.ResultState = {
     // stop game music
     SaveTheDate.GameState.orchestra.stop();
 
+    // create heart group
+    this.hearts = this.add.group();
+
     // add player
     this.player = this.add.sprite(-50, this.game.world.centerY + 100, SaveTheDate.selectedPlayer);
     this.player.animations.add('walk', [1, 2, 3, 4, 5], 10, true);
@@ -67,8 +70,8 @@ SaveTheDate.ResultState = {
     let difficulty = SaveTheDate.difficulty === 'hard' ? 1000 : 0;
     let difficulty_text = `Difficulty: ${difficulty}`;
 
-    let total_points = SaveTheDate.GameState.score + (this.game.energy * 250) + (accuracy * 10);
-    let total_text = `TOTAL: ${total_points}`;
+    this.total_points = SaveTheDate.GameState.score + (this.game.energy * 250) + (accuracy * 10);
+    let total_text = `TOTAL: ${this.total_points}`;
 
     let heart_score = this.game.add.text(310, 200, heart_text, score_style);
     heart_score.alpha = 0;
@@ -102,7 +105,7 @@ SaveTheDate.ResultState = {
     save_button.inputEnabled = true;
     save_button.events.onInputDown.add(function() {
       save_button.frame = 1;
-      this.submitScore(total_points);
+      this.submitScore(this.total_points);
       setTimeout(() => {
         text_group.forEach((el) => {
           this.game.add.tween(el).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
@@ -151,7 +154,7 @@ SaveTheDate.ResultState = {
     // add text obj
     // loop through dialogue and put in the right place
     this.player_x_dialogue_box = this.player.position.x + 40;
-    this.player_y_dialogue_box = this.player.position.y - 280;
+    this.player_y_dialogue_box = this.player.position.y - 320;
     this.player_x = this.player.position.x;
     this.player_y = this.player.position.y;
     this.cal_endar_x = this.cal_endar.position.x - 480;
@@ -172,6 +175,9 @@ SaveTheDate.ResultState = {
 
     for(let i = 0; i < closing_dialogue.length; i++){
       const line = closing_dialogue[i];
+      if(line.has_input){
+        line.content = `for fewer\nthan ${this.total_points}\npoints!`;
+      }
       setTimeout(() =>{
         if(line.speaker === "hero"){
           this.player_dialogue.alpha = 1;
@@ -215,6 +221,10 @@ SaveTheDate.ResultState = {
       this.the_date.scale.x = -.5;
     }, (closing_dialogue.length + 1.25) * 2000);
 
+    setTimeout(()=>{
+      this.barfHearts();
+    }, 9000);
+
     setTimeout(()=> {
       let heart = this.game.add.sprite(this.player_x + 65, this.player_y, 'heart');
       heart.scale.x = 0.2;
@@ -242,6 +252,27 @@ SaveTheDate.ResultState = {
     }, (closing_dialogue.length + 2.5) * 2000);
   },
 
+  barfHearts(){
+    this.heart1 = new SaveTheDate.Heart(this.game, 435, 175, 1);
+
+    this.hearts.add(this.heart1);
+
+    for(let i = 0; i < 10; i++){
+      let h1 = new SaveTheDate.Heart(this.game, this.player.position.x, this.player.position.y, 1);
+      
+    }
+
+    // loop through x times (if score / 100 < 10, 10, else score/100 )
+
+      // create a heart object at hero's hands
+
+      // add tween that makes heart fly straight up off screen
+
+      // heart picks a random x position
+
+      // heart falls to random y position between __ and __
+  },
+
   playConfrontation() {
     this.date_x_dialogue_box = this.the_date.position.x + 40;
     this.date_y_dialogue_box = this.the_date.position.y - 280;
@@ -257,9 +288,8 @@ SaveTheDate.ResultState = {
     let style = { font: '25px "Press Start 2P"', fill: '#000' };
 
     let line_text = this.game.add.text(this.player_x_dialogue_box, this.player_y_dialogue_box, '', style);
-
     for(let i = 0; i < confrontation_dialogue.length; i++){
-      const line = confrontation_dialogue[i];
+      let line = confrontation_dialogue[i];
       setTimeout(() =>{
         if(line.speaker === "hero"){
           this.player_dialogue.alpha = 1;
