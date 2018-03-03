@@ -19,6 +19,10 @@ SaveTheDate.PreloadState = {
     this.load.image('dialogue_left', './js/phaser/assets/images/dialogue_left.png');
     this.load.image('dialogue_right', './js/phaser/assets/images/dialogue_right.png');
     this.load.image('living_room', './js/phaser/assets/images/living_room.png');
+    this.load.image('difficulty_box', './js/phaser/assets/images/difficulty_box.png');
+    this.load.spritesheet('hard', './js/phaser/assets/images/hard.png', 182, 56, 3, 0, 0);
+    this.load.spritesheet('medium', './js/phaser/assets/images/medium.png', 277, 61, 3, 0, 0);
+    this.load.spritesheet('easy', './js/phaser/assets/images/easy.png', 183, 56, 3, 0, 0);
     this.load.spritesheet('Sarah', './js/phaser/assets/images/sarah.png', 240, 318, 10, 0, 0);
     this.load.spritesheet('Sarah_glow', './js/phaser/assets/images/sarah_glow.png', 300, 400, 3, 0, 0);
     this.load.spritesheet('Jason', './js/phaser/assets/images/jason.png', 288, 416, 10, 0, 0);
@@ -26,7 +30,7 @@ SaveTheDate.PreloadState = {
     this.load.image('replay', './js/phaser/assets/images/replay.png');
     this.load.image('enemyParticle', './js/phaser/assets/images/enemyParticle.png');
     this.load.spritesheet('skip_button','./js/phaser/assets/images/skip_button.png', 200, 100, 2, 0, 0);
-    this.load.spritesheet('save_button','./js/phaser/assets/images/save_button.png', 200, 100, 2, 0, 0);
+    this.load.spritesheet('save_button','./js/phaser/assets/images/save_button.png', 200, 100, 4, 0, 0);
     this.load.spritesheet('pew','./js/phaser/assets/images/pew.png', 200, 100, 2, 0, 0);
     this.load.spritesheet('start_button','./js/phaser/assets/images/start_button.png', 200, 100, 2, 0, 0);
     this.load.spritesheet('uhaul','./js/phaser/assets/images/uhaul.png', 435, 330, 5, 0, 0);

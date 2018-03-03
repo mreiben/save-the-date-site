@@ -96,27 +96,37 @@ SaveTheDate.ResultState = {
     let energy_text = `Energy: ${this.game.energy} X 250 = ${this.game.energy * 250}`;
     let hitMiss = this.game.shots != 0 ? (this.game.hits / this.game.shots) : 1;
     let accuracy = Math.floor(hitMiss * 100);
-    let accuracy_text = `Accuracy: ${accuracy}% x 10 = ${accuracy * 10}`;
+    let accuracy_text = `Accuracy: ${accuracy}% x 5 = ${accuracy * 5}`;
     // TODO: add difficulty settings
-    let difficulty = SaveTheDate.difficulty === 'hard' ? 1000 : 0;
-    let difficulty_text = `Difficulty: ${difficulty}`;
+    let difficulty = 0;
+    if (SaveTheDate.difficulty === 'medium'){
+      difficulty = 10;
+    }
+    if (SaveTheDate.difficulty === 'hard'){
+      difficulty = 20;
+    }
+    let difficulty_percent = `${SaveTheDate.difficulty}: ${difficulty}%`;
+    let difficulty_text = `Bonus: ${difficulty_percent} = ${SaveTheDate.GameState.score * (difficulty/100)}`;
 
-    this.total_points = SaveTheDate.GameState.score + (this.game.energy * 250) + (accuracy * 10);
+    this.total_points = Math.floor((SaveTheDate.GameState.score * (1 + (difficulty/100)))
+                      + (this.game.energy * 250)
+                      + (accuracy * 5));
     this.scoreReady = true;
     let total_text = `TOTAL: ${this.total_points}`;
 
     let heart_score = this.game.add.text(310, 200, heart_text, score_style);
     heart_score.alpha = 0;
-    let energy_score = this.game.add.text(310, 280, energy_text, score_style);
+    let energy_score = this.game.add.text(310, 440, energy_text, score_style);
     energy_score.alpha = 0;
     let accuracy_score = this.game.add.text(310, 360, accuracy_text, score_style);
     accuracy_score.alpha = 0;
-    let difficulty_score = this.game.add.text(310, 440, difficulty_text, score_style);
+    let difficulty_score = this.game.add.text(310, 280, difficulty_text, score_style);
     difficulty_score.alpha = 0;
     let total_score = this.game.add.text(310, 520, total_text, final_score_style);
     total_score.alpha = 0;
 
     this.save_button = this.game.add.sprite(1075, 600, 'save_button');
+    this.save_button.frame = 2;
 
     this.text_group = [heart_score, energy_score, accuracy_score, difficulty_score, total_score];
 
@@ -124,6 +134,18 @@ SaveTheDate.ResultState = {
     this.text_group.forEach((text) => {
       this.game.add.tween(text).to({alpha: 1}, 500, Phaser.Easing.Linear.None, true);
     });
+
+    // change continue/save button text
+    // this.game.input.keyboard.onDownCallback = (e) => {
+    //   if(this.save_button && this.inputName.value !== '') {
+    //     console.log("hum");
+    //     this.save_button.frame = 2;
+    //   }
+    //   else {
+    //     console.log('huuuum');
+    //     this.save_button.frame = 0;
+    //   }
+    // }
 
     this.inputName = this.game.add.inputField(310, 605, {
       font: '36px "Press Start 2p"',
@@ -135,7 +157,7 @@ SaveTheDate.ResultState = {
       blockInput: false
     });
 
-    this.inputName.startFocus();
+    // this.inputName.startFocus();
 
     this.save_button.inputEnabled = true;
     this.save_button.events.onInputDown.add(function() {
@@ -144,7 +166,7 @@ SaveTheDate.ResultState = {
   },
 
   preSubmitScore() {
-    this.save_button.frame = 1;
+    this.save_button.frame += 1;
     this.submitScore(this.total_points);
     setTimeout(() => {
       this.text_group.forEach((el) => {
@@ -301,7 +323,6 @@ SaveTheDate.ResultState = {
 
     for(let i = 0; i < 10; i++){
       setTimeout(() => {
-        console.log('heart: ', i);
         let xDiff = Math.floor(Math.random() * 100);
         let yDiff = Math.floor(Math.random() * 100);
         this.hearts.add(new SaveTheDate.Heart(
@@ -366,21 +387,20 @@ SaveTheDate.ResultState = {
           this.line_text.x = this.cal_endar_x + 25;
           this.line_text.y = this.cal_endar_y + 25;
           this.line_text.setText(line.content);
-            if(line.start_dance === true){
-              console.log('dance');
-              this.cal_endar.play('dance');
-              this.the_date.play('dance');
-              this.the_date.scale.x *= -1;
-              this.player.play('dance');
-              this.orange_endar.alpha = 1;
-              this.orange_endar.play('dance');
-              this.blue_endar.alpha = 1;
-              this.blue_endar.play('dance');
-              this.dentist.alpha = 1;
-              this.dentist.play('dance');
-              this.judge.alpha = 1;
-              this.judge.play('dance');
-            };
+          if(line.start_dance){
+            this.cal_endar.play('dance');
+            this.the_date.play('dance');
+            this.the_date.scale.x *= -1;
+            this.player.play('dance');
+            this.orange_endar.alpha = 1;
+            this.orange_endar.play('dance');
+            this.blue_endar.alpha = 1;
+            this.blue_endar.play('dance');
+            this.dentist.alpha = 1;
+            this.dentist.play('dance');
+            this.judge.alpha = 1;
+            this.judge.play('dance');
+          };
         }
       }, i * line.duration * 1000);
     }

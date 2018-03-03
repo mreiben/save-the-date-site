@@ -23,3 +23,4 @@ SaveTheDate.BootState = {
 };
 
 SaveTheDate.selectedPlayer = '';
+SaveTheDate.difficulty = 'easy';

@@ -3,11 +3,11 @@ var SaveTheDate = SaveTheDate || {};
 SaveTheDate.HomeState = {
 
   create: function() {
+    this.difficulty = SaveTheDate.difficulty;
     let background = this.game.add.sprite(0,0,'living_room');
     let statsStyle = { font: '35px "Press Start 2P"', fill: '#000' };
     this.selectedPlayer = '';
     let playerSelected = false;
-    this.difficulty = 'normal';
 
     let style = {
       font: '40px "Press Start 2P"',
@@ -17,11 +17,11 @@ SaveTheDate.HomeState = {
     let text = this.game.add.text(this.game.world.centerX, this.game.world.centerY - 150, 'CHOOSE A PLAYER', style);
     text.anchor.setTo(0.5);
 
-    let stats_box = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 250, 'stats_box');
+    let stats_box = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 275, 'stats_box');
     stats_box.anchor.setTo(0.5);
     stats_box.alpha = 0;
 
-    let playerStats = this.game.add.text(this.game.world.centerX, this.game.world.centerY + 250, '', statsStyle);
+    let playerStats = this.game.add.text(this.game.world.centerX, this.game.world.centerY + 275, '', statsStyle);
     playerStats.anchor.setTo(0.5);
     const sarahStats = 'name: Sarah\nspeed: 6\nfirepower: 10\nwords per minute: 102 ';
     const fade_speed = 300;
@@ -37,6 +37,53 @@ SaveTheDate.HomeState = {
       SaveTheDate.difficulty = this.difficulty;
       this.state.start('SetupState');
     }, this);
+
+    // difficulty buttons
+    let difficultyBox = this.add.sprite(this.game.world.width - 190, 650, 'difficulty_box');
+    difficultyBox.anchor.setTo(0.5);
+
+    let easyButton = this.add.sprite(this.game.world.width - 190, 575, 'easy');
+    easyButton.animations.add('glow', [0,1,2,1], 4, true);
+    easyButton.frame = 2;
+    easyButton.anchor.setTo(0.5);
+    easyButton.inputEnabled = true;
+
+    easyButton.events.onInputDown.add(function() {
+      this.difficulty = 'easy'
+      easyButton.frame = 2;
+      mediumButton.frame = 0;
+      hardButton.frame = 0;
+    }, this);
+
+    let mediumButton = this.add.sprite(this.game.world.width - 190, 650, 'medium');
+    mediumButton.animations.add('glow', [0,1,2,1], 4, true);    
+    mediumButton.anchor.setTo(0.5);
+    mediumButton.inputEnabled = true;
+
+    mediumButton.events.onInputDown.add(function() {
+      this.difficulty = 'medium'
+      easyButton.frame = 0;
+      mediumButton.frame = 2;
+      hardButton.frame = 0;
+    }, this);
+
+    let hardButton = this.add.sprite(this.game.world.width - 190, 725, 'hard');
+    hardButton.animations.add('glow', [0,1,2,1], 4, true);    
+    hardButton.anchor.setTo(0.5);
+    hardButton.inputEnabled = true;
+
+    hardButton.events.onInputDown.add(function() {
+      this.difficulty = 'hard'
+      easyButton.frame = 0;
+      mediumButton.frame = 0;
+      hardButton.frame = 2;
+    }, this);
+
+    let difficulty_items = [difficultyBox, easyButton, mediumButton, hardButton];
+    difficulty_items.forEach((item) => {
+      item.scale.x = 0.75;
+      item.scale.y = 0.75;
+    })
 
     let sarah = this.game.add.sprite(this.game.world.centerX - 150, this.game.world.centerY, 'Sarah_glow');
     sarah.anchor.setTo(0.5);

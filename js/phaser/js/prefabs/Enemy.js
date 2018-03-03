@@ -20,6 +20,9 @@ SaveTheDate.Enemy = function(game, x, y, type, health, gameState) {
   this.checkWorldBounds = true;
   this.outOfBoundsKill = true;
   this.health = health;
+  if (SaveTheDate.difficulty === 'easy') this.health *= .5;
+  if (SaveTheDate.difficulty === 'medium') this.health *= 1;
+  if (SaveTheDate.difficulty === 'hard') this.health *= 1.5;
   this.animations.add('walk', [0,1,2,1], 3, true);
   this.animations.add('damaged', [3,4,5,4], 3, false);
   this.play('walk');

@@ -232,12 +232,20 @@ SaveTheDate.GameState = {
       } else if (this.game.energy === 1) {
         this.battery1.kill();
       }
-      this.game.energy -= 1;
+      if(SaveTheDate.difficulty === 'easy'){
+        this.game.energy -= 1;
+        if (this.game.energy < 0) {
+          this.game.energy = 0;
+        }
+      } else {
+        this.game.energy -= 1;
+      }
       this.invincible = true;
       setTimeout(() => {
         this.invincible = false;
       }, invincibleTime);
-      if (this.game.energy === 0){
+
+      if (this.game.energy === 0 && SaveTheDate.difficulty !== 'easy'){
         // game over
         this.game.paused = true;
         setTimeout(() => {
@@ -248,7 +256,7 @@ SaveTheDate.GameState = {
     }
   },
 
-  transitionToResults: function(playerX, playerY) {
+  transitionToResults() {
     let screenElements = [this.enemies, this.bosses, this.playerFireballs, this.bossBullets, this.hearts];
     screenElements.forEach((el) =>{
       this.game.add.tween(el).to({alpha: 0}, 1500, Phaser.Easing.Linear.None, true);
@@ -354,7 +362,7 @@ SaveTheDate.GameState = {
 
   loadLevel: function(){
     // only load new level if player has energy
-    if(this.movementEnabled){
+    if(this.movementEnabled && this.currentLevel < 7){
       this.currentEnemyIndex = 0;
       this.levelData = JSON.parse(this.game.cache.getText('level' + this.currentLevel));
       this.scheduleNextEnemy();
