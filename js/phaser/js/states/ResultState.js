@@ -3,6 +3,7 @@ var SaveTheDate = SaveTheDate || {};
 SaveTheDate.ResultState = {
   create: function() {
     this.game.add.plugin(PhaserInput.Plugin);
+    this.scoreReady = false;
 
     this.camera.flash('#000000');
     var background = this.game.add.sprite(0,0,'background_cave');
@@ -15,12 +16,12 @@ SaveTheDate.ResultState = {
 
     // add player
     this.player = this.add.sprite(-50, this.game.world.centerY + 100, SaveTheDate.selectedPlayer);
+    this.player.animations.add('dance', [1, 3, 5], 4, true);
     this.player.animations.add('walk', [1, 2, 3, 4, 5], 10, true);
     this.player.play('walk');
     this.player.anchor.setTo(0.5);
     this.player.scale.x = 0.5;
     this.player.scale.y = 0.5;
-    this.player.animations.add('dance', [1, 3, 5], 4, true);
 
     // add calendar
     this.calendar = this.game.add.sprite(this.game.world.centerX - 75, this.game.world.centerY - 400, 'wall_calendar');
@@ -85,11 +86,11 @@ SaveTheDate.ResultState = {
     var bonus_score_style = { font: '36px "Press Start 2P"', fill: "#888" };
     var final_score_style = { font: '36px "Press Start 2P"', fill: "#EA0000" };
 
-    let score_box = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'save_score_box');
-    score_box.anchor.setTo(0.5);
-    score_box.scale.x = 2.5;
-    score_box.scale.y = 2.5;
-    score_box.alpha = 0;
+    this.score_box = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'save_score_box');
+    this.score_box.anchor.setTo(0.5);
+    this.score_box.scale.x = 2.5;
+    this.score_box.scale.y = 2.5;
+    this.score_box.alpha = 0;
 
     let heart_text = `Heart Score: ${SaveTheDate.GameState.score}`;
     let energy_text = `Energy: ${this.game.energy} X 250 = ${this.game.energy * 250}`;
@@ -101,6 +102,7 @@ SaveTheDate.ResultState = {
     let difficulty_text = `Difficulty: ${difficulty}`;
 
     this.total_points = SaveTheDate.GameState.score + (this.game.energy * 250) + (accuracy * 10);
+    this.scoreReady = true;
     let total_text = `TOTAL: ${this.total_points}`;
 
     let heart_score = this.game.add.text(310, 200, heart_text, score_style);
@@ -114,12 +116,12 @@ SaveTheDate.ResultState = {
     let total_score = this.game.add.text(310, 520, total_text, final_score_style);
     total_score.alpha = 0;
 
-    let save_button = this.game.add.sprite(1075, 600, 'save_button');
+    this.save_button = this.game.add.sprite(1075, 600, 'save_button');
 
-    let text_group = [heart_score, energy_score, accuracy_score, difficulty_score, total_score];
+    this.text_group = [heart_score, energy_score, accuracy_score, difficulty_score, total_score];
 
-    this.game.add.tween(score_box).to({alpha: 1}, 500, Phaser.Easing.Linear.None, true);
-    text_group.forEach((text) => {
+    this.game.add.tween(this.score_box).to({alpha: 1}, 500, Phaser.Easing.Linear.None, true);
+    this.text_group.forEach((text) => {
       this.game.add.tween(text).to({alpha: 1}, 500, Phaser.Easing.Linear.None, true);
     });
 
@@ -129,24 +131,33 @@ SaveTheDate.ResultState = {
       width: 675,
       padding: 26,
       borderRadius: 4,
-      placeHolder: 'Your Name'
+      placeHolder: 'Your Name',
+      blockInput: false
     });
 
-    save_button.inputEnabled = true;
-    save_button.events.onInputDown.add(function() {
-      save_button.frame = 1;
-      this.submitScore(this.total_points);
-      setTimeout(() => {
-        text_group.forEach((el) => {
-          this.game.add.tween(el).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
-        });
-        this.game.add.tween(save_button).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
-        // this.game.add.tween(this.inputName).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
-        this.game.add.tween(score_box).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
-        this.inputName.destroy();
-        this.playEnding();
-      }, 500);
+    this.inputName.startFocus();
+
+    this.save_button.inputEnabled = true;
+    this.save_button.events.onInputDown.add(function() {
+      this.preSubmitScore();
     }, this);
+  },
+
+  preSubmitScore() {
+    this.save_button.frame = 1;
+    this.submitScore(this.total_points);
+    setTimeout(() => {
+      this.text_group.forEach((el) => {
+        this.game.add.tween(el).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
+      });
+      this.game.add.tween(this.save_button).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
+      // this.game.add.tween(this.inputName).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
+      this.game.add.tween(this.score_box).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
+      this.inputName.destroy();
+      setTimeout(() => {
+        this.playEnding();
+      }, 1000)
+    }, 500);
   },
 
   submitScore(score) {
@@ -201,7 +212,7 @@ SaveTheDate.ResultState = {
 
     let style = { font: '25px "Press Start 2P"', fill: '#000' };
 
-    let line_text = this.game.add.text(this.player_x_dialogue_box, this.player_y_dialogue_box, '', style);
+    this.line_text = this.game.add.text(this.player_x_dialogue_box, this.player_y_dialogue_box, '', style);
 
     for(let i = 0; i < closing_dialogue.length; i++){
       const line = closing_dialogue[i];
@@ -212,16 +223,22 @@ SaveTheDate.ResultState = {
         if(line.speaker === "hero"){
           this.player_dialogue.alpha = 1;
           this.cal_endar_dialogue.alpha = 0;
-          line_text.x = this.player_x_dialogue_box + 25;
-          line_text.y = this.player_y_dialogue_box + 25;
-          line_text.setText(line.content);
+          this.line_text.x = this.player_x_dialogue_box + 25;
+          this.line_text.y = this.player_y_dialogue_box + 25;
+          this.line_text.setText(line.content);
+        }
+        else if (line.speaker === 'pause') {
+          this.barfHearts();
+          this.player_dialogue.alpha = 0;
+          this.cal_endar_dialogue.alpha = 0;
+          this.line_text.setText('');
         }
         else {
           this.player_dialogue.alpha = 0;
           this.cal_endar_dialogue.alpha = 1;
-          line_text.x = this.cal_endar_x + 25;
-          line_text.y = this.cal_endar_y + 25;
-          line_text.setText(line.content);
+          this.line_text.x = this.cal_endar_x + 25;
+          this.line_text.y = this.cal_endar_y + 25;
+          this.line_text.setText(line.content);
         }
       }, i * line.duration * 1000);
     }
@@ -230,7 +247,7 @@ SaveTheDate.ResultState = {
       // date leaves calendar
       this.player_dialogue.alpha = 0;
       this.cal_endar_dialogue.alpha = 0;
-      line_text.setText('');
+      this.line_text.setText('');
       let position = this.game.add.tween(this.the_date).to({
         y: this.player_y,
         x: this.player_x + 125,
@@ -251,9 +268,6 @@ SaveTheDate.ResultState = {
       this.the_date.scale.x = -.5;
     }, (closing_dialogue.length + 1.25) * 2000);
 
-    setTimeout(()=>{
-      this.barfHearts();
-    }, 9000);
 
     setTimeout(()=> {
       let heart = this.game.add.sprite(this.player_x + 65, this.player_y, 'heart');
@@ -275,6 +289,7 @@ SaveTheDate.ResultState = {
     setTimeout(()=> {
       this.the_date.frame = 0;
       this.player.frame = 0;
+      this.line_text.setText('');
     }, (closing_dialogue.length + 2) * 2000);
 
     setTimeout(()=> {
@@ -283,13 +298,19 @@ SaveTheDate.ResultState = {
   },
 
   barfHearts(){
-    this.heart1 = new SaveTheDate.Heart(this.game, 435, 175, 1);
-
-    this.hearts.add(this.heart1);
 
     for(let i = 0; i < 10; i++){
-      let h1 = new SaveTheDate.Heart(this.game, this.player.position.x, this.player.position.y, 1);
-
+      setTimeout(() => {
+        console.log('heart: ', i);
+        let xDiff = Math.floor(Math.random() * 100);
+        let yDiff = Math.floor(Math.random() * 100);
+        this.hearts.add(new SaveTheDate.Heart(
+          this.game,
+          this.player.position.x + xDiff,
+          this.player.position.y - 200,
+          1
+        ));
+      }, i * 200);
     }
 
     // loop through x times (if score / 100 < 10, 10, else score/100 )
@@ -317,7 +338,7 @@ SaveTheDate.ResultState = {
 
     let style = { font: '25px "Press Start 2P"', fill: '#000' };
 
-    let line_text = this.game.add.text(this.player_x_dialogue_box, this.player_y_dialogue_box, '', style);
+    this.line_text = this.game.add.text(this.player_x_dialogue_box, this.player_y_dialogue_box, '', style);
     for(let i = 0; i < confrontation_dialogue.length; i++){
       let line = confrontation_dialogue[i];
       setTimeout(() =>{
@@ -325,26 +346,26 @@ SaveTheDate.ResultState = {
           this.player_dialogue.alpha = 1;
           this.cal_endar_dialogue.alpha = 0;
           this.date_dialogue.alpha = 0;
-          line_text.x = this.player_x_dialogue_box + 25;
-          line_text.y = this.player_y_dialogue_box + 25;
-          line_text.setText(line.content);
+          this.line_text.x = this.player_x_dialogue_box + 25;
+          this.line_text.y = this.player_y_dialogue_box + 25;
+          this.line_text.setText(line.content);
         }
         else if (line.speaker === "date"){
           this.date_dialogue.alpha = 1;
           this.player_dialogue.alpha = 0;
           this.cal_endar_dialogue.alpha = 0;
-          line_text.x = this.date_x_dialogue_box + 25;
-          line_text.y = this.date_y_dialogue_box + 25;
-          line_text.setText(line.content);
+          this.line_text.x = this.date_x_dialogue_box + 25;
+          this.line_text.y = this.date_y_dialogue_box + 25;
+          this.line_text.setText(line.content);
         }
 
         else {
           this.date_dialogue.alpha = 0;
           this.player_dialogue.alpha = 0;
           this.cal_endar_dialogue.alpha = 1;
-          line_text.x = this.cal_endar_x + 25;
-          line_text.y = this.cal_endar_y + 25;
-          line_text.setText(line.content);
+          this.line_text.x = this.cal_endar_x + 25;
+          this.line_text.y = this.cal_endar_y + 25;
+          this.line_text.setText(line.content);
             if(line.start_dance === true){
               console.log('dance');
               this.cal_endar.play('dance');

@@ -35,13 +35,13 @@ permalink: /
 
 </head>
 <script>
-  let game = document.getElementById("game_holder");
+  let game = document.getElementById("game_window");
   $("#expand_icon").click(function() {
     console.log('screen toggle');
-    screenfull.toggle(game);
+    screenfull.request(game);
   });
 </script>
-<div class="game_holder" id="game_holder">
+<div class="game_holder">
   <div id="game_window"></div>
-  <div style="font-family: 'Press Start 2P'"> </div>
+  <div class="font-loader" style="font-family: 'Press Start 2P'">-</div>
 </div>
