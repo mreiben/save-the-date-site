@@ -47,6 +47,7 @@ SaveTheDate.PreloadState = {
     this.load.spritesheet('cal_endar','./js/phaser/assets/images/cal_endar.png', 475, 475, 6, 0, 0);
     this.load.spritesheet('blue_endar','./js/phaser/assets/images/blue_endar.png', 475, 475, 2, 0, 0);
     this.load.spritesheet('orange_endar','./js/phaser/assets/images/orange_endar.png', 332, 332, 2, 0, 0);
+    this.load.spritesheet('disco_ball','./js/phaser/assets/images/disco.png', 800, 900, 4, 0, 0);
     this.load.image('wall_calendar', './js/phaser/assets/images/wall_calendar.png');
     this.load.image('stats_box', './js/phaser/assets/images/stats_box.png');
     this.load.image('save_score_box', './js/phaser/assets/images/save_score_box.png');
@@ -54,7 +55,8 @@ SaveTheDate.PreloadState = {
 
 
     this.load.audio('orchestra', ['./js/phaser/assets/audio/JPEinstrumental.mp3', 'assets/audio/JPEinstrumental.ogg']);
-    this.load.audio('highScore', ['./js/phaser/assets/audio/high_score.wav']);
+    this.load.audio('hava_nagila', ['./js/phaser/assets/audio/Israel - Hava Nagila.mp3']);
+    this.load.audio('we_are_family', ['./js/phaser/assets/audio/we_are_family.mp3']);
 
     //load level data
     this.load.text('level1', './js/phaser/assets/data/level1.json');

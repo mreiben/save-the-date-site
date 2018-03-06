@@ -1,12 +1,12 @@
 {
   "wrapup":[ 
-    { "speaker": "cal_endar", "content": "How did\nyou get\nhere?", "duration": 2 },
+    { "speaker": "cal_endar", "content": "How did\nyou get\nhere?", "duration": 2, "emotion": "shocked" },
     { "speaker": "hero", "content": "I cleared\nmy schedule!", "duration": 2 },
-    { "speaker": "cal_endar", "content": "Well I won't\nrelease your\ndate", "duration": 2 },
+    { "speaker": "cal_endar", "content": "Well I won't\nrelease your\ndate", "duration": 2, "emotion": "mad" },
     { "speaker": "cal_endar", "content": "for fewer\nthan ___\npoints!", "duration": 2, "has_input": true },
     { "speaker": "hero", "content": "Oh, you\nmean this\nmany?", "duration": 2 },
-    { "speaker": "pause", "content": "", "duration": 2 },
-    { "speaker": "cal_endar", "content": "Oh good!\nI'll free up\nyour date.", "duration": 2 }
+    { "speaker": "pause", "content": "", "duration": 2, "emotion": "shocked" },
+    { "speaker": "cal_endar", "content": "Oh good!\nI'll free up\nyour date.", "duration": 2, "emotion": "happy" }
   ],
   "confrontation":[
     { "speaker": "date", "content": "While I was\nin there...", "duration": 2 },
@@ -15,12 +15,12 @@
     { "speaker": "date", "content": "...", "duration": 2 },
     { "speaker": "hero", "content": "Yep!", "duration": 2 },
     { "speaker": "hero", "content": "Cal, what's\nthis all\nabout?", "duration": 2 },
-    { "speaker": "cal_endar", "content": "I'm sorry,\nbut I needed\nthe points...", "duration": 2 },
+    { "speaker": "cal_endar", "content": "I'm sorry,\nbut I needed\nthe points...", "duration": 2, "emotion": "sad" },
     { "speaker": "cal_endar", "content": "for a party\nthat I'm\nthrowing...", "duration": 2 },
-    { "speaker": "cal_endar", "content": "for my\nfamily and\nfriends!", "duration": 2 },
+    { "speaker": "cal_endar", "content": "for my\nfamily and\nfriends!", "duration": 2},
     { "speaker": "date", "content": "That's what\nwe want to\ndo too!", "duration": 2 },
     { "speaker": "date", "content": "Ours is\nOctober 7th!", "duration": 2 },
     { "speaker": "hero", "content": "When's\nyours?", "duration": 2 },
-    { "speaker": "cal_endar", "content": "Right now!", "duration": 2, "start_dance": true }
+    { "speaker": "cal_endar", "content": "Right now!", "duration": 2, "start_dance": true, "emotion": "happy" }
   ]
 }

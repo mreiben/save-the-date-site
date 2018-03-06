@@ -6,13 +6,20 @@ SaveTheDate.ResultState = {
     this.scoreReady = false;
 
     this.camera.flash('#000000');
-    var background = this.game.add.sprite(0,0,'background_cave');
+    this.background = this.game.add.sprite(0,0,'background_cave');
 
     // stop game music
     SaveTheDate.GameState.orchestra.stop();
 
+    this.guests = [];
+
     // create heart group
     this.hearts = this.add.group();
+
+    // add disco ball
+    this.disco_ball = this.game.add.sprite(this.game.world.centerX, -200, 'disco_ball');
+    this.disco_ball.anchor.setTo(0.5);
+    this.disco_ball.animations.add('spin', [1, 2, 3], 2, true);
 
     // add player
     this.player = this.add.sprite(-50, this.game.world.centerY + 100, SaveTheDate.selectedPlayer);
@@ -42,30 +49,55 @@ SaveTheDate.ResultState = {
     this.cal_endar.animations.add('dance', [4, 5], 4, true);
 
     //add blue_endar
-    this.blue_endar = this.game.add.sprite(this.game.world.centerX + 30, this.game.world.centerY - 15, 'blue_endar');
+    this.blue_endar = this.game.add.sprite(this.game.world.width + 200, this.game.world.centerY - 15, 'blue_endar');
+    this.guests.push({name: this.blue_endar, x: this.game.world.centerX + 30, y: this.game.world.centerY - 15});
     this.blue_endar.anchor.setTo(0.5);
-    this.blue_endar.alpha = 0;
     this.blue_endar.animations.add('dance', [0, 1], 4, true);
 
     // add orange-endar
-    this.orange_endar = this.game.add.sprite(this.game.world.centerX - 600, this.game.world.centerY + 200, 'orange_endar');
+    this.orange_endar = this.game.add.sprite(-150, this.game.world.centerY + 300, 'orange_endar');
+    this.guests.push({name: this.orange_endar, x: this.game.world.centerX - 650, y: this.game.world.centerY + 300});
     this.orange_endar.anchor.setTo(0.5);
-    this.orange_endar.alpha = 0;
     this.orange_endar.animations.add('dance', [0, 1], 4, true);
 
     // add dentist
-    this.dentist = this.game.add.sprite(this.game.world.centerX + 150, this.game.world.centerY + 300, 'dentist');
+    this.dentist = this.game.add.sprite(this.game.world.width + 100, this.game.world.centerY + 300, 'dentist');
+    this.guests.push({name: this.dentist, x: this.game.world.centerX + 150, y: this.game.world.centerY + 300});
     this.dentist.anchor.setTo(0.5);
     this.dentist.scale.x = 0.7;
     this.dentist.scale.y = 0.7;
-    this.dentist.alpha = 0;
     this.dentist.animations.add('dance', [0, 1], 4, true);
 
     // add judge
-    this.judge = this.game.add.sprite(this.game.world.centerX - 300, this.game.world.centerY - 250, 'judge');
+    this.judge = this.game.add.sprite(-150, this.game.world.centerY - 250, 'judge');
+    this.guests.push({name: this.judge, x: this.game.world.centerX - 300, y: this.game.world.centerY - 250});
     this.judge.anchor.setTo(0.5);
-    this.judge.alpha = 0;
     this.judge.animations.add('dance', [0, 1], 4, true);
+
+
+    // add teeth
+    this.tooth = this.game.add.sprite(-100, this.game.world.centerY + 300, 'tooth')
+    this.guests.push({name: this.tooth, x: this.game.world.centerX - 100, y: this.game.world.centerY + 300});
+    this.tooth.anchor.setTo(0.5);
+    this.tooth.animations.add('dance', [1, 2], 4, true);
+
+    // add uhaul
+    this.uhaul = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 250, 'uhaul')
+    this.guests.push({name: this.uhaul, x: -200, y: this.game.world.centerY + 250});
+    this.uhaul.alpha = 0;
+
+    // add moving boxes
+    this.box = this.game.add.sprite(this.game.world.width + 100, this.game.world.centerY + 305, 'box');
+    this.guests.push({name: this.box, x: this.game.world.centerX + 450, y: this.game.world.centerY + 305});
+    this.box.anchor.setTo(0.5);
+    this.box.animations.add('dance', [1, 2], 4, true);
+
+    // add gavels
+    // this.gavel = this.game.add.sprite(this.game.world.centerX - 400, this.game.world.centerY + 250, 'gavel');
+    // this.gavel.anchor.setTo(0.5);
+    // this.gavel.alpha = 0;
+    // this.gavel.animations.add('dance', [0, 1, 2], 4, true);
+
 
     
     this.game.add.tween(this.player).to({
@@ -261,6 +293,7 @@ SaveTheDate.ResultState = {
           this.line_text.x = this.cal_endar_x + 25;
           this.line_text.y = this.cal_endar_y + 25;
           this.line_text.setText(line.content);
+          this.checkEmotion(line);
         }
       }, i * line.duration * 1000);
     }
@@ -317,6 +350,26 @@ SaveTheDate.ResultState = {
     setTimeout(()=> {
       this.playConfrontation();
     }, (closing_dialogue.length + 2.5) * 2000);
+    
+  },
+
+  checkEmotion(line) {
+    if(line.emotion) {
+      switch(line.emotion) {
+        case 'happy':
+          this.cal_endar.frame = 0;
+          break;
+        case 'mad':
+          this.cal_endar.frame = 1;
+          break;
+        case 'sad':
+          this.cal_endar.frame = 2;
+          break;
+        case 'shocked':
+          this.cal_endar.frame = 3;
+          break;
+      }
+    }
   },
 
   barfHearts(){
@@ -381,6 +434,7 @@ SaveTheDate.ResultState = {
         }
 
         else {
+          this.checkEmotion(line);
           this.date_dialogue.alpha = 0;
           this.player_dialogue.alpha = 0;
           this.cal_endar_dialogue.alpha = 1;
@@ -388,18 +442,50 @@ SaveTheDate.ResultState = {
           this.line_text.y = this.cal_endar_y + 25;
           this.line_text.setText(line.content);
           if(line.start_dance){
-            this.cal_endar.play('dance');
-            this.the_date.play('dance');
-            this.the_date.scale.x *= -1;
-            this.player.play('dance');
-            this.orange_endar.alpha = 1;
-            this.orange_endar.play('dance');
-            this.blue_endar.alpha = 1;
-            this.blue_endar.play('dance');
-            this.dentist.alpha = 1;
-            this.dentist.play('dance');
-            this.judge.alpha = 1;
-            this.judge.play('dance');
+            this.calendar.alpha = 0;
+            if(SaveTheDate.selectedPlayer === 'Sarah') {
+              // start awesome music
+              this.scoreMusic = this.add.audio('hava_nagila');
+              this.scoreMusic.play();
+            } else {
+              // start awesome music
+              this.scoreMusic = this.add.audio('we_are_family');
+              this.scoreMusic.play();
+            }
+            this.game.add.tween(this.disco_ball).to({x: this.game.world.centerX, y: this.game.world.centerY}, 2000, Phaser.Easing.Linear.None, true);
+            setTimeout(() => {
+              this.cal_endar_dialogue.alpha = 0;
+              this.line_text.alpha = 0;
+              this.cal_endar.play('dance');
+              this.the_date.play('dance');
+              this.the_date.scale.x *= -1;
+              this.player.play('dance');
+              this.orange_endar.play('dance');
+              this.blue_endar.play('dance');
+              this.dentist.play('dance');
+              this.judge.play('dance');
+              this.disco_ball.play('spin');
+              this.tooth.play('dance');
+              this.box.play('dance');
+              // this.gavel.alpha = 1;
+              // this.gavel.play('dance');
+              this.guests.forEach((guest) => {
+                this.game.add.tween(guest.name).to({x: guest.x, y: guest.y}, 2000, Phaser.Easing.Linear.None, true);
+              });
+
+              setTimeout(() => {
+                this.guests.forEach((guest) => {
+                  this.game.add.tween(this.uhaul).to({x: guest.x, y: guest.y}, 2000, Phaser.Easing.Linear.None, true);
+                });
+              }, 10000);
+
+              setTimeout(() => {
+                console.log(this.game);
+                this.game.time.events.loop(850, function() {
+                  this.background.tint += 3000;
+                }, this);
+              }, 1000);
+            }, 3000);
           };
         }
       }, i * line.duration * 1000);
