@@ -5,7 +5,7 @@ permalink: /high-scores/
 ---
 
 <!-- Slider Start -->
-<section id="high-score-header">
+<section id="global-header">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -35,21 +35,21 @@ permalink: /high-scores/
         scores.push(obj);
       });
 
-      scores.sort((a, b) => {
-        return a.value < b.value;
+      scores = scores.sort((a, b) => {
+        return b.value - a.value;
       });
 
       topScores = scores.slice(0, 10);
 
-      scores.sort((a,b) => {
-        return a.date < b.date;
+      scores = scores.sort((a,b) => {
+        return b.date > a.date;
       })
 
       recentScores = scores.slice(0, 5);
 
       var scoreHolder = document.getElementById('leader-board');
       if(scores) {
-        scores.forEach(({initials, value, date, mode, player}, i) => {
+        topScores.forEach(({initials, value, date, mode, player}, i) => {
           let year = date.substring(2,4);
           let month = date.substring(5,7);
           let day = date.substring(8,10);

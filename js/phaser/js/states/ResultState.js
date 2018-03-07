@@ -8,18 +8,25 @@ SaveTheDate.ResultState = {
     this.camera.flash('#000000');
     this.background = this.game.add.sprite(0,0,'background_cave');
 
+    // add uhaul
+    this.uhaul = this.game.add.sprite(-600, this.game.world.centerY - 300, 'uhaul');
+    this.uhaul.scale.x = 0.6;
+    this.uhaul.scale.y = 0.6;
+
+    this.background_front = this.game.add.sprite(0,0,'background_cave_front');
+
     // stop game music
     SaveTheDate.GameState.orchestra.stop();
 
     this.guests = [];
 
-    // create heart group
-    this.hearts = this.add.group();
+    // add calendar
+    this.calendar = this.game.add.sprite(this.game.world.centerX - 75, this.game.world.centerY - 400, 'wall_calendar');
 
     // add disco ball
     this.disco_ball = this.game.add.sprite(this.game.world.centerX, -200, 'disco_ball');
     this.disco_ball.anchor.setTo(0.5);
-    this.disco_ball.animations.add('spin', [1, 2, 3], 2, true);
+    this.disco_ball.animations.add('spin', [2, 3, 4, 1], 2, true);
 
     // add player
     this.player = this.add.sprite(-50, this.game.world.centerY + 100, SaveTheDate.selectedPlayer);
@@ -29,9 +36,6 @@ SaveTheDate.ResultState = {
     this.player.anchor.setTo(0.5);
     this.player.scale.x = 0.5;
     this.player.scale.y = 0.5;
-
-    // add calendar
-    this.calendar = this.game.add.sprite(this.game.world.centerX - 75, this.game.world.centerY - 400, 'wall_calendar');
 
     // add date (in calendar)
     let date_name = SaveTheDate.selectedPlayer === 'Sarah' ? 'Jason' : 'Sarah'
@@ -48,6 +52,9 @@ SaveTheDate.ResultState = {
     this.cal_endar.frame = 0;
     this.cal_endar.animations.add('dance', [4, 5], 4, true);
 
+    // create heart group
+    this.hearts = this.add.group();
+
     //add blue_endar
     this.blue_endar = this.game.add.sprite(this.game.world.width + 200, this.game.world.centerY - 15, 'blue_endar');
     this.guests.push({name: this.blue_endar, x: this.game.world.centerX + 30, y: this.game.world.centerY - 15});
@@ -60,6 +67,14 @@ SaveTheDate.ResultState = {
     this.orange_endar.anchor.setTo(0.5);
     this.orange_endar.animations.add('dance', [0, 1], 4, true);
 
+    // add gonk
+    this.gonk = this.game.add.sprite(-150, this.game.world.centerY - 100, 'gonk');
+    this.guests.push({name: this.gonk, x: 200, y: this.game.world.centerY - 100});
+    this.gonk.scale.x = 2;
+    this.gonk.scale.y = 2;
+    this.gonk.anchor.setTo(0.5);
+    this.gonk.animations.add('dance', [0, 1], 4, true);
+
     // add dentist
     this.dentist = this.game.add.sprite(this.game.world.width + 100, this.game.world.centerY + 300, 'dentist');
     this.guests.push({name: this.dentist, x: this.game.world.centerX + 150, y: this.game.world.centerY + 300});
@@ -69,22 +84,18 @@ SaveTheDate.ResultState = {
     this.dentist.animations.add('dance', [0, 1], 4, true);
 
     // add judge
-    this.judge = this.game.add.sprite(-150, this.game.world.centerY - 250, 'judge');
-    this.guests.push({name: this.judge, x: this.game.world.centerX - 300, y: this.game.world.centerY - 250});
+    this.judge = this.game.add.sprite(-150, this.game.world.centerY - 150, 'judge');
+    this.guests.push({name: this.judge, x: this.game.world.centerX - 300, y: this.game.world.centerY - 150});
     this.judge.anchor.setTo(0.5);
+    this.judge.scale.x = 0.7;
+    this.judge.scale.y = 0.7;
     this.judge.animations.add('dance', [0, 1], 4, true);
-
 
     // add teeth
     this.tooth = this.game.add.sprite(-100, this.game.world.centerY + 300, 'tooth')
     this.guests.push({name: this.tooth, x: this.game.world.centerX - 100, y: this.game.world.centerY + 300});
     this.tooth.anchor.setTo(0.5);
     this.tooth.animations.add('dance', [1, 2], 4, true);
-
-    // add uhaul
-    this.uhaul = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 250, 'uhaul')
-    this.guests.push({name: this.uhaul, x: -200, y: this.game.world.centerY + 250});
-    this.uhaul.alpha = 0;
 
     // add moving boxes
     this.box = this.game.add.sprite(this.game.world.width + 100, this.game.world.centerY + 305, 'box');
@@ -274,6 +285,7 @@ SaveTheDate.ResultState = {
         line.content = `for fewer\nthan ${this.total_points}\npoints!`;
       }
       setTimeout(() =>{
+        this.checkEmotion(line);
         if(line.speaker === "hero"){
           this.player_dialogue.alpha = 1;
           this.cal_endar_dialogue.alpha = 0;
@@ -282,7 +294,7 @@ SaveTheDate.ResultState = {
           this.line_text.setText(line.content);
         }
         else if (line.speaker === 'pause') {
-          this.barfHearts();
+          if(line.barf) this.barfHearts();
           this.player_dialogue.alpha = 0;
           this.cal_endar_dialogue.alpha = 0;
           this.line_text.setText('');
@@ -293,7 +305,6 @@ SaveTheDate.ResultState = {
           this.line_text.x = this.cal_endar_x + 25;
           this.line_text.y = this.cal_endar_y + 25;
           this.line_text.setText(line.content);
-          this.checkEmotion(line);
         }
       }, i * line.duration * 1000);
     }
@@ -373,18 +384,19 @@ SaveTheDate.ResultState = {
   },
 
   barfHearts(){
-
+    console.log("BARF");
     for(let i = 0; i < 10; i++){
       setTimeout(() => {
-        let xDiff = Math.floor(Math.random() * 100);
-        let yDiff = Math.floor(Math.random() * 100);
-        this.hearts.add(new SaveTheDate.Heart(
+        let heart = new SaveTheDate.Heart(
           this.game,
-          this.player.position.x + xDiff,
-          this.player.position.y - 200,
+          this.player.position.x + 50,
+          this.player.position.y,
           1
-        ));
-      }, i * 200);
+        );
+        this.hearts.add(heart);
+        this.game.add.tween(heart).to({x: this.calendar.x + 50, y: this.calendar.y + 100}, 500, Phaser.Easing.Linear.None, true);
+        this.game.add.tween(heart).to({alpha: 0}, 600, Phaser.Easing.Linear.None, true);
+      }, i * 100);
     }
 
     // loop through x times (if score / 100 < 10, 10, else score/100 )
@@ -416,6 +428,7 @@ SaveTheDate.ResultState = {
     for(let i = 0; i < confrontation_dialogue.length; i++){
       let line = confrontation_dialogue[i];
       setTimeout(() =>{
+        this.checkEmotion(line);
         if(line.speaker === "hero"){
           this.player_dialogue.alpha = 1;
           this.cal_endar_dialogue.alpha = 0;
@@ -434,7 +447,6 @@ SaveTheDate.ResultState = {
         }
 
         else {
-          this.checkEmotion(line);
           this.date_dialogue.alpha = 0;
           this.player_dialogue.alpha = 0;
           this.cal_endar_dialogue.alpha = 1;
@@ -442,16 +454,6 @@ SaveTheDate.ResultState = {
           this.line_text.y = this.cal_endar_y + 25;
           this.line_text.setText(line.content);
           if(line.start_dance){
-            this.calendar.alpha = 0;
-            if(SaveTheDate.selectedPlayer === 'Sarah') {
-              // start awesome music
-              this.scoreMusic = this.add.audio('hava_nagila');
-              this.scoreMusic.play();
-            } else {
-              // start awesome music
-              this.scoreMusic = this.add.audio('we_are_family');
-              this.scoreMusic.play();
-            }
             this.game.add.tween(this.disco_ball).to({x: this.game.world.centerX, y: this.game.world.centerY}, 2000, Phaser.Easing.Linear.None, true);
             setTimeout(() => {
               this.cal_endar_dialogue.alpha = 0;
@@ -460,32 +462,38 @@ SaveTheDate.ResultState = {
               this.the_date.play('dance');
               this.the_date.scale.x *= -1;
               this.player.play('dance');
-              this.orange_endar.play('dance');
-              this.blue_endar.play('dance');
-              this.dentist.play('dance');
-              this.judge.play('dance');
               this.disco_ball.play('spin');
-              this.tooth.play('dance');
-              this.box.play('dance');
-              // this.gavel.alpha = 1;
-              // this.gavel.play('dance');
               this.guests.forEach((guest) => {
                 this.game.add.tween(guest.name).to({x: guest.x, y: guest.y}, 2000, Phaser.Easing.Linear.None, true);
+                guest.name.play('dance');
               });
 
               setTimeout(() => {
-                this.guests.forEach((guest) => {
-                  this.game.add.tween(this.uhaul).to({x: guest.x, y: guest.y}, 2000, Phaser.Easing.Linear.None, true);
-                });
+                this.game.add.tween(this.uhaul).to({x: 1000, y: this.game.world.centerY - 300}, 4000, Phaser.Easing.Linear.None, true);
+                this.uhaul.animations.add('dance', [1,4], 4, true);
+                this.uhaul.play('dance');
+                setTimeout(() => {
+                  this.game.add.tween(this.uhaul).to({x: -500, y: this.game.world.centerY - 300}, 4000, Phaser.Easing.Linear.None, true);
+
+                }, 5000);
               }, 10000);
 
               setTimeout(() => {
-                console.log(this.game);
+                this.calendar.alpha = 0;
+                if(SaveTheDate.selectedPlayer === 'Sarah') {
+                  // start awesome music
+                  this.scoreMusic = this.add.audio('hava_nagila');
+                  this.scoreMusic.play();
+                } else {
+                  // start awesome music
+                  this.scoreMusic = this.add.audio('we_are_family');
+                  this.scoreMusic.play();
+                }
                 this.game.time.events.loop(850, function() {
-                  this.background.tint += 3000;
+                  this.background_front.tint += 3000;
                 }, this);
-              }, 1000);
-            }, 3000);
+              }, 0);
+            }, 2000);
           };
         }
       }, i * line.duration * 1000);
