@@ -55,7 +55,7 @@ SaveTheDate.PreloadState = {
 
 
     this.load.audio('orchestra', ['./js/phaser/assets/audio/JPEinstrumental.mp3', 'assets/audio/JPEinstrumental.ogg']);
-    this.load.audio('hava_nagila', ['./js/phaser/assets/audio/Israel - Hava Nagila.mp3']);
+    this.load.audio('hava_nagila', ['./js/phaser/assets/audio/Hava_Nagila.mp3']);
     this.load.audio('we_are_family', ['./js/phaser/assets/audio/we_are_family.mp3']);
 
     //load level data
