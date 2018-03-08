@@ -108,8 +108,6 @@ SaveTheDate.ResultState = {
     // this.gavel.anchor.setTo(0.5);
     // this.gavel.alpha = 0;
     // this.gavel.animations.add('dance', [0, 1, 2], 4, true);
-
-
     
     this.game.add.tween(this.player).to({
       y: this.game.world.centerY + 100,
@@ -475,8 +473,19 @@ SaveTheDate.ResultState = {
                 setTimeout(() => {
                   this.game.add.tween(this.uhaul).to({x: -500, y: this.game.world.centerY - 300}, 4000, Phaser.Easing.Linear.None, true);
 
+                  setTimeout(() => {
+                        // add background fade sheet
+                    this.bg = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'bg');
+                    this.bg.anchor.setTo(0.5);
+                    this.bg.alpha = 0;
+                    this.bg.scale.x = 10;
+                    this.bg.scale.y = 10;
+                    this.game.add.tween(this.bg).to({alpha: 0.8}, 5000, Phaser.Easing.Linear.None, true);
+                    this.scoreMusic.fadeOut(5000);
+                  }, 7000);
+
                 }, 5000);
-              }, 10000);
+              }, 5000);
 
               setTimeout(() => {
                 this.calendar.alpha = 0;
@@ -501,8 +510,12 @@ SaveTheDate.ResultState = {
 
     setTimeout(()=> {
       this.the_date.scale.x = 0.5;
-    }, 10000);
+    }, 8000);
   }
+
+// closingWords(){
+  
+// }
 
 };
 

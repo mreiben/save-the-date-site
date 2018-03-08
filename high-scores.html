@@ -54,13 +54,14 @@ permalink: /high-scores/
           let month = date.substring(5,7);
           let day = date.substring(8,10);
           let formattedDate = `${month}/${day}/${year}`;
+          let playerDescription = player === 'Sarah' ? 'Short' : 'Tall';
           scoreHolder.innerHTML += `
             <tr>
               <th scope="row">${i + 1}</th>
               <td>${initials}</td>
               <td>${value}</td>
               <td>${mode}</td>
-              <td>${player}</td>
+              <td>${playerDescription}</td>
               <td>${formattedDate}</td>
             </tr>
           `;
@@ -106,41 +107,51 @@ permalink: /high-scores/
 </script>
 
 <!-- leader board -->
-<section class="container high-scores">
-  <h3>Leader Board:</h3>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Rank</th>
-        <th scope="col">Initials</th>
-        <th scope="col">Score</th>
-        <th scope="col">Difficulty</th>
-        <th scope="col">Player</th>
-        <th scope="col">Date</th>
-      </tr>
-    </thead>
-    <tbody id="leader-board">
-    </tbody>
-  </table>
+<section class="container">
+  <div class="col-md-2"></div>
+  <section class="container high-scores col-md-8">
+    <h3>Leader Board:</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Rank</th>
+          <th scope="col">Initials</th>
+          <th scope="col">Score</th>
+          <th scope="col">Difficulty</th>
+          <th scope="col">Player</th>
+          <th scope="col">Date</th>
+        </tr>
+      </thead>
+      <tbody id="leader-board">
+      </tbody>
+    </table>
+  </section>
+  <div class="col-md-2"></div>
 </section>
 
-<!-- leader board -->
-<section class="container high-scores">
-  <h3>Recent Games:</h3>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Initials</th>
-        <th scope="col">Score</th>
-        <th scope="col">Difficulty</th>
-        <th scope="col">Player</th>
-        <th scope="col">Date</th>
-      </tr>
-    </thead>
-    <tbody id="recent-board">
-    </tbody>
-  </table>
+
+<!-- revent scores board -->
+<section class="container">
+  <div class="col-md-2"></div>
+  <section class="col-md-8">
+    <h3>Recent Games:</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Initials</th>
+          <th scope="col">Score</th>
+          <th scope="col">Difficulty</th>
+          <th scope="col">Player</th>
+          <th scope="col">Date</th>
+        </tr>
+      </thead>
+      <tbody id="recent-board">
+      </tbody>
+    </table>
+  </section>
+  <div class="col-md-2"></div>
 </section>
+
 
 <section class="container">
   <h2>What they're saying:</h2>

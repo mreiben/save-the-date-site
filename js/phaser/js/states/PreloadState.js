@@ -54,6 +54,7 @@ SaveTheDate.PreloadState = {
     this.load.image('stats_box', './js/phaser/assets/images/stats_box.png');
     this.load.image('save_score_box', './js/phaser/assets/images/save_score_box.png');
     this.load.image('cave_mouth', './js/phaser/assets/images/cave_mouth.png');
+    this.load.image('bg', './js/phaser/assets/images/bg.png');
 
 
     this.load.audio('orchestra', ['./js/phaser/assets/audio/JPEinstrumental.mp3', 'assets/audio/JPEinstrumental.ogg']);

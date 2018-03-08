@@ -11,7 +11,6 @@
     { "speaker": "date", "content": "While I was\nin there...", "duration": 2, "emotion": "happy" },
     { "speaker": "date", "content": "I found\nthe perfect\ndate...", "duration": 2 },
     { "speaker": "date", "content": "OCTOBER 7th!", "duration": 2 },
-    { "speaker": "date", "content": "...", "duration": 2 },
     { "speaker": "hero", "content": "Yep!", "duration": 2 },
     { "speaker": "hero", "content": "Cal, what's\nthis all\nabout?", "duration": 2 },
     { "speaker": "cal_endar", "content": "I'm sorry!\nI needed the\nhearts...", "duration": 2, "emotion": "sad" },
