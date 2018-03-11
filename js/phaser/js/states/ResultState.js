@@ -121,6 +121,12 @@ SaveTheDate.ResultState = {
       // start convo
     }, 2000)
   },
+  update: function() {
+    // TEMPORARY: skip to results stage
+    if (this.game.input.keyboard.isDown(Phaser.Keyboard.K)) {
+      this.stopAll();
+    }
+  },
 
   setPlayerScore: function() {
     var score_style = { font: '36px "Press Start 2P"', fill: "#000" };
@@ -138,7 +144,6 @@ SaveTheDate.ResultState = {
     let hitMiss = this.game.shots != 0 ? (this.game.hits / this.game.shots) : 1;
     let accuracy = Math.floor(hitMiss * 100);
     let accuracy_text = `Accuracy: ${accuracy}% x 5 = ${accuracy * 5}`;
-    // TODO: add difficulty settings
     let difficulty = 0;
     if (SaveTheDate.difficulty === 'medium'){
       difficulty = 10;
@@ -146,8 +151,8 @@ SaveTheDate.ResultState = {
     if (SaveTheDate.difficulty === 'hard'){
       difficulty = 20;
     }
-    let difficulty_percent = `${SaveTheDate.difficulty}: ${difficulty}%`;
-    let difficulty_text = `Bonus: ${difficulty_percent} = ${SaveTheDate.GameState.score * (difficulty/100)}`;
+    let difficulty_percent = `${difficulty}%`;
+    let difficulty_text = `Difficulty bonus: ${difficulty_percent} = ${SaveTheDate.GameState.score * (difficulty/100)}`;
 
     this.total_points = Math.floor((SaveTheDate.GameState.score * (1 + (difficulty/100)))
                       + (this.game.energy * 250)
@@ -482,7 +487,8 @@ SaveTheDate.ResultState = {
                     this.bg.scale.y = 10;
                     this.game.add.tween(this.bg).to({alpha: 0.8}, 5000, Phaser.Easing.Linear.None, true);
                     this.scoreMusic.fadeOut(5000);
-                  }, 7000);
+                    this.stopAll();
+                  }, 2000);
 
                 }, 5000);
               }, 5000);
@@ -511,11 +517,55 @@ SaveTheDate.ResultState = {
     setTimeout(()=> {
       this.the_date.scale.x = 0.5;
     }, 8000);
-  }
+  },
 
-// closingWords(){
-  
-// }
+  stopAll() {
+    setTimeout(() =>{
+      let dancers = [this.player, this.the_date, this.cal_endar, this.blue_endar, this.orange_endar, this.box, this.tooth, this.judge, this.dentist, this.disco_ball, this.gonk];
+      dancers.forEach((dancer) => {
+        dancer.animations.stop();
+        // dancer.frame = 1;
+      });
+      this.cal_endar.frame = 4;
+      this.game.time.events.stop();
+      this.setFinalWords();
+    }, 4000)
+  },
+
+  setFinalWords(){
+    let style = { font: '45px "Press Start 2P"', fill: '#fff'};
+    //Thank you for
+    this.thank_you = this.game.add.text(this.game.world.centerX, 220, `Thank you for`, style);
+    this.thank_you.alpha = 0;
+    this.game.add.tween(this.thank_you).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true);
+    this.thank_you.anchor.setTo(0.5);
+
+    //saving the date!
+    this.std = this.game.add.text(this.game.world.centerX, 280, `saving the date!`, style);
+    this.std.alpha = 0;
+    this.game.add.tween(this.std).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true);
+    this.std.anchor.setTo(0.5);
+
+    //We hope you'll
+    this.we_hope = this.game.add.text(this.game.world.centerX, 470, `We hope you'll`, style);
+    this.we_hope.alpha = 0;
+    this.game.add.tween(this.we_hope).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true);
+    this.we_hope.anchor.setTo(0.5);
+
+    //join us on
+    this.join_us = this.game.add.text(this.game.world.centerX, 530, `join us on`, style);
+    this.join_us.alpha = 0;
+    this.game.add.tween(this.join_us).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true);
+    this.join_us.anchor.setTo(0.5);
+
+    //Sunday, October 7, 2018!
+    let date_style = { font: '55px "Press Start 2P"', fill: '#fff'};
+    this.final_date = this.game.add.text(this.game.world.centerX, 610, `Sunday, October 7, 2018!`, date_style);
+    this.final_date.alpha = 0;
+    this.game.add.tween(this.final_date).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true);
+    this.final_date.anchor.setTo(0.5);
+
+  }
 
 };
 

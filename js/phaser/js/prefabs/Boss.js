@@ -11,7 +11,8 @@ SaveTheDate.Boss = function(game, x, y, type, health) {
   this.checkWorldBounds = true;
   this.health = 20;
   this.bossType = type;
-  this.animations.add('still', [0], 1, true)
+  this.animations.add('still', [1], 1, true);
+  this.animations.add('still_damaged', [3], 1, true)
   this.animations.add('walk', [0,1], 3, true);
   this.animations.add('damaged', [2,3], 3, false);
   this.animations.add('blink', [0, 4, 0, 4], 2, false);
@@ -26,7 +27,18 @@ SaveTheDate.Boss.prototype.constructor = SaveTheDate.Boss;
 
 SaveTheDate.Boss.prototype.damage = function(amount) {
   Phaser.Sprite.prototype.damage.call(this, amount);
-  this.play('damaged');
+  if (this.bossType === "dentist"){
+    this.animations.stop();
+    if(SaveTheDate.flossOut){
+      this.play('still_damaged');
+    }
+    else {
+      this.play('damaged');
+    }
+  }
+  else {
+    this.play('damaged');
+  }
 
   if(this.health <= 0) {
     var emitter = this.game.add.emitter(this.x, this.y, 100);
@@ -45,9 +57,9 @@ SaveTheDate.Boss.prototype.damage = function(amount) {
     SaveTheDate.GameState.loadLevel();
   }
 
-  setTimeout(() => {
-    this.play('walk');
-  }, 1000);
+  // setTimeout(() => {
+  //   this.play('walk');
+  // }, 1500);
 };
 
 SaveTheDate.Boss.prototype.update = function() {
@@ -136,19 +148,23 @@ let createGavel = function() {
 };
 
 let createFloss = function() {
-  let floss = new SaveTheDate.BossBullet(this.game, this.x - 770, this.y - 35, 'floss');
+  this.animations.stop();
+  let floss = new SaveTheDate.BossBullet(this.game, this.x - 700, this.y - 70, 'floss');
   this.isPaused = true;
+  SaveTheDate.flossOut = true;
   if(this.body){
     this.body.velocity.y = 0;
   }
   SaveTheDate.GameState.bossBullets.add(floss);
   this.play('still');
   setTimeout(() => {
+    this.animations.stop();
     this.isPaused = false;
+    SaveTheDate.flossOut = false;
     let rand = Math.floor(Math.random() * 2);
     let velo = rand === 0 ? -300 : 300;
     this.body.velocity.y = velo;
     SaveTheDate.GameState.bossBullets.remove(floss);
     this.play('walk');
-  }, 2000)
+  }, 2500)
 };

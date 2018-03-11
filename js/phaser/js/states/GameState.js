@@ -10,11 +10,11 @@ SaveTheDate.GameState = {
     this.game.hits = 0;
 
     this.GLOBAL_SPEED = .75;
-    this.PLAYER_SPEED = SaveTheDate.selectedPlayer === 'Sarah' ? 650 * this.GLOBAL_SPEED : 800 * this.GLOBAL_SPEED;
+    this.PLAYER_SPEED = SaveTheDate.selectedPlayer === 'Sarah' ? 650 * this.GLOBAL_SPEED : 850 * this.GLOBAL_SPEED;
     this.FIREBALL_SPEED = 2000 * this.GLOBAL_SPEED;
     this.UHAUL_SPEED = -150 * this.GLOBAL_SPEED;
     this.BACKGROUND_SPEED = -100 * this.GLOBAL_SPEED;
-    this.FIRE_POWER = SaveTheDate.selectedPlayer === 'Sarah' ? 500 : 650;
+    this.FIRE_POWER = SaveTheDate.selectedPlayer === 'Sarah' ? 500 : 700;
 
     // this.selectedPlayer = 'sarah';
 
@@ -281,6 +281,7 @@ SaveTheDate.GameState = {
       this.background.autoScroll(0,0);
       this.player.animations.stop(null, true);
       this.player.frame = 0;
+      this.orchestra.fadeOut(6000);
 
       // say something then enter cave
       setTimeout(() =>{
@@ -378,7 +379,7 @@ SaveTheDate.GameState = {
     var enemy = new SaveTheDate.Enemy(this.game, this.game.world.width, randY, type, health);
     this.enemies.add(enemy);
 
-    enemy.body.velocity.x = speed * (-.4 * this.currentLevel) * this.GLOBAL_SPEED;
+    enemy.body.velocity.x = (speed + 100) * (-.4 * this.currentLevel) * this.GLOBAL_SPEED;
   },
 
   createBoss: function(type) {

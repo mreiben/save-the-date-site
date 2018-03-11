@@ -31,6 +31,30 @@
       "health": 5,
       "speedX": 300,
       "key": "tooth"
+    },
+    {
+      "time": 6,
+      "health": 1,
+      "speedX": 200,
+      "key": "tooth"
+    },
+    {
+      "time": 7,
+      "health": 2,
+      "speedX": 300,
+      "key": "tooth"
+    },
+    {
+      "time": 8,
+      "health": 3,
+      "speedX": 400,
+      "key": "tooth"
+    },
+    {
+      "time": 9,
+      "health": 4,
+      "speedX": 500,
+      "key": "tooth"
     }
   ]
 }

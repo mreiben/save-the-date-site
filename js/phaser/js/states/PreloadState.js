@@ -39,7 +39,7 @@ SaveTheDate.PreloadState = {
     this.load.spritesheet('heart','./js/phaser/assets/images/heart.png', 240, 224, 3, 0, 0);
     this.load.spritesheet('battery','./js/phaser/assets/images/battery.png', 50, 75, 3, 0, 0);
     this.load.spritesheet('box','./js/phaser/assets/images/box.png', 194, 129, 6, 0, 0);
-    this.load.spritesheet('gavel','./js/phaser/assets/images/gavel.png', 180, 150, 6, 0, 0);
+    this.load.spritesheet('summons','./js/phaser/assets/images/summons.png', 132, 140, 6, 0, 0);
     this.load.spritesheet('bossGavel','./js/phaser/assets/images/bossGavel.png', 180, 180, 4, 0, 0);
     this.load.spritesheet('tooth','./js/phaser/assets/images/tooth.png', 150, 180, 6, 0, 0);
     this.load.spritesheet('fireball', './js/phaser/assets/images/fireball.png', 40, 40, 4, 0, 0);
@@ -47,7 +47,7 @@ SaveTheDate.PreloadState = {
     this.load.spritesheet('dentist','./js/phaser/assets/images/dentist.png', 305, 500, 4, 0, 0);
     this.load.spritesheet('cal_endar','./js/phaser/assets/images/cal_endar.png', 475, 475, 6, 0, 0);
     this.load.spritesheet('blue_endar','./js/phaser/assets/images/blue_endar.png', 475, 475, 2, 0, 0);
-    this.load.spritesheet('orange_endar','./js/phaser/assets/images/orange_endar.png', 332, 332, 2, 0, 0);
+    this.load.spritesheet('orange_endar','./js/phaser/assets/images/orange_endar.png', 229, 315, 2, 0, 0);
     this.load.spritesheet('disco_ball','./js/phaser/assets/images/disco.png', 800, 900, 5, 0, 0);
     this.load.spritesheet('gonk','./js/phaser/assets/images/gonk.png', 70, 86, 2, 0, 0);
     this.load.image('wall_calendar', './js/phaser/assets/images/wall_calendar.png');
@@ -57,7 +57,7 @@ SaveTheDate.PreloadState = {
     this.load.image('bg', './js/phaser/assets/images/bg.png');
 
 
-    this.load.audio('orchestra', ['./js/phaser/assets/audio/JPEinstrumental.mp3', 'assets/audio/JPEinstrumental.ogg']);
+    this.load.audio('orchestra', ['./js/phaser/assets/audio/JPEinstrumental.mp3']);
     this.load.audio('hava_nagila', ['./js/phaser/assets/audio/Hava_Nagila.mp3']);
     this.load.audio('we_are_family', ['./js/phaser/assets/audio/we_are_family.mp3']);
 
