@@ -387,9 +387,10 @@ SaveTheDate.ResultState = {
   },
 
   barfHearts(){
-    console.log("BARF");
+    this.collect_heart = this.game.add.audio('collect_heart');
     for(let i = 0; i < 10; i++){
       setTimeout(() => {
+        this.collect_heart.play();
         let heart = new SaveTheDate.Heart(
           this.game,
           this.player.position.x + 50,

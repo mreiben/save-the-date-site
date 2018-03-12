@@ -168,7 +168,7 @@ body {
 }
 
 #global-header {
-  background: url("../img/Hamilton.jpg") no-repeat;
+  background: url("../img/banner1.jpg") no-repeat;
   background-size: 100%;
   padding-top: 150px;
   padding-bottom: 107px;
@@ -206,4 +206,92 @@ body {
   font-weight: 300;
   letter-spacing: 1px;
   word-spacing: 3px;
+}
+
+#hamilton-header {
+  background: url("../img/Hamilton.jpg") no-repeat;
+  background-size: 100%;
+  padding-top: 150px;
+  padding-bottom: 107px;
+  position: relative;
+  background-attachment: fixed;
+}
+#hamilton-header:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to left, #928dab, #1f1c2c 70%);
+  opacity: 0.8;
+}
+#hamilton-header .block {
+  color: #E3E3E4;
+  margin: 0 auto;
+  padding-left: 90px;
+  text-align: center;
+}
+#hamilton-header .block h1 {
+  font-weight: 100;
+  font-size: 56px;
+  letter-spacing: 6px;
+  padding-bottom: 15px;
+  margin-top: 0;
+  text-transform: capitalize;
+}
+#hamilton-header .block p {
+  font-size: 24px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  word-spacing: 3px;
+}
+
+#map-holder {
+}
+
+.getting-there-img {
+  width: 650px;
+  padding: 10px;
+  margin: 30px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 3px;
+} */
+
+.getting-there-img:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.travel-icons {
+  display: flex;
+}
+
+.gfs-holder {
+  padding-left: 20px;
+}
+
+
+#img-holder {
+  width: 500px;
+}
+
+.hide {
+  display: none;
+}
+
+.thumb {
+  display: inline-block;
+  width: 200px;
+  margin: 0 5px;
+}
+
+.travel-info {
+  border-top: 1px solid grey;
+}
+
+.carousel-inner img {
+  width: 600px;
 }

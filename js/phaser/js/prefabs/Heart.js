@@ -23,6 +23,9 @@ SaveTheDate.Heart.prototype = Object.create(Phaser.Sprite.prototype);
 SaveTheDate.Heart.prototype.constructor = SaveTheDate.Heart;
 
 SaveTheDate.Heart.prototype.damage = function(amount) {
+  this.collect_heart = this.game.add.audio('collect_heart');
+  this.collect_heart.play();
+
   if (SaveTheDate.difficulty === 'easy') this.points *= .5;
   if (SaveTheDate.difficulty === 'medium') this.points *= 1;
   if (SaveTheDate.difficulty === 'hard') this.points *= 1.5;
