@@ -297,3 +297,15 @@ body {
 .map-holder {
   margin-top: 30px;
 }
+
+.faq-img {
+  width: 300px;
+}
+
+#plots {
+  cursor: pointer;
+}
+
+#plots:hover {
+  font-style: italic;
+}
