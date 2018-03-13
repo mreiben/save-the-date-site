@@ -3,6 +3,31 @@ layout: page
 title: FAQ
 permalink: /faq/
 ---
+<!--Scripts script-->
+<script>
+$(document).ready(function(){
+  let plots = [
+  "Back when Jason was a cellist for the New York Philharmonic, Sarah was called to his apartment to investigate some paranormal activity, and the rest is history.",
+  "Back when Jason was a young FBI cadet, he consulted Sarah on a grotesque case, and the rest is history.",
+  "Back when Jason was doing PR for the Miami Dolphins, Sarah was brought on to help find a kidnapped mascot, and the rest is history.",
+  "Back when Jason was the the chief of police of a small seaside town, he hired Sarah to hunt a killer shark that threatened to ruin the summer season, and the rest is history.",
+  "Back when Jason discovered that prehistoric DNA could be trapped in amber, he hired Sarah, a paleobotanist, to approve plans for an amusement park filled with living dinosaurs, and the rest is history.",
+  "Back when Jason was a ghost, he summoned Sarah to exorcise his house of living people, and the rest is history.",
+  "Back when Jason was a robot trash compactor cleaning up abandoned Earth, Sarah, an Extra-terrestrial Vegetation Evaluator, was sent by the Buy-N-Large Corporation to scan the planet to see if it was once again habitable, and the rest is history.",
+  "Back when Jason was the charismatic leader of a gang of surfers, Sarah was sent undercover to investigate a string of bank robberies, and the rest is history.",
+  "Back when Jason was trying to thwart an international gang of terrorists in Nakatomi Plaza, Sarah was the first cop to respond to his radioed distress calls, and the rest is history.",
+  "Back when Jason was working to prevent Skynet from becoming conscious, Sarah was sent from the future to protect him from a liquid metal assassin, and the rest is history.",
+  "Back when Jason was king of Goblin City, he kidnapped Sarah’s baby brother, and the rest is history.",
+  "Back when Jason was living in his parents’ basement, he and Sarah had to fight to maintain the integrity of their public-access TV show after selling the rights to a sleazy TV producer, and the rest is history.",
+  "Back when Jason was a helicopter pilot stationed on a research base in Antarctica, Sarah quickly hijacked and assimilated the bodies of nearly everyone else on the base, and the rest is history."
+  ]
+  let plot_selector = $('#plots');
+  let selected_plot = Math.floor(Math.random() * plots.length);
+  plot_selector.text(plots[selected_plot])
+});
+</script>
+
+
 <!-- Slider Start -->
 <section id="global-header">
   <div class="container">
@@ -16,7 +41,36 @@ permalink: /faq/
     </div>
   </div>
 </section>
-{% for post in site.posts %}
+
+<section id="portfolio-work">
+    <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2><strong>FAQ</strong></h2>
+
+            <h3>New Jersey?</h3>
+            <h4>Yep! It's going to be awesome! </h4>
+
+            <h3>How did you make the game?</h3>
+            <h4>We used Phaser, a game development framework, and quite a bit of our free time.</h4>
+
+            <h3>How did you meet?</h3>
+            <h4 id='plots'></h4>
+
+            <h3>Sarah, did you make any other assets for the site that didn't end up fitting in, but you really want to share anyway?</h3>
+            <h4>Yes! Thank you so much for asking!</h4>
+            <img src="/img/Hamilton.jpg" class="slideshow-img"></img><br>
+
+            <h3>Any more photos to share?</h3>
+            <h4>Sure!</h4>
+            <img src="/img/js_ringingrock.jpg" class="slideshow-img"></img><br>
+            <img src="/img/js_camping.jpg" class="slideshow-img"></img><br>
+            <img src="/img/js_gonkat-st.jpg" class="slideshow-img"></img><br>
+          </div>
+        </div>
+    </div>
+</section>
+<!-- {% for post in site.posts %}
 <div class="post-area">
   <a href="{{ post.url | prepend: site.baseurl }}" class="bold">{{ post.title }}</a>
   <p class="post-date">{{ post.date | date_to_long_string }}</p>
@@ -24,4 +78,18 @@ permalink: /faq/
     {{ post.content | strip_html | truncatewords: 50 }}
   </p>
 </div>
-{% endfor %}
+{% endfor %} -->
+
+<!-- Call to action Start -->
+<section id="call-to-action">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block">
+          <h2>Final stuff</h2>
+          <p>about us</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

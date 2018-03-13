@@ -9,19 +9,50 @@ permalink: /accomodations/
     <div class="row">
       <div class="col-md-12">
         <div class="block">
-          <h1>Logistics</h1>
-          <p>Stuff you might want to know</p>
+          <h1>Accomodations</h1>
+          <p>Where to lay your head</p>
         </div>
       </div>
     </div>
   </div>
 </section>
-{% for post in site.posts %}
-<div class="post-area">
-  <a href="{{ post.url | prepend: site.baseurl }}" class="bold">{{ post.title }}</a>
-  <p class="post-date">{{ post.date | date_to_long_string }}</p>
-  <p>
-    {{ post.content | strip_html | truncatewords: 50 }}
-  </p>
-</div>
-{% endfor %}
+<section id="portfolio-work">
+    <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2><strong>Where to Stay</strong></h2>
+            <h3>Check back here soon for hotel block information!</h3>
+            <img src="/img/js_london.jpg" class="slideshow-img"></img><br>
+            <i>Here we are in Trafalgar Square.</i>
+          </div>
+        </div>
+    </div>
+</section>
+
+<!-- Clients Logo Section Start -->
+<!-- <section id="clients-logo-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block">
+          other stuff
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<!-- Call to action Start -->
+<section id="call-to-action">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block">
+          <h2>Final stuff</h2>
+          <p>about us</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
