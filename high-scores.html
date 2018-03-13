@@ -41,11 +41,14 @@ permalink: /high-scores/
 
       topScores = scores.slice(0, 10);
 
-      scores = scores.sort((a,b) => {
-        return b.date > a.date;
+      let newscores = scores.sort((a,b) => {
+        let dateA = Date.parse(a.date);
+        let dateB = Date.parse(b.date);
+        return dateA > dateB ? -1 : 1;
       })
 
-      recentScores = scores.slice(0, 5);
+      recentScores = newscores.slice(0, 5);
+      console.log(Date.parse(recentScores[0].date))
 
       var scoreHolder = document.getElementById('leader-board');
       if(scores) {
@@ -54,14 +57,13 @@ permalink: /high-scores/
           let month = date.substring(5,7);
           let day = date.substring(8,10);
           let formattedDate = `${month}/${day}/${year}`;
-          let playerDescription = player === 'Sarah' ? 'Short' : 'Tall';
           scoreHolder.innerHTML += `
             <tr>
               <th scope="row">${i + 1}</th>
               <td>${initials}</td>
               <td>${value}</td>
               <td>${mode}</td>
-              <td>${playerDescription}</td>
+              <td>${player}</td>
               <td>${formattedDate}</td>
             </tr>
           `;
@@ -102,7 +104,7 @@ permalink: /high-scores/
       autoplayTimeout:3000,
       autoplayHoverPause:false
     });
-    owl.trigger('owl.play', 2000);
+    owl.trigger('owl.play', 3000);
   });
 </script>
 
@@ -236,9 +238,8 @@ permalink: /high-scores/
     <div class="row">
       <div class="col-md-12">
         <div class="block">
-          <h2>We design delightful digital experiences.</h2>
-          <p>Read more about what we do and our philosophy of design. Judge for yourself The work and results we’ve achieved for other clients, and meet our highly experienced Team who just love to design.</p>
-          <a class="btn btn-default btn-call-to-action" href="#" >Tell Us Your Story</a>
+          <h2>Final stuff</h2>
+          <p>about us</p>
         </div>
       </div>
     </div>
