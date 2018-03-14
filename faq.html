@@ -33,6 +33,44 @@ $(document).ready(function(){
 });
 </script>
 
+<!-- Muppets -->
+<script>
+    $(document).ready(function() {
+      var image = $('#slide-img');
+      var images = ['/img/muppets/MUP_0.jpg', '/img/muppets/MUP_1.jpg', '/img/muppets/MUP_2.jpg', '/img/muppets/MUP_3.jpg', '/img/muppets/MUP_4.jpg', '/img/muppets/MUP_5.jpg', '/img/muppets/MUP_6.jpg'];
+      var i = 0;
+  
+      setInterval(() => {
+        image.stop().fadeTo(750, 0);
+        i++;
+        if(i === 7) i = 0;
+        setTimeout(() => {
+          image.attr('src', images[i]);
+          image.stop().fadeTo(750, 1);
+        }, 1000)
+      }, 5000);
+    });
+  </script>
+
+  <!-- People -->
+<!-- <script>
+    $(document).ready(function() {
+      var image = $('#slide-img');
+      var images = ['/img/people/IMG_1.jpg', '/img/people/IMG_2.jpg', '/img/people/IMG_3.jpg', '/img/people/IMG_4.jpg'];
+      var i = 0;
+  
+      setInterval(() => {
+        image.stop().fadeTo(750, 0);
+        i++;
+        if(i === 4) i = 0;
+        setTimeout(() => {
+          image.attr('src', images[i]);
+          image.stop().fadeTo(750, 1);
+        }, 1000)
+      }, 5000);
+    });
+  </script> -->
+
 
 <!-- Slider Start -->
 <section id="global-header">
@@ -68,15 +106,18 @@ $(document).ready(function(){
             <img src="/img/Hamilton.jpg" class="slideshow-img"></img><br>
 
             <h3><strong>Enough of the people photos. Where are the muppets?</strong></h3>
-            <script async src="https://www.publicalbum.org/js/pa-ins.min.js"></script>
-            <ins class="pa-widget-gallery" style="width:32%;height:480px;"
-            data-url="https://photos.app.goo.gl/ADOEp1OTJw248gpB2"></ins>
-
+            <div class="col-md-6 col-xs-12" align="center">
+                  <div id="img-holder">
+                    <img id="slide-img" class="slideshow-img" src="/img/muppets/MUP_0.jpg" alt="first slide">
+                  </div>
+              </div>
             <!-- <img src="/img/park_selfie_muppets.jpg" class="slideshow-img faq-img"></img><br> -->
-            <h3><strong>Enough of the muppets. Where are the people photos?</strong></h3>         
-            <script async src="https://www.publicalbum.org/js/pa-ins.min.js"></script>
-            <ins class="pa-widget-gallery" style="width:32%;height:480px;"
-            data-url="https://photos.app.goo.gl/66KezmzqgeQsS17A3"></ins>
+            <!-- <h3><strong>Enough of the muppets. Where are the people photos?</strong></h3>     
+            <div class="col-md-6 col-xs-12" align="center">
+                  <div id="img-holder">
+                    <img id="slide-img" class="slideshow-img" src="/img/people/IMG_1.jpg" alt="first slide">
+                  </div>
+              </div>     -->
 <!-- 
             <img src="/img/js_ringingrock.jpg" class="slideshow-img faq-img"></img><br>
             <img src="/img/js_camping.jpg" class="slideshow-img faq-img"></img><br>
