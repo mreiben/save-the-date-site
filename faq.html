@@ -5,54 +5,55 @@ permalink: /faq/
 ---
 <!--Scripts script-->
 <script>
-$(document).ready(function(){
-  let plots = [
-    "Back when Jason was a cellist for the New York Philharmonic, Sarah was called to his apartment to investigate some paranormal activity, and the rest is history.",
-    "Back when Jason was a young FBI cadet, he consulted Sarah on a grotesque case, and the rest is history.",
-    "Back when Jason was doing PR for the Miami Dolphins, Sarah was brought on to help find a kidnapped mascot, and the rest is history.",
-    "Back when Jason was the the chief of police of a small seaside town, he hired Sarah to hunt a killer shark that threatened to ruin the summer season, and the rest is history.",
-    "Back when Jason discovered that prehistoric DNA could be trapped in amber, he hired Sarah, a paleobotanist, to approve plans for an amusement park filled with living dinosaurs, and the rest is history.",
-    "Back when Jason was a ghost, he summoned Sarah, a bio-exorcist, to rid his house of living people, and the rest is history.",
-    "Back when Jason was a robot trash compactor cleaning up an abandoned Earth, Sarah, an Extraterrestrial Vegetation Evaluator, was sent by the Buy-N-Large Corporation to scan the planet to see if it was once again habitable, and the rest is history.",
-    "Back when Jason was the charismatic leader of a gang of surfers, Sarah was sent undercover to investigate a string of bank robberies, and the rest is history.",
-    "Back when Jason was trying to thwart an international gang of terrorists in Nakatomi Plaza, Sarah was the first cop to respond to his radioed distress calls, and the rest is history.",
-    "Back when Jason was working to prevent Skynet from becoming self-aware, Sarah was sent from the future to protect him from a liquid metal assassin, and the rest is history.",
-    "Back when Jason was king of Goblin City, he kidnapped Sarah’s baby brother, and the rest is history.",
-    "Back when Jason was living in his parents’ basement, he and Sarah had to fight to maintain the integrity of their public-access TV show after selling the rights to a sleazy TV producer, and the rest is history.",
-    "Back when Jason was a helicopter pilot stationed on a research base in Antarctica, Sarah hijacked and assimilated the bodies of nearly everyone else on the base, and the rest is history."
-  ];
+  $(document).ready(function () {
+    let plots = [
+      "Back when Jason was a cellist for the New York Philharmonic, Sarah was called to his apartment to investigate some paranormal activity, and the rest is history.",
+      "Back when Jason was a young FBI cadet, he consulted Sarah on a grotesque case, and the rest is history.",
+      "Back when Jason was doing PR for the Miami Dolphins, Sarah was brought on to help find a kidnapped mascot, and the rest is history.",
+      "Back when Jason was the the chief of police of a small seaside town, he hired Sarah to hunt a killer shark that threatened to ruin the summer season, and the rest is history.",
+      "Back when Jason discovered that prehistoric DNA could be trapped in amber, he hired Sarah, a paleobotanist, to approve plans for an amusement park filled with living dinosaurs, and the rest is history.",
+      "Back when Jason was a ghost, he summoned Sarah, a bio-exorcist, to rid his house of living people, and the rest is history.",
+      "Back when Jason was a robot trash compactor cleaning up an abandoned Earth, Sarah, an Extraterrestrial Vegetation Evaluator, was sent by the Buy-N-Large Corporation to scan the planet to see if it was once again habitable, and the rest is history.",
+      "Back when Jason was the charismatic leader of a gang of surfers, Sarah was sent undercover to investigate a string of bank robberies, and the rest is history.",
+      "Back when Jason was trying to thwart an international gang of terrorists in Nakatomi Plaza, Sarah was the first cop to respond to his radioed distress calls, and the rest is history.",
+      "Back when Jason was working to prevent Skynet from becoming self-aware, Sarah was sent from the future to protect him from a liquid metal assassin, and the rest is history.",
+      "Back when Jason was king of Goblin City, he kidnapped Sarah’s baby brother, and the rest is history.",
+      "Back when Jason was living in his parents’ basement, he and Sarah had to fight to maintain the integrity of their public-access TV show after selling the rights to a sleazy TV producer, and the rest is history.",
+      "Back when Jason was a helicopter pilot stationed on a research base in Antarctica, Sarah hijacked and assimilated the bodies of nearly everyone else on the base, and the rest is history."
+    ];
 
-  let plot_selector = $('#plots');
-  let selected_plot = Math.floor(Math.random() * plots.length);
-  plot_selector.text(plots[selected_plot]);
+    let plot_selector = $('#plots');
+    let selected_plot_index = Math.floor(Math.random() * plots.length);
+    plot_selector.text(plots[selected_plot_index]);
 
-  plot_selector.click(() => {
-    selected_plot++;
-    plot_selector.text(plots[selected_plot]);
+    plot_selector.click(() => {
+      selected_plot_index++;
+      if(selected_plot_index === plots.length -1) selected_plot_index = 0;
+      plot_selector.text(plots[selected_plot_index]);
+    });
   });
-});
 </script>
 
 <!-- Muppets -->
 <script>
-    $(document).ready(function() {
-      var image = $('#slide-img');
-      var images = ['/img/muppets/MUP_0.jpg', '/img/muppets/MUP_1.jpg', '/img/muppets/MUP_2.jpg', '/img/muppets/MUP_3.jpg', '/img/muppets/MUP_4.jpg', '/img/muppets/MUP_5.jpg', '/img/muppets/MUP_6.jpg'];
-      var i = 0;
-  
-      setInterval(() => {
-        image.stop().fadeTo(750, 0);
-        i++;
-        if(i === 7) i = 0;
-        setTimeout(() => {
-          image.attr('src', images[i]);
-          image.stop().fadeTo(750, 1);
-        }, 1000)
-      }, 5000);
-    });
-  </script>
+  $(document).ready(function () {
+    var image = $('#slide-img');
+    var images = ['/img/muppets/MUP_0.jpg', '/img/muppets/MUP_1.jpg', '/img/muppets/MUP_2.jpg', '/img/muppets/MUP_3.jpg', '/img/muppets/MUP_4.jpg', '/img/muppets/MUP_5.jpg', '/img/muppets/MUP_6.jpg'];
+    var i = 0;
 
-  <!-- People -->
+    setInterval(() => {
+      image.stop().fadeTo(750, 0);
+      i++;
+      if (i === 7) i = 0;
+      setTimeout(() => {
+        image.attr('src', images[i]);
+        image.stop().fadeTo(750, 1);
+      }, 1000)
+    }, 5000);
+  });
+</script>
+
+<!-- People -->
 <!-- <script>
     $(document).ready(function() {
       var image = $('#slide-img');
@@ -86,46 +87,51 @@ $(document).ready(function(){
   </div>
 </section>
 
-<section id="portfolio-work">
-    <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <h2><strong>FAQ</strong></h2>
-
-            <h3><strong>New Jersey?</h3>
+<section>
+  <div class="container">
+    <div class="col-md-12">
+      <section>
+        <div class="row faq-questions">
+          <h1 class="faq-title">FAQ</h1>
+          <div class="col-md-6 col-xs-12" align="center">
+            <h3>New Jersey?</h3>
             <h4>Yep! It's going to be awesome! </h4>
 
-            <h3><strong>How did you make the game?</h3>
+            <h3>How did you make the game?</h3>
             <h4>We used Phaser, a game development framework, and quite a bit of our free time.</h4>
 
-            <h3><strong>How did you meet?</h3>
-            <h4 id='plots'></h4>
+            <h3>How did you meet?</h3>
+            <div id="plots-holder"><h4 id='plots'></h4></div>
 
-            <h3><strong>Sarah, did you make any other assets for the site that didn't end up fitting in, but you really want to share anyway?</h3>
+            <h3>Sarah, did you make any other assets for the site that didn't 
+              end up fitting in, but you really want to share anyway?</h3>
             <h4>Yes! Thank you so much for asking!</h4>
-            <img src="/img/Hamilton.jpg" class="slideshow-img"></img><br>
-
-            <h3><strong>Enough of the people photos. Where are the muppets?</strong></h3>
+            <img src="/img/Hamilton.jpg" class="hamilton-slideshow-img"></img>
+          </div>
+          <div class="col-md-6 col-xs-12" align="center">
+            <h3>Enough of the people photos. Where are the muppets?</h3>
             <div class="col-md-6 col-xs-12" align="center">
-                  <div id="img-holder">
-                    <img id="slide-img" class="slideshow-img" src="/img/muppets/MUP_0.jpg" alt="first slide">
-                  </div>
+              <div id="muppet-img-holder">
+                <img id="slide-img" class="muppet-slideshow-img" src="/img/muppets/MUP_0.jpg" alt="first slide">
               </div>
+            </div>
             <!-- <img src="/img/park_selfie_muppets.jpg" class="slideshow-img faq-img"></img><br> -->
             <!-- <h3><strong>Enough of the muppets. Where are the people photos?</strong></h3>     
-            <div class="col-md-6 col-xs-12" align="center">
-                  <div id="img-holder">
-                    <img id="slide-img" class="slideshow-img" src="/img/people/IMG_1.jpg" alt="first slide">
-                  </div>
-              </div>     -->
-<!-- 
-            <img src="/img/js_ringingrock.jpg" class="slideshow-img faq-img"></img><br>
-            <img src="/img/js_camping.jpg" class="slideshow-img faq-img"></img><br>
-            <img src="/img/js_gonkat-st.jpg" class="slideshow-img faq-img"></img><br>
-            <img src="/img/park_selfie.jpg" class="slideshow-img faq-img"></img><br> -->
+                        <div class="col-md-6 col-xs-12" align="center">
+                              <div id="img-holder">
+                                <img id="slide-img" class="slideshow-img" src="/img/people/IMG_1.jpg" alt="first slide">
+                              </div>
+                          </div>     -->
+            <!-- 
+                        <img src="/img/js_ringingrock.jpg" class="slideshow-img faq-img"></img><br>
+                        <img src="/img/js_camping.jpg" class="slideshow-img faq-img"></img><br>
+                        <img src="/img/js_gonkat-st.jpg" class="slideshow-img faq-img"></img><br>
+                        <img src="/img/park_selfie.jpg" class="slideshow-img faq-img"></img><br> -->
           </div>
         </div>
+      </section>
     </div>
+  </div>
 </section>
 <!-- {% for post in site.posts %}
 <div class="post-area">
@@ -139,14 +145,22 @@ $(document).ready(function(){
 
 <!-- Call to action Start -->
 <section id="call-to-action">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="block">
-          <h2>Final stuff</h2>
-          <p>about us</p>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="block">
+            <h2>#tallandshortofit</h2>
+            <div class="footer-links">
+              <a href="https://github.com/rosenshine">
+                <i class="fab fa-github"></i> rosenshine</a>
+              <span> - </span>
+              <a href="https://github.com/mreiben">
+                <i class="fab fa-github"></i> mreiben</a>
+              <span> - </span>
+              <a href="https://github.com/mreiben/save-the-date-site">credits</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>

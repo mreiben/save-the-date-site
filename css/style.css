@@ -285,13 +285,9 @@ body {
   margin-left: 50px;
 }
 
-
-
-#img-holder {
-}
-
 .about-holder {
   margin-right: 0;
+  margin-bottom: 20px;
 }
 
 .map-holder {
@@ -299,7 +295,7 @@ body {
 }
 
 .faq-img {
-  width: 300px;
+  width: 100%;
 }
 
 #plots {
@@ -308,4 +304,81 @@ body {
 
 #plots:hover {
   font-style: italic;
+}
+
+#footer-links {
+  width: 600px;
+  display: block;
+}
+
+#footer-links * {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.about-facts {
+  text-align: center;
+}
+
+.about-facts * {
+  margin-top: 5px;
+}
+
+.faq-questions h3 {
+  font-size: 28px;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+  text-align: left;
+}
+
+.faq-questions h4 {
+  font-size: 18px;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+  text-align: left;
+}
+
+.faq-questions {
+  margin-top: 30px;
+}
+  
+#muppet-img-holder {
+  width: 100%;
+}
+
+#plots-holder {
+  height: 80px;
+}
+
+.muppet-slideshow-img {
+  width: 400px;
+  padding: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 3px;
+}
+
+.muppet-slideshow-img:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.faq-title {
+  font-size: 50px;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+}
+
+.hamilton-slideshow-img {
+  width: 90%;
+  padding: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 3px;
+  float: left;
+  margin-bottom: 50px;
+}
+
+.hamilton-slideshow-img:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
