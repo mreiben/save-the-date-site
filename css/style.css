@@ -208,45 +208,61 @@ body {
   word-spacing: 3px;
 }
 
-#hamilton-header {
-  background: url("../img/Hamilton.jpg") no-repeat;
-  background-size: 100%;
-  padding-top: 150px;
-  padding-bottom: 107px;
-  position: relative;
-  background-attachment: fixed;
-}
-#hamilton-header:before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to left, #928dab, #1f1c2c 70%);
-  opacity: 0.8;
-}
-#hamilton-header .block {
-  color: #E3E3E4;
-  margin: 0 auto;
-  padding-left: 90px;
-  text-align: center;
-}
-#hamilton-header .block h1 {
-  font-weight: 100;
-  font-size: 56px;
-  letter-spacing: 6px;
-  padding-bottom: 15px;
-  margin-top: 0;
-  text-transform: capitalize;
-}
-#hamilton-header .block p {
-  font-size: 24px;
-  font-weight: 300;
-  letter-spacing: 1px;
-  word-spacing: 3px;
+@media (max-width: 700px) {
+  header {
+    padding-bottom: 0px;
+  }
+
+  #global-header {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    height: 150px;
+  }
+  #global-header .block h1 {
+    font-size: 28px;
+    padding-bottom: 0px;
+  }
+
+  #global-header .block p {
+    font-size: 16px;
+    line-height: 22px;
+    margin: 0 0 0;
+  }
+
+  #global-header .block {
+    padding-left: 0;
+    width: 75%;
+  }
+
+  .mobile-min-header {
+    margin-top: 40px !important;
+  }
+
+  .gfs-holder p, .gfs-holder h2, .gfs-holder h3 {
+    margin-left: 30px !important;
+  }
+
+  .slideshow-img, .muppet-slideshow-img {
+    width: 90% !important;
+    margin-left: 5% !important;
+    margin-bottom: 20px;
+  }
+
+  .travel-icons {
+    margin-left: 30px !important;
+  }
+
+  iframe {
+    width: 100%;
+  }
+
+  .map-holder {
+    padding-right: 0 !important;
+  }
+
+  #plots-holder {
+    height: 120px !important;
+  }
 }
 
 .slideshow-img {
