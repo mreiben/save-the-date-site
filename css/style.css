@@ -280,6 +280,11 @@ body {
   .card {
     width: 80% !important;
   }
+
+  .about-facts * {
+    margin: 0px auto !important;
+    width: 75% !important;
+  }
 }
 
 .slideshow-img {
@@ -321,6 +326,7 @@ body {
 .about-holder {
   margin-right: 0;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .map-holder {
@@ -351,6 +357,11 @@ body {
 
 .about-facts {
   text-align: center;
+  width: 375px;
+}
+
+.about-sub {
+  font-size: 22px;
 }
 
 .about-facts * {
