@@ -238,6 +238,10 @@ body {
     margin-top: 40px !important;
   }
 
+  .mobile-faq-header {
+    margin-top: 10px !important;
+  }
+
   .gfs-holder p, .gfs-holder h2, .gfs-holder h3 {
     margin-left: 30px !important;
   }
@@ -262,6 +266,10 @@ body {
 
   #plots-holder {
     height: 120px !important;
+  }
+
+  #call-to-action {
+    padding: 40px 0px !important;
   }
 }
 
