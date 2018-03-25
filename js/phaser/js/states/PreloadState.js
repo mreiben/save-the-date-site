@@ -61,6 +61,7 @@ SaveTheDate.PreloadState = {
     this.load.audio('hava_nagila', ['./js/phaser/assets/audio/Hava_Nagila.mp3']);
     this.load.audio('we_are_family', ['./js/phaser/assets/audio/we_are_family.mp3']);
     this.load.audio('collect_heart', ['./js/phaser/assets/audio/collect_heart.mp3']);
+    this.load.audio('success', ['./js/phaser/assets/audio/success.mp3']);
 
     //load level data
     this.load.text('level1', './js/phaser/assets/data/level1.json');

@@ -103,11 +103,8 @@ SaveTheDate.ResultState = {
     this.box.anchor.setTo(0.5);
     this.box.animations.add('dance', [1, 2], 4, true);
 
-    // add gavels
-    // this.gavel = this.game.add.sprite(this.game.world.centerX - 400, this.game.world.centerY + 250, 'gavel');
-    // this.gavel.anchor.setTo(0.5);
-    // this.gavel.alpha = 0;
-    // this.gavel.animations.add('dance', [0, 1, 2], 4, true);
+    // add sfx
+    this.bigHeart = this.game.add.audio('success');
     
     this.game.add.tween(this.player).to({
       y: this.game.world.centerY + 100,
@@ -181,18 +178,6 @@ SaveTheDate.ResultState = {
       this.game.add.tween(text).to({alpha: 1}, 500, Phaser.Easing.Linear.None, true);
     });
 
-    // change continue/save button text
-    // this.game.input.keyboard.onDownCallback = (e) => {
-    //   if(this.save_button && this.inputName.value !== '') {
-    //     console.log("hum");
-    //     this.save_button.frame = 2;
-    //   }
-    //   else {
-    //     console.log('huuuum');
-    //     this.save_button.frame = 0;
-    //   }
-    // }
-
     this.inputName = this.game.add.inputField(310, 605, {
       font: '36px "Press Start 2p"',
       fontWeight:'bold',
@@ -202,8 +187,6 @@ SaveTheDate.ResultState = {
       placeHolder: 'Your Name',
       blockInput: false
     });
-
-    // this.inputName.startFocus();
 
     this.save_button.inputEnabled = true;
     this.save_button.events.onInputDown.add(function() {
@@ -258,10 +241,6 @@ SaveTheDate.ResultState = {
   playEnding() {
     this.cal_endar.frame = 3;
 
-    // add all dialogue boxes, make invisible
-    // load dialogue
-    // add text obj
-    // loop through dialogue and put in the right place
     this.player_x_dialogue_box = this.player.position.x + 40;
     this.player_y_dialogue_box = this.player.position.y - 320;
     this.player_x = this.player.position.x;
@@ -403,15 +382,9 @@ SaveTheDate.ResultState = {
       }, i * 100);
     }
 
-    // loop through x times (if score / 100 < 10, 10, else score/100 )
-
-      // create a heart object at hero's hands
-
-      // add tween that makes heart fly straight up off screen
-
-      // heart picks a random x position
-
-      // heart falls to random y position between __ and __
+    setTimeout(() => {
+      this.bigHeart.play();
+    }, 4500);
   },
 
   playConfrontation() {
@@ -569,22 +542,3 @@ SaveTheDate.ResultState = {
   }
 
 };
-
-    // this.game.time.events.add(0, function() {
-    //   this.game.add.tween(this.line_text).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true);
-    // }, this);
-
-    // start awesome music
-    // this.scoreMusic = this.add.audio('highScore');
-    // this.scoreMusic.play();
-
-    // var style = { font: '60px "Press Start 2P"', fill: "#000" };
-    // this.scoreText = this.game.add.text(50, 50, "Your Score:" + SaveTheDate.GameState.score, style);
-    // this.energyText = this.game.add.text(50, 150, "Nice job!", style);
-
-    // var button = this.game.add.button(50, 250, 'replay');
-    // button.inputEnabled = true;
-
-    // button.events.onInputDown.add(function(){
-    //   this.state.start('HomeState');
-    // }, this);
