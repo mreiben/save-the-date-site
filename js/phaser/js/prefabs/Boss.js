@@ -75,7 +75,7 @@ SaveTheDate.Boss.prototype.update = function() {
   if(this.bossType === 'uhaul'){
     if(this.bossState === 'start'){
       if(distance > 15){
-        this.body.velocity.y = 300 * direction;
+        this.body.velocity.y = 250 * direction;
       } else {
         this.play('blink');
         this.bossState = 'blink';
@@ -166,5 +166,5 @@ let createFloss = function() {
     this.body.velocity.y = velo;
     SaveTheDate.GameState.bossBullets.remove(floss);
     this.play('walk');
-  }, 2500)
+  }, 1500)
 };

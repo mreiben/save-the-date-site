@@ -266,7 +266,7 @@ body {
   }
 
   #plots-holder {
-    height: 120px !important;
+    height: 100px !important;
   }
 
   #call-to-action {
@@ -392,7 +392,7 @@ body {
 }
 
 #plots-holder {
-  height: 80px;
+  height: 60px;
 }
 
 .muppet-slideshow-img {
