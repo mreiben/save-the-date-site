@@ -171,6 +171,8 @@ SaveTheDate.ResultState = {
     this.save_button = this.game.add.sprite(1075, 600, 'save_button');
     this.save_button.frame = 2;
 
+    this.x_button = this.game.add.sprite(1245, 170, 'x_button');
+
     this.text_group = [heart_score, energy_score, accuracy_score, difficulty_score, total_score];
 
     this.game.add.tween(this.score_box).to({alpha: 1}, 500, Phaser.Easing.Linear.None, true);
@@ -192,6 +194,22 @@ SaveTheDate.ResultState = {
     this.save_button.events.onInputDown.add(function() {
       this.preSubmitScore();
     }, this);
+
+    this.x_button.inputEnabled = true;
+    this.x_button.events.onInputDown.add(function() {
+      setTimeout(() => {
+        this.text_group.forEach((el) => {
+          this.game.add.tween(el).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
+        });
+        this.game.add.tween(this.save_button).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
+        this.game.add.tween(this.x_button).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
+        this.game.add.tween(this.score_box).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
+        this.inputName.destroy();
+        setTimeout(() => {
+          this.playEnding();
+        }, 1000)
+      }, 500);
+    }, this);
   },
 
   preSubmitScore() {
@@ -202,7 +220,7 @@ SaveTheDate.ResultState = {
         this.game.add.tween(el).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
       });
       this.game.add.tween(this.save_button).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
-      // this.game.add.tween(this.inputName).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
+      this.game.add.tween(this.x_button).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
       this.game.add.tween(this.score_box).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
       this.inputName.destroy();
       setTimeout(() => {

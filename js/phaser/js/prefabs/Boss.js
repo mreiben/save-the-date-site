@@ -36,6 +36,12 @@ SaveTheDate.Boss.prototype.damage = function(amount) {
       this.play('damaged');
     }
   }
+  else if(this.bossType === "judge"){
+    this.play('damaged');
+    setTimeout(() => {
+      this.play('walk');
+    }, 1000);
+  }
   else {
     this.play('damaged');
   }
@@ -57,9 +63,6 @@ SaveTheDate.Boss.prototype.damage = function(amount) {
     SaveTheDate.GameState.loadLevel();
   }
 
-  // setTimeout(() => {
-  //   this.play('walk');
-  // }, 1500);
 };
 
 SaveTheDate.Boss.prototype.update = function() {
