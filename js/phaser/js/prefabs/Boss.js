@@ -78,7 +78,7 @@ SaveTheDate.Boss.prototype.update = function() {
   if(this.bossType === 'uhaul'){
     if(this.bossState === 'start'){
       if(distance > 15){
-        this.body.velocity.y = 250 * direction;
+        this.body.velocity.y = 300 * direction;
       } else {
         this.play('blink');
         this.bossState = 'blink';
@@ -94,7 +94,7 @@ SaveTheDate.Boss.prototype.update = function() {
     }
     if(this.bossState === 'charge'){
       if(this.body.center.x > 200){
-        this.body.velocity.x = -1500;
+        this.body.velocity.x = -1100;
       } else {
         this.body.velocity.x = 0;
         setTimeout(() =>{

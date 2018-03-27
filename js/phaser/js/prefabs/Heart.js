@@ -17,6 +17,28 @@ SaveTheDate.Heart = function(game, x, y, size) {
   } else {
     this.points = 500;
   }
+
+  if(SaveTheDate.difficulty === 'medium' && this.size === 1) {
+    setTimeout(() => {
+      this.game.add.tween(this).to({
+        alpha: 0
+      }, 2000, Phaser.Easing.Linear.None, true, 100);
+    }, 4000);
+    setTimeout(() => {
+      Phaser.Sprite.prototype.damage.call(this, 1);
+    }, 6000);
+  }
+
+  if(SaveTheDate.difficulty === 'hard' && this.size === 1) {
+    setTimeout(() => {
+      this.game.add.tween(this).to({
+        alpha: 0
+      }, 2000, Phaser.Easing.Linear.None, true, 100);
+    }, 3000);
+    setTimeout(() => {
+      Phaser.Sprite.prototype.damage.call(this, 1);
+    }, 5000);
+  }
 };
 
 SaveTheDate.Heart.prototype = Object.create(Phaser.Sprite.prototype);

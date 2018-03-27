@@ -22,13 +22,13 @@
     },
     {
       "time": 4,
-      "health": 4,
+      "health": 2,
       "speedX": 500,
       "key": "tooth"
     },
     {
       "time": 5,
-      "health": 5,
+      "health": 3,
       "speedX": 300,
       "key": "tooth"
     },
@@ -40,19 +40,25 @@
     },
     {
       "time": 7,
-      "health": 2,
+      "health": 3,
       "speedX": 300,
       "key": "tooth"
     },
     {
       "time": 8,
-      "health": 3,
+      "health": 2,
       "speedX": 400,
       "key": "tooth"
     },
     {
       "time": 9,
-      "health": 4,
+      "health": 2,
+      "speedX": 500,
+      "key": "tooth"
+    },
+    {
+      "time": 10,
+      "health": 2,
       "speedX": 500,
       "key": "tooth"
     }

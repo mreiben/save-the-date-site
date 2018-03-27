@@ -22,13 +22,13 @@
     },
     {
       "time": 4,
-      "health": 4,
+      "health": 2,
       "speedX": 500,
       "key": "summons"
     },
     {
       "time": 5,
-      "health": 5,
+      "health": 3,
       "speedX": 300,
       "key": "summons"
     },
@@ -58,7 +58,43 @@
     },
     {
       "time": 10,
-      "health": 5,
+      "health": 3,
+      "speedX": 300,
+      "key": "summons"
+    },
+    {
+      "time": 11,
+      "health": 2,
+      "speedX": 300,
+      "key": "summons"
+    },
+    {
+      "time": 12,
+      "health": 1,
+      "speedX": 200,
+      "key": "summons"
+    },
+    {
+      "time": 13,
+      "health": 2,
+      "speedX": 300,
+      "key": "summons"
+    },
+    {
+      "time": 14,
+      "health": 2,
+      "speedX": 400,
+      "key": "summons"
+    },
+    {
+      "time": 15,
+      "health": 3,
+      "speedX": 500,
+      "key": "summons"
+    },
+    {
+      "time": 16,
+      "health": 2,
       "speedX": 300,
       "key": "summons"
     }
