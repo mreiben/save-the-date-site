@@ -427,3 +427,11 @@ body {
 .hamilton-slideshow-img:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
+
+.small_player {
+  height: 50px;
+}
+
+.table > tbody > tr > td {
+  vertical-align: middle;
+}

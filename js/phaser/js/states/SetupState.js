@@ -25,13 +25,6 @@ SaveTheDate.SetupState = {
     let skipButton = this.add.sprite(125, this.game.world.height - 75, 'skip_button');
     skipButton.anchor.setTo(0.5);
 
-    // let gameStarted = false;
-    // skipButton.inputEnabled = true;
-    // skipButton.events.onInputDown.add(function() {
-    //   gameStarted = true;
-    //   this.state.start('GameState');
-    // }, this);
-
     let gameStarted = false;
     skipButton.inputEnabled = true;
     skipButton.events.onInputDown.add(function() {

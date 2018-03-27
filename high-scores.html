@@ -55,18 +55,18 @@ permalink: /high-scores/
           let year = date.substring(2,4);
           let month = date.substring(5,7);
           let day = date.substring(8,10);
+          let imgSrc = `/img/small_${player.toLowerCase()}.png`;
           let formattedDate = `${month}/${day}/${year}`;
           scoreHolder.innerHTML += `
-            <tr>
-              <th scope="row">${i + 1}</th>
+            <tr class="score_row">
+              <td><b>${i + 1}</b></td>
               <td>${initials}</td>
               <td>${value}</td>
               <td>${mode}</td>
-              <td>${player}</td>
+              <td><img class="small_player" src=${imgSrc}></td>
               <td>${formattedDate}</td>
             </tr>
-          `;
-          // scoreHolder.innerHTML += `<p>A SCORE</p>`;        
+          `;    
         });
       }
 
@@ -76,17 +76,17 @@ permalink: /high-scores/
           let year = date.substring(2,4);
           let month = date.substring(5,7);
           let day = date.substring(8,10);
+          let imgSrc = `/img/small_${player.toLowerCase()}.png`;
           let formattedDate = `${month}/${day}/${year}`;
           recentHolder.innerHTML += `
             <tr>
               <td>${initials}</td>
               <td>${value}</td>
               <td>${mode}</td>
-              <td>${player}</td>
+              <td><img class="small_player" src=${imgSrc}></td>
               <td>${formattedDate}</td>
             </tr>
           `;
-          // scoreHolder.innerHTML += `<p>A SCORE</p>`;        
         });
       }
     }

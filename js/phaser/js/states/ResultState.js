@@ -197,6 +197,7 @@ SaveTheDate.ResultState = {
 
     this.x_button.inputEnabled = true;
     this.x_button.events.onInputDown.add(function() {
+      this.x_button.frame += 1;
       setTimeout(() => {
         this.text_group.forEach((el) => {
           this.game.add.tween(el).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
