@@ -129,6 +129,7 @@ SaveTheDate.ResultState = {
     var score_style = { font: '36px "Press Start 2P"', fill: "#000" };
     var bonus_score_style = { font: '36px "Press Start 2P"', fill: "#888" };
     var final_score_style = { font: '36px "Press Start 2P"', fill: "#EA0000" };
+    let small_style = { font: '22px "Press Start 2P"', fill: "#BFBEBD"};
 
     this.score_box = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'save_score_box');
     this.score_box.anchor.setTo(0.5);
@@ -167,24 +168,26 @@ SaveTheDate.ResultState = {
     difficulty_score.alpha = 0;
     let total_score = this.game.add.text(310, 520, total_text, final_score_style);
     total_score.alpha = 0;
+    let initials_text = this.game.add.text(310, 690, "Only your initials will go on the scoreboard!", small_style);
+    total_score.alpha = 0;
 
-    this.save_button = this.game.add.sprite(1075, 600, 'save_button');
+    this.save_button = this.game.add.sprite(1075, 575, 'save_button');
     this.save_button.frame = 2;
 
     this.x_button = this.game.add.sprite(1245, 170, 'x_button');
 
-    this.text_group = [heart_score, energy_score, accuracy_score, difficulty_score, total_score];
+    this.text_group = [heart_score, energy_score, accuracy_score, difficulty_score, total_score, initials_text];
 
     this.game.add.tween(this.score_box).to({alpha: 1}, 500, Phaser.Easing.Linear.None, true);
     this.text_group.forEach((text) => {
       this.game.add.tween(text).to({alpha: 1}, 500, Phaser.Easing.Linear.None, true);
     });
 
-    this.inputName = this.game.add.inputField(310, 605, {
-      font: '36px "Press Start 2p"',
+    this.inputName = this.game.add.inputField(310, 590, {
+      font: '30px "Press Start 2p"',
       fontWeight:'bold',
       width: 675,
-      padding: 26,
+      padding: 20,
       borderRadius: 4,
       placeHolder: 'Your Name',
       blockInput: false
@@ -197,19 +200,7 @@ SaveTheDate.ResultState = {
 
     this.x_button.inputEnabled = true;
     this.x_button.events.onInputDown.add(function() {
-      this.x_button.frame += 1;
-      setTimeout(() => {
-        this.text_group.forEach((el) => {
-          this.game.add.tween(el).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
-        });
-        this.game.add.tween(this.save_button).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
-        this.game.add.tween(this.x_button).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
-        this.game.add.tween(this.score_box).to({alpha:0}, 500, Phaser.Easing.Linear.None, true);
-        this.inputName.destroy();
-        setTimeout(() => {
-          this.playEnding();
-        }, 1000)
-      }, 500);
+      this.preSubmitScore();
     }, this);
   },
 

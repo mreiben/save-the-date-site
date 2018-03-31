@@ -51,7 +51,11 @@ permalink: /high-scores/
 
       var scoreHolder = document.getElementById('leader-board');
       if(scores) {
-        topScores.forEach(({initials, value, date, mode, player}, i) => {
+        topScores.forEach(({initials, value, date, mode, player, name}, i) => {
+          let nameInitials;
+          if(name === "") nameInitials = 'Anonymous';
+          else if (name.length <= 3) nameInitials = name;
+          else nameInitials = initials;
           let year = date.substring(2,4);
           let month = date.substring(5,7);
           let day = date.substring(8,10);
@@ -60,7 +64,7 @@ permalink: /high-scores/
           scoreHolder.innerHTML += `
             <tr class="score_row">
               <td><b>${i + 1}</b></td>
-              <td>${initials}</td>
+              <td>${nameInitials}</td>
               <td>${value}</td>
               <td>${mode}</td>
               <td><img class="small_player" src=${imgSrc}></td>
@@ -72,7 +76,11 @@ permalink: /high-scores/
 
       var recentHolder = document.getElementById('recent-board');
       if(scores) {
-        recentScores.forEach(({initials, value, date, mode, player}, i) => {
+        recentScores.forEach(({initials, value, date, mode, player, name}, i) => {
+          let nameInitials;
+          if(name === "") nameInitials = 'Anonymous';
+          else if (name.length <= 3) nameInitials = name;
+          else nameInitials = initials;
           let year = date.substring(2,4);
           let month = date.substring(5,7);
           let day = date.substring(8,10);
@@ -80,7 +88,7 @@ permalink: /high-scores/
           let formattedDate = `${month}/${day}/${year}`;
           recentHolder.innerHTML += `
             <tr>
-              <td>${initials}</td>
+              <td>${nameInitials}</td>
               <td>${value}</td>
               <td>${mode}</td>
               <td><img class="small_player" src=${imgSrc}></td>

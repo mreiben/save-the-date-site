@@ -14,7 +14,7 @@ SaveTheDate.GameState = {
     this.FIREBALL_SPEED = 2000 * this.GLOBAL_SPEED;
     this.UHAUL_SPEED = -150 * this.GLOBAL_SPEED;
     this.BACKGROUND_SPEED = -100 * this.GLOBAL_SPEED;
-    this.FIRE_POWER = SaveTheDate.selectedPlayer === 'Sarah' ? 500 : 700;
+    this.FIRE_POWER = SaveTheDate.selectedPlayer === 'Sarah' ? 500 : 600;
 
     // this.selectedPlayer = 'sarah';
 
