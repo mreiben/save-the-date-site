@@ -323,6 +323,13 @@ body {
   margin-left: 50px;
 }
 
+.gfs-holder h4 {
+  text-align: left;
+  /* max-width: 600px; */
+  margin-left: 50px;
+  margin-top: 20px;
+}
+
 .about-holder {
   margin-right: 0;
   margin-bottom: 20px;
@@ -434,4 +441,16 @@ body {
 
 .table > tbody > tr > td {
   vertical-align: middle;
+}
+
+#top_margin {
+  margin-top: 0px;
+  max-width: 475px;
+  margin-left: 40px;
+}
+
+.caption {
+  margin-top: -25px;
+  font-style: italic;
+  text-align: center !important;
 }
