@@ -190,7 +190,7 @@ body {
 #global-header .block {
   color: #E3E3E4;
   margin: 0 auto;
-  padding-left: 90px;
+  padding-left: 0px;
   text-align: center;
 }
 #global-header .block h1 {
@@ -233,6 +233,10 @@ body {
   #global-header .block {
     padding-left: 0;
     width: 75%;
+  }
+
+  .center-header {
+    padding-left: 0 !important;
   }
 
   .mobile-min-header {
