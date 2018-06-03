@@ -462,7 +462,10 @@ body {
 }
 
 .footer {
-  color: #777;
+  padding-top: 10px;
   text-align: center;
+}
 
+.footer a {
+  color:#777;
 }
